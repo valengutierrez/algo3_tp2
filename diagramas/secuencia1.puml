@@ -1,0 +1,34 @@
+@startuml Diagrama de secuencia - hay clases presenciales
+title Argentina ataca a brasil y lo ocupa
+skinparam style strictuml
+actor Jugador1 as JugadorAtacante
+participant "argentina:Pais" as PaisAtacante
+participant "ejercitoArgentino:Pais" as EjercitoAtacante
+participant "brasil:Pais" as PaisAtacado
+participant "ejercitoBrasileño:Pais" as EjercitoAtacado
+' participant "unTablero:Tablero" as Tablero
+participant "unCampo:CampoDeBatalla" as CampoDeBatalla
+
+actor Jugador2 as JugadorAtacado
+
+
+JugadorAtacante -> JugadorAtacante: VerificarAtaqueValido("brasil")
+JugadorAtacante -> PaisAtacante: atacar("brasil")
+PaisAtacante -> PaisAtacante: esLimitrofe("brasil")
+' PaisAtacante -> PaisAtacado: serAtacado()
+PaisAtacante -> EjercitoAtacante: atacar("brasil")
+EjercitoAtacante -> PaisAtacado: serAtacadoPor(ejercitoArgentino)
+PaisAtacado -> EjercitoAtacado: defenderseDe(ejercitoArgentino)
+' ----------------------------------------------------
+EjercitoAtacado -> CampoDeBatalla: iniciarBatalla(self, ejercitoArgentino)
+
+
+
+' --------------------------------------------------
+EjercitoAtacado --> PaisAtacado: derrotado
+PaisAtacado -> JugadorAtacado: desocupar()
+PaisAtacado --> JugadorAtacante: puedeOcupar
+JugadorAtacante -> PaisAtacado: ocupar()
+
+
+@enduml

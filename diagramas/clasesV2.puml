@@ -1,0 +1,19 @@
+@startuml Diagrama de clases
+skinparam classAttributeIconSize 0
+skinparam style strictuml
+hide class circle
+hide abstract circle
+
+
+class Juego{}
+class Tarjeta{}
+class Continente{}
+class Dado{}
+class Jugador{}
+class Ejercito{}
+class Objetivo{}
+class Pais{}
+class Tablero{}
+
+
+@enduml

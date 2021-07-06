@@ -1,0 +1,41 @@
+@startuml Diagrama de secuencia - hay clases presenciales
+title Argentina ataca a brasil y lo ocupa
+skinparam style strictuml
+actor Jugador1 as JugadorAtacante
+participant "argentina:Pais" as PaisAtacante
+participant "ejercitoArgentino:Pais" as EjercitoAtacante
+participant "brasil:Pais" as PaisAtacado
+participant "ejercitoBrasileño:Pais" as EjercitoAtacado
+' participant "unTablero:Tablero" as Tablero
+participant "unosDados:Dados" as Dados
+
+actor Jugador2 as JugadorAtacado
+
+
+JugadorAtacante -> JugadorAtacante: VerificarAtaqueValido("brasil")
+JugadorAtacante -> PaisAtacante: atacar("brasil")
+PaisAtacante -> PaisAtacante: esLimitrofe("brasil")
+' PaisAtacante -> PaisAtacado: serAtacado()
+PaisAtacante -> EjercitoAtacante: atacar("brasil")
+EjercitoAtacante -> PaisAtacado: serAtacadoPor(self)
+PaisAtacado -> EjercitoAtacado: defenderseDe(ejercitoArgentino)
+EjercitoAtacado -> EjercitoAtacado: batallarCon(ejercitoArgentino)
+EjercitoAtacado -> Dados: defenderme(self.tamanio)
+EjercitoAtacado <-- Dados: [5]
+EjercitoAtacado -> EjercitoAtacante: atacame()
+EjercitoAtacante -> Dados: atacar(self.tamanio)
+EjercitoAtacante <-- Dados: [6,4,1]
+EjercitoAtacante --> EjercitoAtacado: [6,4,1]
+' --------------------------------------------------
+EjercitoAtacado -> EjercitoAtacado: reducir(-1)
+EjercitoAtacado -> PaisAtacado: estoyVacio()
+PaisAtacado -> JugadorAtacado: desocupar()
+EjercitoAtacado -> EjercitoAtacante: reducir(0)
+' PaisAtacado --> JugadorAtacante: puedeOcupar
+EjercitoAtacante <-- PaisAtacado: self
+PaisAtacante <-- EjercitoAtacante: brasil
+JugadorAtacante <-- PaisAtacante: brasil
+' JugadorAtacante -> PaisAtacado: ocupar()
+
+
+@enduml
