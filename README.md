@@ -8,7 +8,7 @@ Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUB
 
 * **Integrante 1** - [Gabriel Barrientos](https://github.com/gabbo3)
 * **Integrante 2** - [Ernesto Monfort](https://github.com/EMonfort)
-* **Integrante 3** - [integrante3](https://github.com/integrante3)
+* **Integrante 3** - [Marcos Wagner](https://github.com/WagnerMarcos)
 * **Integrante 4** - [integrante4](https://github.com/integrante4)
 
 Corrector: **Santiago Valdez**
