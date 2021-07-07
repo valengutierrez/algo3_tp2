@@ -5,18 +5,55 @@ hide class circle
 hide abstract circle
 
 
-class Juego{
-	+ nuevoJuego()
-	+ nuevoJuego()
+Class Juego{
+  +atacarAPaís(in paísAtacante:País, in paísDefensor:País)
+  +verificarQueDosPaísesSonLimítrofes(in País, in País): Boolean
+  +verificarQueDosPaísesNoPertenecenAMismoJugador(in País, in País): Boolean
 }
-class Tarjeta{}
-class Continente{}
-class Dado{}
-class Jugador{}
-class Ejercito{}
-class Objetivo{}
-class Pais{}
-class Tablero{}
+Class Tablero{
 
+}
+Class Tarjeta{
+
+}
+Class Continente{
+    estaCompleto(): Boolean
+}
+Class Dado{
+
+}
+Class Jugador{
+    verificarAtaqueValido(País)
+}
+Class País{
+    atacar(País)
+    esLimitrofe(País)
+    serAtacadoPor(Ejercito)
+    defenderseDe(Ejercito)
+}
+Class Ejercito{
+    atacar(País)
+    batallarCon(Ejercito)
+    defenderme(Tamanio)
+}
+Class Objetivo{
+
+}
+Class Simbolo{
+
+}
+
+Juego *-- Tablero
+Juego *-- Jugador
+Juego -- Tarjeta
+Tablero *-- Continente
+Continente *-- País
+País o-- Ejercito
+Jugador *-- País
+Jugador -- Dado
+Jugador -- Ejercito
+Jugador -- Objetivo
+Jugador -- Tarjeta
+Tarjeta *-- Simbolo
 
 @enduml
