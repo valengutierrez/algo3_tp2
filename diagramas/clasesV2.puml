@@ -5,7 +5,9 @@ hide class circle
 hide abstract circle
 
 
-class Juego{}
+class Juego{
+	+ nuevoJuego()
+}
 class Tarjeta{}
 class Continente{}
 class Dado{}
