@@ -1,4 +1,4 @@
-@startuml Diagrama de secuencia - hay clases presenciales
+@startuml Diagrama de secuencia 3
 title Argentina ataca a brasil y lo ocupa
 skinparam style strictuml
 actor Jugador1 as JugadorAtacante
@@ -29,7 +29,7 @@ EjercitoAtacante --> EjercitoAtacado: [6,4,1]
 ' --------------------------------------------------
 EjercitoAtacado -> EjercitoAtacado: reducir(-1)
 EjercitoAtacado -> PaisAtacado: estoyVacio()
-PaisAtacado -> JugadorAtacado: desocupar()
+PaisAtacado -> JugadorAtacado: desocupar(self)
 EjercitoAtacado -> EjercitoAtacante: reducir(0)
 ' PaisAtacado --> JugadorAtacante: puedeOcupar
 EjercitoAtacante <-- PaisAtacado: self

@@ -1,0 +1,21 @@
+@startuml Diagrama de secuencia - Jugador realiza canje de tarjetas
+title Jugador realiza canje de tarjetas y es valido por ser iguales
+skinparam style strictuml
+actor Jugador as Jugador
+participant ":GestorDeCanje" as GestorDeCanje
+participant "t1:Tarjeta" as Tarjeta1
+
+
+Jugador -> GestorDeCanje: validarCanje(TresTarjetas)
+GestorDeCanje -> GestorDeCanje: verificarQueCanjeEsValido(TresTarjetas)
+
+GestorDeCanje -> Tarjeta1: tieneMismoSimboloQue(Tarjeta2)
+Tarjeta1 -> GestorDeCanje: sonIguales
+GestorDeCanje -> Tarjeta1: tieneMismoSimboloQue(Tarjeta3)
+Tarjeta1 -> GestorDeCanje: sonIguales
+
+
+GestorDeCanje --> Jugador: canjeEsValido
+Jugador -> GestorDeCanje: dameCantidadDeEjercitos(numeroDeCanje, TarjetasUsadas)
+GestorDeCanje --> Jugador: cantidadDeEjectitos
+@enduml

@@ -6,54 +6,77 @@ hide abstract circle
 
 
 Class Juego{
+  +nuevoJuego(cantidadDeJugadores)
   +atacarAPaís(in paísAtacante:País, in paísDefensor:País)
   +verificarQueDosPaísesSonLimítrofes(in País, in País): Boolean
   +verificarQueDosPaísesNoPertenecenAMismoJugador(in País, in País): Boolean
 }
-Class Tablero{
+' Class Tablero{
 
-}
+' }
 Class Tarjeta{
-
+    -Pais
+    -Simbolo
+    ' +tieneMismoSimboloQue(DosTarjetas): Boolean
+    +tieneMismoSimboloQue(UnaTarjeta): Boolean
 }
 Class Continente{
-    estaCompleto(): Boolean
+    +estaCompleto(): Boolean
 }
 Class Dado{
-
+    +defenderme(Tamanio)
+    +atacar(Tamanio)
 }
 Class Jugador{
-    verificarAtaqueValido(País)
+    +nuevoJugador(Color)
+    +ocupar(País)
+    +verificarAtaqueValido(País)
+    +desocupar(País)
 }
 Class País{
-    atacar(País)
-    esLimitrofe(País)
-    serAtacadoPor(Ejercito)
-    defenderseDe(Ejercito)
+    +asignarDuenio(Jugador)
+    +atacar(País)
+    +esLimitrofe(País)
+    +serAtacadoPor(Ejercito)
+    +defenderseDe(Ejercito)
 }
 Class Ejercito{
-    atacar(País)
-    batallarCon(Ejercito)
-    defenderme(Tamanio)
+    +atacar(País)
+    +batallarCon(Ejercito)
+    +reducir(Tamanio)
 }
 Class Objetivo{
-
+    +verificarSiGane(PaisesOcupados): Boolean
+    -verificarQueTengaMitadDePaises(PaisesOcupados): Boolean
 }
-Class Simbolo{
-
+Class ObjetivoOcupar{
+    +verificarSiGane(DePaisesOcupados): Boolean
+    -paisesDelObjetivoEstanEn(PaisesOcupados): Boolean
+}
+Class ObjetivoDestruir{
+    -jugadorADestruir:Jugador
+    +verificarSiGane(PaisesOcupados): Boolean
+    -verificarQueJugadorFueDestruido(): Boolean
+}
+Class GestorDeCanje{
+    +validarCanje(TresTarjetas): Boolean
+    +dameCantidadDeEjercitos(numeroDeCanje, TarjetasUsadas): Integer
+    -verificarQueCanjeEsValido(TresTarjetas): Boolean
 }
 
-Juego *-- Tablero
-Juego *-- Jugador
+Juego *-down- Jugador
 Juego -- Tarjeta
-Tablero *-- Continente
-Continente *-- País
-País o-- Ejercito
-Jugador *-- País
-Jugador -- Dado
+Continente *-down- País
+País o-up- Ejercito
+Jugador *-left- País
+Jugador -Right- Dado
 Jugador -- Ejercito
-Jugador -- Objetivo
-Jugador -- Tarjeta
-Tarjeta *-- Simbolo
+Jugador -down- Objetivo
+Jugador -right- Tarjeta
+Jugador *-down- GestorDeCanje
+Tarjeta .down. GestorDeCanje 
+Objetivo <|-down- ObjetivoOcupar
+Objetivo <|-down- ObjetivoDestruir
+
 
 @enduml

@@ -1,0 +1,24 @@
+@startuml Diagrama de secuencia 4
+title Creacion de nuevo juego
+skinparam style strictuml
+actor Usuario as Usuario
+participant ":Juego" as Juego
+participant ":Jugador" as Jugador
+participant "pais:Pais" as Pais
+
+
+Usuario -> Juego**: nuevoJuego(cantidadDeJugadores)
+' ----------
+loop cantidadDeJugadores times
+    Juego -> Jugador**: nuevoJugador(Color)        
+end
+
+group aCadaPais
+    Juego -> Jugador: ocupar(Pais)
+    Juego -> Pais: asignarDuenio(Jugador)
+end
+
+
+
+' ----------
+@enduml

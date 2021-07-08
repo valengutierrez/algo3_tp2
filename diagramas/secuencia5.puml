@@ -1,0 +1,12 @@
+@startuml Diagrama de secuencia - Verificar si alguien gano
+title Verificar si alguien gano
+skinparam style strictuml
+actor Jugador as Jugador
+participant ":Jugador" as Jugador
+participant ":unObjetivo:ObjetivoOcupar" as Objetivo
+
+Jugador -> Objetivo: verificarSiGane(listaDePaisesOcupados)
+Objetivo -> Objetivo: verificarQueTengaMitadDePaises(listaDePaisesOcupados)
+Objetivo -> Objetivo: paisesDelObjetivoEstanEn(listaDePaisesOcupados)
+Objetivo --> Jugador: true
+@enduml
