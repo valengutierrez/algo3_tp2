@@ -2,7 +2,7 @@ package edu.fiuba.algo3.modelo;
 
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PaisTest {
 
@@ -12,5 +12,16 @@ public class PaisTest {
         argentina.incrementarEjercito(3);
 
         assertEquals(4, argentina.obtenerEjercito());
+    }
+
+    @Test
+    public void test02UnPaisAtacaAOtroConElDefensorComoGanador() {
+        Pais argentina = new Pais();
+        argentina.incrementarEjercito(4);
+
+        Pais brasil = new Pais();
+        brasil.incrementarEjercito(3);
+
+        assertNull(argentina.atacar(brasil));
     }
 }

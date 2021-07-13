@@ -14,4 +14,12 @@ public class Pais {
     public int obtenerEjercito(){
         return unEjercito.tamanio();
     }
+
+    public Pais atacar(Pais unPais){
+        //TODO Validar si el pais es limitrofe
+        return unEjercito.atacar(unPais);
+    }
+
+    public void serAtacadoPor(Ejercito unEjercitoAtacante){
+    }
 }
