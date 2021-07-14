@@ -13,16 +13,29 @@ public class Dados {
 
     public ArrayList<Integer> arrojar(int unaCantidad) {
 
-        ArrayList<Integer> resultado = new ArrayList();
-
+        ArrayList<Integer> resultado = new ArrayList<Integer>();
+        
         for(int i = 0; i < unaCantidad; i++){
             Random random = new Random();
             int valor = random.nextInt(caras);
             resultado.add(valor);
         }
-
+        
         // TODO ordenar array resultado.sort();
-
+        
+        return resultado;
+    }
+    
+	public ArrayList<Integer> tiroGanador() {
+        ArrayList<Integer> resultado = new ArrayList<Integer>();
+        resultado.add(6);
+        resultado.add(4);
+        resultado.add(1);
+        return resultado;
+	}
+    public ArrayList<Integer> tiroPerdedor() {
+        ArrayList<Integer> resultado = new ArrayList<Integer>();
+        resultado.add(5);
         return resultado;
     }
 }
