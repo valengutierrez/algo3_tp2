@@ -38,4 +38,10 @@ public class Ejercito {
         ArrayList<Integer> resultadoAtacante = dados.arrojar(unEjercito.ejercitosAtacantes());
 
     }
+
+	public void reducir(int i) {
+        //TODO: Validar que el tamanio no sea negativo
+        tamanio-=i;
+	}
+
 }
