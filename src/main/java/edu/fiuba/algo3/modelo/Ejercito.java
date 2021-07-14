@@ -44,4 +44,8 @@ public class Ejercito {
         tamanio-=i;
 	}
 
+    public ArrayList<Integer> tirarDados(Dados unosDados) {
+        return unosDados.arrojar(tamanio);
+    }
+
 }
