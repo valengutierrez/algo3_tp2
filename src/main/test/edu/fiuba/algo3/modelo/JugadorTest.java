@@ -15,4 +15,17 @@ public class JugadorTest {
 
 		assertTrue(unJugador.getPaisesOcupados().contains(unPais));
 	}
+
+	@Test
+	public void test01UnJugadorDesocupaUnPais(){
+		Jugador unJugador = new Jugador();
+		Pais unPais = new Pais();
+
+		unJugador.ocupar(unPais);
+
+		assertTrue(unJugador.getPaisesOcupados().contains(unPais));
+
+		unJugador.desocupar(unPais);
+		assertFalse(unJugador.getPaisesOcupados().contains(unPais));
+	}
 }

@@ -12,11 +12,14 @@ public class Jugador {
 
 	public void ocupar(Pais unPais) {
 		paisesOcupados.add(unPais);
+		//unPais.serOcupadoPor(this);
 	}
 
 	public ArrayList<Pais> getPaisesOcupados() {
 		return paisesOcupados;
 	}
 	
-
+	public void desocupar(Pais unPais){
+		paisesOcupados.remove(unPais);
+	}
 }

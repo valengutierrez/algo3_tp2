@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,6 @@ public class CampoDeBatallaTest {
 
 		assertEquals(1, unCampo.getBajasDefensoras());
 		assertEquals(0, unCampo.getBajasAtacantes());
-
 	}
 
 	@Test
@@ -30,6 +29,30 @@ public class CampoDeBatallaTest {
 		assertEquals(0, unCampo.getBajasDefensoras());
 		assertEquals(1, unCampo.getBajasAtacantes());
 
+	}
+
+	@Test
+	public void test03SeObtieneUnaBatallaDondeSiempreGanaDefensor(){
+		CampoDeBatalla unCampo = new CampoDeBatalla();
+		Ejercito ejercitoArgentino = new Ejercito();
+		Ejercito ejercitoBrasilero = new Ejercito();
+
+		// Brasil ataca a Argentina
+		unCampo.iniciarBatallaYQueGaneElDefensor(ejercitoBrasilero, ejercitoArgentino);
+
+		assertNotEquals(0, ejercitoArgentino.tamanio());
+	}
+
+	@Test
+	public void test04SeObtieneUnaBatallaDondeSiempreGanaAtacante(){
+		CampoDeBatalla unCampo = new CampoDeBatalla();
+		Ejercito ejercitoArgentino = new Ejercito();
+		Ejercito ejercitoBrasilero = new Ejercito();
+
+		// Brasil ataca a Argentina
+		unCampo.iniciarBatallaYQueGaneElAtacante(ejercitoBrasilero, ejercitoArgentino);
+
+		assertEquals(0, ejercitoArgentino.tamanio());
 	}
 
 	// TODO: Probar todo tipo de batallas

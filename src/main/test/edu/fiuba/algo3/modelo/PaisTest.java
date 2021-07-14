@@ -27,8 +27,20 @@ public class PaisTest {
 
     @Test
     public void test03UnPaisAtacaAOtroConElAtacanteComoGanador() {
-		// TODO
+        CampoDeBatalla unCampo = new CampoDeBatalla();
+        Pais argentina = new Pais();
+        Pais brasil = new Pais();
+
+        assertEquals(brasil, argentina.atacar(brasil));
     }
 
+    @Test
+    public void test04UnPaisSeLeAsignaDuenio(){
+        Pais argentina = new Pais();
+        Jugador unJugador = new Jugador();
+        argentina.serOcupadoPor(unJugador);
+
+        assertFalse(argentina.esOcupable());
+    }
 
 }

@@ -9,12 +9,11 @@ public class CampoDeBatalla {
 	private ArrayList<Integer> resultadoDefensor;
 	private int bajasDefensoras=0;
 	private int bajasAtacantes=0;
-	ArrayList<Integer> bajas;
 
 	public CampoDeBatalla(){
-		Dados unosDados = new Dados(6);
-		ArrayList<Integer> resultadoAtacante = new ArrayList<Integer>();
-		ArrayList<Integer> resultadoDefensor = new ArrayList<Integer>();
+		unosDados = new Dados(6);
+		resultadoAtacante = new ArrayList<Integer>();
+		resultadoDefensor = new ArrayList<Integer>();
 	}
 
 	public void iniciarBatalla(Ejercito ejercitoAtacante, Ejercito ejercitoDefensor){
@@ -23,16 +22,13 @@ public class CampoDeBatalla {
 		resultadoDefensor = ejercitoDefensor.tirarDados(unosDados);
 	
 		//Comparacion
-		bajas = comparar();
-		ejercitoDefensor.reducir(bajas.get(0));
-		ejercitoAtacante.reducir(bajas.get(1));
-
+		comparar();
+		ejercitoDefensor.reducir(bajasDefensoras);
+		ejercitoAtacante.reducir(bajasAtacantes);
 	}
 	
 	
-	public ArrayList<Integer> comparar(){
-		
-		ArrayList<Integer> bajas = new ArrayList<Integer>();
+	public void comparar(){
 		int i;
 		for(i = 0; i < Math.min(resultadoAtacante.size(),resultadoDefensor.size()); i++){
 			if(resultadoAtacante.get(i)>resultadoDefensor.get(i)){
@@ -40,9 +36,6 @@ public class CampoDeBatalla {
 			}
 			else bajasAtacantes++;
 		}
-		bajas.add(bajasDefensoras);
-		bajas.add(bajasAtacantes);
-		return bajas;
 	}
 
 	/*******Only Testing Purposes*******/
@@ -61,5 +54,21 @@ public class CampoDeBatalla {
 	
 	public void setResultadoDefensor(ArrayList<Integer> unTiroDeDados) {
 		resultadoDefensor = unTiroDeDados;
+	}
+
+	public void iniciarBatallaYQueGaneElDefensor(Ejercito unEjercitoAtacante, Ejercito unEjercitoDefensor){
+		setResultadoAtacante(unosDados.tiroPerdedor()); // [5]
+		setResultadoDefensor(unosDados.tiroGanador()); // [6,4,1]
+		comparar(); //[bajas atacantes = 1 ; bajas defensoras = 0]
+		unEjercitoAtacante.reducir(getBajasAtacantes());
+		unEjercitoDefensor.reducir(getBajasDefensoras());
+	}
+
+	public void iniciarBatallaYQueGaneElAtacante(Ejercito unEjercitoAtacante, Ejercito unEjercitoDefensor){
+		setResultadoAtacante(unosDados.tiroGanador()); // [5]
+		setResultadoDefensor(unosDados.tiroPerdedor()); // [6,4,1]
+		comparar(); //[bajas atacantes = 1 ; bajas defensoras = 0]
+		unEjercitoAtacante.reducir(getBajasAtacantes());
+		unEjercitoDefensor.reducir(getBajasDefensoras());
 	}
 }
