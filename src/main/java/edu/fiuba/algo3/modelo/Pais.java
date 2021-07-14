@@ -1,25 +1,27 @@
 package edu.fiuba.algo3.modelo;
 
 public class Pais {
-    private Ejercito unEjercito;
+    private Ejercito ejercitoNacional;
 
     public Pais(){
-        unEjercito = new Ejercito();
+        ejercitoNacional = new Ejercito();
     }
 
     public void incrementarEjercito(int tamanio){
-        unEjercito.incrementar(tamanio);
+        ejercitoNacional.incrementar(tamanio);
     }
 
     public int obtenerEjercito(){
-        return unEjercito.tamanio();
+        return ejercitoNacional.tamanio();
     }
 
     public Pais atacar(Pais unPais){
         //TODO Validar si el pais es limitrofe
-        return unEjercito.atacar(unPais);
+        return ejercitoNacional.atacar(unPais);
+        
     }
 
-    public void serAtacadoPor(Ejercito unEjercitoAtacante){
+    public void serAtacadoPor(Ejercito ejercito) {
+        
     }
 }

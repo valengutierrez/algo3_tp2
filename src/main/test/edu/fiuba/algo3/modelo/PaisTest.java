@@ -24,4 +24,11 @@ public class PaisTest {
 
         assertNull(argentina.atacar(brasil));
     }
+
+    @Test
+    public void test03UnPaisAtacaAOtroConElAtacanteComoGanador() {
+		// TODO
+    }
+
+
 }
