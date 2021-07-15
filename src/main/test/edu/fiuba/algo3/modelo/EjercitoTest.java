@@ -23,12 +23,10 @@ public class EjercitoTest {
 
     @Test
     public void test03UnEjercitoAtacaAUnPais(){
-        Jugador Jugador1 = new Jugador();
         Pais brasil = new Pais();
-        Jugador1.ocupar(brasil);
         Ejercito ejercitoArgentino = new Ejercito();
         ejercitoArgentino.incrementar(2);
-
+        
         // Si hay una batalla, seguro que hay bajas
         int sumaEjercitosInicial = ejercitoArgentino.tamanio()+brasil.obtenerEjercito();
         ejercitoArgentino.atacar(brasil);
@@ -38,16 +36,29 @@ public class EjercitoTest {
     }
     
     @Test
-    public void test04UnEjercitoEsAtacadoPorOtro(){
+    public void test04UnEjercitoSeDefiendeDeOtro(){
         Ejercito ejercitoBrasilero = new Ejercito();
         Ejercito ejercitoArgentino = new Ejercito();
-        
+        ejercitoArgentino.incrementar(2);
         
         // Si hay una batalla, seguro que hay bajas
         int sumaEjercitosInicial = ejercitoArgentino.tamanio()+ejercitoBrasilero.tamanio();
         ejercitoBrasilero.defenderseDe(ejercitoArgentino);
         int sumaEjercitosFinal = ejercitoArgentino.tamanio()+ejercitoBrasilero.tamanio();
-
+        
         assertTrue(sumaEjercitosFinal<sumaEjercitosInicial);
+    }
+    
+    @Test
+    public void test05UnEjercitoNoPuedeAtacarConTamanioUno(){
+        Pais brasil = new Pais();
+        Ejercito ejercitoArgentino = new Ejercito();
+        
+        // Si no hay una batalla, seguro que no hay bajas
+        int sumaEjercitosInicial = ejercitoArgentino.tamanio()+brasil.obtenerEjercito();
+        ejercitoArgentino.atacar(brasil);
+        int sumaEjercitosFinal = ejercitoArgentino.tamanio()+brasil.obtenerEjercito();
+
+        assertEquals(sumaEjercitosFinal, sumaEjercitosInicial);
     }
 }
