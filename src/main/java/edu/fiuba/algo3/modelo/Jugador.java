@@ -12,7 +12,6 @@ public class Jugador {
 
 	public void ocupar(Pais unPais) {
 		paisesOcupados.add(unPais);
-		//unPais.serOcupadoPor(this);
 	}
 
 	public ArrayList<Pais> getPaisesOcupados() {

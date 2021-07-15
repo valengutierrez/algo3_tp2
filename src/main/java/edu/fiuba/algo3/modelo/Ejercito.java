@@ -17,11 +17,8 @@ public class Ejercito {
         return tamanio;
     }
 
-    public Pais atacar(Pais unPais){
+    public void atacar(Pais unPais){
         unPais.serAtacadoPor(this);
-
-        //this.ocupar(unPais);
-        return null;
     }
 
     private int ejercitosDefensores() {
@@ -45,7 +42,11 @@ public class Ejercito {
     public ArrayList<Integer> tirarDados(Dados unosDados) {
         return unosDados.arrojar(tamanio);
     }
-
+    
+    public void ocupar(Pais unPais,int unaCantidad) {
+        reducir(unaCantidad);
+        unPais.incrementarEjercito(unaCantidad);
+    }
     /*******Only Testing Purposes*******/
 
     public Pais atacarYGanar(Pais unPais){
@@ -53,4 +54,5 @@ public class Ejercito {
 
         return unPais;
     }
+
 }

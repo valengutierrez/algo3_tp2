@@ -15,31 +15,8 @@ public class PaisTest {
     }
 
     @Test
-    public void test02UnPaisAtacaAOtroConElDefensorComoGanador() {
+    public void test02UnPaisSeLeAsignaDuenio(){
         Pais argentina = new Pais();
-        argentina.incrementarEjercito(4);
-
-        Pais brasil = new Pais();
-        brasil.incrementarEjercito(3);
-
-        assertNull(argentina.atacar(brasil));
-    }
-
-    @Test
-    public void test03UnPaisAtacaAOtroConElAtacanteComoGanador() {
-        CampoDeBatalla unCampo = new CampoDeBatalla();
-        Pais argentina = new Pais();
-        Pais brasil = new Pais();
-
-        assertEquals(brasil, argentina.atacar(brasil));
-    }
-
-    @Test
-    public void test04UnPaisSeLeAsignaDuenio(){
-        Pais argentina = new Pais();
-        Jugador unJugador = new Jugador();
-        argentina.serOcupadoPor(unJugador);
-
         assertFalse(argentina.esOcupable());
     }
 
