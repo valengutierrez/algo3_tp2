@@ -1,0 +1,14 @@
+@startuml agregarEjercitos
+title Un Jugador agrega ejercitos a un pais
+skinparam style strictuml
+participant "TEG:Juego" as Juego
+participant "unJugador:Jugador" as Jugador1
+participant "Argentina:Pais" as Argentina
+participant "ejercitoNacional:Ejercito" as EjercitoNacional
+
+
+Juego -> Jugador1: agregarEjercitos(argentina,5)
+Jugador1 -> Argentina: incrementarEjercito(5)
+Argentina -> EjercitoNacional: incrementar(5)
+
+@enduml
