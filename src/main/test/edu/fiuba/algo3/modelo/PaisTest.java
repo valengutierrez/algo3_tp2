@@ -70,4 +70,10 @@ public class PaisTest {
         assertEquals(jugadorAzul, brasil.obtenerDuenio());
     }
 
+    @Test
+    public void test05UnPaisPuedeOcuparOtroPais(){
+        //TODO
+        
+    }
+
 }

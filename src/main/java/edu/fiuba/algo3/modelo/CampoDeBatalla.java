@@ -38,7 +38,6 @@ public class CampoDeBatalla {
 		}
 	}
 
-	/*******Only Testing Purposes*******/
 	
 	public int getBajasAtacantes() {
 		return bajasAtacantes;
@@ -55,6 +54,7 @@ public class CampoDeBatalla {
 	public void setResultadoDefensor(ArrayList<Integer> unTiroDeDados) {
 		resultadoDefensor = unTiroDeDados;
 	}
+	/*******Only Testing Purposes*******/
 
 	public void iniciarBatallaYQueGaneElDefensor(Ejercito unEjercitoAtacante, Ejercito unEjercitoDefensor){
 		setResultadoAtacante(unosDados.tiroPerdedor()); // [5]

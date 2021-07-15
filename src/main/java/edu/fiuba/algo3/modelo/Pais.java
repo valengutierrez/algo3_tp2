@@ -56,7 +56,8 @@ public class Pais {
     }
 
     public void serOcupadoPor(Jugador unJugador){
-        //TODO: Si ya esta ocupado tirar una excepcion
+        //TODO: Delegar el comportamiento de saber si esta ocupado o no a un estadoOcupacion
+        // estado.cambiarAOcupado(unJugador);
         if (duenio == null)
             duenio = unJugador;
     }
@@ -65,7 +66,7 @@ public class Pais {
         duenio = null;
     }
     
-    
+    // TODO: Patron State
     public boolean esOcupable(){
         return duenio == null;
     }
