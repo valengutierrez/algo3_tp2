@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
 
 public class Dados {
@@ -17,11 +19,11 @@ public class Dados {
         
         for(int i = 0; i < unaCantidad; i++){
             Random random = new Random();
-            int valor = random.nextInt(caras);
+            int valor = random.nextInt(caras)+1;
             resultado.add(valor);
         }
-        
-        // TODO ordenar array resultado.sort();
+
+        Collections.sort(resultado,Collections.reverseOrder());
         
         return resultado;
     }

@@ -18,17 +18,10 @@ public class Ejercito {
     }
 
     public void atacar(Pais unPais){
-        unPais.serAtacadoPor(this);
+        if(tamanio>1){
+            unPais.serAtacadoPor(this);
+        }
     }
-
-    private int ejercitosDefensores() {
-        return Math.min(tamanio, 3);
-    }
-
-    private int ejercitosAtacantes() {
-        return Math.min(tamanio-1, 3);
-    }
-
     public void defenderseDe(Ejercito unEjercito){
         CampoDeBatalla unCampo = new CampoDeBatalla();
         unCampo.iniciarBatalla(unEjercito, this);
@@ -39,20 +32,16 @@ public class Ejercito {
         tamanio-=i;
 	}
 
-    public ArrayList<Integer> tirarDados(Dados unosDados) {
-        return unosDados.arrojar(tamanio);
+    public ArrayList<Integer> tirarDadosDefensores(Dados unosDados) {
+        return unosDados.arrojar(Math.min(tamanio, 3));
+    }
+
+    public ArrayList<Integer> tirarDadosAtacantes(Dados unosDados) {
+        return unosDados.arrojar(Math.min(tamanio-1, 3));
     }
     
     public void ocupar(Pais unPais,int unaCantidad) {
         reducir(unaCantidad);
         unPais.incrementarEjercito(unaCantidad);
     }
-    /*******Only Testing Purposes*******/
-
-    public Pais atacarYGanar(Pais unPais){
-        unPais.serAtacadoPor(this);
-
-        return unPais;
-    }
-
 }

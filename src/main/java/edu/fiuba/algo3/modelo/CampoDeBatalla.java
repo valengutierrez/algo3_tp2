@@ -18,8 +18,8 @@ public class CampoDeBatalla {
 
 	public void iniciarBatalla(Ejercito ejercitoAtacante, Ejercito ejercitoDefensor){
 		
-		resultadoAtacante = ejercitoAtacante.tirarDados(unosDados);
-		resultadoDefensor = ejercitoDefensor.tirarDados(unosDados);
+		resultadoDefensor = ejercitoDefensor.tirarDadosDefensores(unosDados);
+		resultadoAtacante = ejercitoAtacante.tirarDadosAtacantes(unosDados);
 	
 		//Comparacion
 		comparar();
