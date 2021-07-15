@@ -12,6 +12,11 @@ public class Pais {
         ejercitoNacional = new Ejercito();
         paisesLimitrofes = new ArrayList<Pais>();
     }
+    public Pais(Jugador unJugador){
+        duenio = unJugador;
+        ejercitoNacional = new Ejercito();
+        paisesLimitrofes = new ArrayList<Pais>();
+    }
 
     public void incrementarEjercito(int tamanio){
         ejercitoNacional.incrementar(tamanio);
@@ -21,16 +26,30 @@ public class Pais {
         return ejercitoNacional.tamanio();
     }
 
+    public void agregarEjercito(Ejercito unEjercito){
+        ejercitoNacional = unEjercito;
+    }
+
+    public Jugador obtenerDuenio(){
+        return duenio;
+    }
+
     public Ejercito getEjercito() { return ejercitoNacional; }
 
     public void atacar(Pais unPais){
         //TODO: Si el pais no es limitrofe tirar una excepcion
+        /*
         if(paisesLimitrofes.contains(unPais)){
             ejercitoNacional.atacar(unPais);
             unPais.serOcupadoPor(duenio);
             // TODO: Preguntar al usuario cuantos ejercitos quiere pasar
             ejercitoNacional.ocupar(unPais,1); 
         }
+        */
+        ejercitoNacional.atacar(unPais);
+        unPais.serOcupadoPor(duenio);
+        // TODO: Preguntar al usuario cuantos ejercitos quiere pasar
+        ejercitoNacional.ocupar(unPais,1);
     }
 
     public void serAtacadoPor(Ejercito ejercito) {
@@ -43,7 +62,8 @@ public class Pais {
 
     public void serOcupadoPor(Jugador unJugador){
         //TODO: Si ya esta ocupado tirar una excepcion
-        duenio = unJugador;
+        if (duenio == null)
+            duenio = unJugador;
     }
 
     private void desocupar(){
@@ -51,10 +71,7 @@ public class Pais {
     }
 
     public boolean esOcupable(){
-        if(duenio == null)
-            return true;
-        else
-            return false;
+        return duenio == null;
     }
 
     public void setPaisLimitrofe(Pais unPais){

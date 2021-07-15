@@ -24,8 +24,7 @@ Class Continente{
     +estaCompleto(): Boolean
 }
 Class Dado{
-    +defenderme(Tamanio)
-    +atacar(Tamanio)
+    +arrojar(unaCantidad)
 }
 Class Jugador{
     +nuevoJugador(Color)
@@ -63,13 +62,18 @@ Class GestorDeCanje{
     +dameCantidadDeEjercitos(numeroDeCanje, TarjetasUsadas): Integer
     -verificarQueCanjeEsValido(TresTarjetas): Boolean
 }
+Class CampoDeBatalla{
+    +iniciarBatalla(ejercitoAtacante, ejercitoDefensor)
+    +comparar()
+}
+
 
 Juego *-down- Jugador
 Juego -- Tarjeta
 Continente *-down- País
 País o-up- Ejercito
 Jugador *-left- País
-Jugador -Right- Dado
+CampoDeBatalla -Down- Dado
 Jugador -- Ejercito
 Jugador -down- Objetivo
 Jugador -right- Tarjeta
@@ -77,6 +81,7 @@ Jugador *-down- GestorDeCanje
 Tarjeta .down. GestorDeCanje 
 Objetivo <|-down- ObjetivoOcupar
 Objetivo <|-down- ObjetivoDestruir
+Ejercito ..> CampoDeBatalla
 
 
 @enduml
