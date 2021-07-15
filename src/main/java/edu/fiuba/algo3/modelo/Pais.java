@@ -64,16 +64,22 @@ public class Pais {
     private void desocupar(){
         duenio = null;
     }
-
+    
+    
     public boolean esOcupable(){
         return duenio == null;
     }
-
+    
     public void setPaisLimitrofe(Pais unPais){
         paisesLimitrofes.add(unPais);
     }
-
+    
     public ArrayList<Pais> getPaisesLimitrofes(){
         return paisesLimitrofes;
     }
+	public Jugador getDuenio() {
+        return duenio;
+	}
+    
+    
 }

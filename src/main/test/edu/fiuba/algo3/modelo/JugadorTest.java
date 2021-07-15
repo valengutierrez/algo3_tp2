@@ -17,7 +17,7 @@ public class JugadorTest {
 	}
 
 	@Test
-	public void test01UnJugadorDesocupaUnPais(){
+	public void test02UnJugadorDesocupaUnPais(){
 		Jugador unJugador = new Jugador();
 		Pais unPais = new Pais();
 
@@ -27,5 +27,13 @@ public class JugadorTest {
 
 		unJugador.desocupar(unPais);
 		assertFalse(unJugador.getPaisesOcupados().contains(unPais));
+	}
+
+	@Test
+	public void test03UnJugadorAgregaEjercitosAUnPais(){
+		Jugador unJugador = new Jugador();
+		Pais argentina = new Pais(unJugador);
+		unJugador.colocarEjercitos(argentina,5);
+		assertEquals(unJugador, argentina.getDuenio());
 	}
 }

@@ -21,4 +21,10 @@ public class Jugador {
 	public void desocupar(Pais unPais){
 		paisesOcupados.remove(unPais);
 	}
+
+	public void colocarEjercitos(Pais unPais, int i) {
+		if(paisesOcupados.contains(unPais)){
+			unPais.incrementarEjercito(i);
+		}
+	}
 }
