@@ -1,0 +1,64 @@
+@startuml SecuenciaCombate
+title Argentina ataca a brasil y lo ocupa
+skinparam style strictuml
+actor Jugador1 as JugadorAtacante
+participant "argentina:Pais" as PaisAtacante
+participant "ejercitoArgentino:Ejercito" as EjercitoAtacante
+participant "brasil:Pais" as PaisAtacado
+participant "ejercitoBrasileño:Ejercito" as EjercitoAtacado
+participant "unCampo:CampoDeBatalla" as CampoDeBatalla
+participant "unosDados:Dados" as Dados
+actor Jugador2 as JugadorAtacado
+
+
+JugadorAtacante -> PaisAtacante: atacar(brasil)
+group validar si es limitrofe
+	PaisAtacante -> EjercitoAtacante: atacar(brasil)
+end
+group validar si tiene tamaño suficiente para atacar 
+	EjercitoAtacante -> PaisAtacado: serAtacadoPor(self)
+end
+PaisAtacado -> EjercitoAtacado: defenderseDe(ejercitoArgentino)
+' ----------------------------------------------------
+group logica de combate
+	EjercitoAtacado -> CampoDeBatalla**: iniciarBatalla(self, ejercitoArgentino)
+	CampoDeBatalla -> Dados**:new Dados()
+	CampoDeBatalla -> EjercitoAtacado: tirarDados(unosDados)
+	EjercitoAtacado -> Dados: tirar(self.tamaño)
+	return [5]
+	CampoDeBatalla <-- EjercitoAtacado: [5]
+	CampoDeBatalla -> EjercitoAtacante: tirarDados(unosDados)
+	EjercitoAtacante -> Dados: tirar(self.tamaño)
+	return [6,4,1]
+	CampoDeBatalla <-- EjercitoAtacante: [6,4,1]
+end
+group redistribucion de ejercitos y territorios
+	CampoDeBatalla -> EjercitoAtacante: reducirse(0)
+	CampoDeBatalla -> EjercitoAtacado: reducirse(1)
+end
+group El pais se desocupa si el ejercito fue aniquilado
+	PaisAtacado -> JugadorAtacado: desocupar(self)
+end
+
+group El jugador trata de ocupar el pais
+	PaisAtacante -> PaisAtacado: serOcupadoPor(duenio)
+	PaisAtacante -> EjercitoAtacante: ocupar(brasil,unaCantidad)
+	EjercitoAtacante -> EjercitoAtacante: reducirse(unaCantidad)
+	EjercitoAtacante -> PaisAtacado: incrementarEjercito(unaCantidad)
+end
+
+
+
+' CampoDeBatalla -> EjercitoAtacante: puedeOcupar()
+
+
+
+
+' ' --------------------------------------------------
+' EjercitoAtacado --> PaisAtacado: derrotado
+' PaisAtacado -> JugadorAtacado: desocupar()
+' PaisAtacado --> JugadorAtacante: puedeOcupar
+' JugadorAtacante -> PaisAtacado: ocupar()
+
+
+@enduml
