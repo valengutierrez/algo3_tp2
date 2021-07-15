@@ -44,6 +44,7 @@ public class PaisTest {
         Pais brasil = new Pais(jugadorVerde);
         brasil.incrementarEjercito(3);
 
+        argentina.setPaisLimitrofe(brasil);
         argentina.atacar(brasil);
 
         assertEquals(jugadorVerde, brasil.obtenerDuenio());
@@ -59,10 +60,11 @@ public class PaisTest {
 
         Pais argentina = new Pais(jugadorAzul);
         argentina.incrementarEjercito(4);
-
+        
         Pais brasil = new Pais(jugadorVerde);
         brasil.agregarEjercito(ejercitoDefensor);
-
+        
+        argentina.setPaisLimitrofe(brasil);
         argentina.atacar(brasil);
 
         assertEquals(jugadorAzul, brasil.obtenerDuenio());

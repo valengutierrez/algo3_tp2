@@ -22,9 +22,7 @@ public class DadosTest {
             int unaCantidad = 30;
             Integer resultadoPrevio = 6;
             ArrayList<Integer> resultado = dados.arrojar(unaCantidad);
-            System.out.println("Tirada de dados: " + resultado);
             for(Integer i : resultado){
-                System.out.println("anterior vs actual: " +resultadoPrevio + ','+ i);
                 assertTrue(i<=resultadoPrevio);
                 resultadoPrevio = i;
             }

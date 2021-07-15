@@ -1,4 +1,4 @@
 module edu.fiuba.algo3 {
-    requires javafx.controls;
+    requires transitive javafx.controls;
     exports edu.fiuba.algo3;
 }

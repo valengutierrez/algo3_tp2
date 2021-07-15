@@ -38,18 +38,13 @@ public class Pais {
 
     public void atacar(Pais unPais){
         //TODO: Si el pais no es limitrofe tirar una excepcion
-        /*
+        
         if(paisesLimitrofes.contains(unPais)){
             ejercitoNacional.atacar(unPais);
             unPais.serOcupadoPor(duenio);
             // TODO: Preguntar al usuario cuantos ejercitos quiere pasar
             ejercitoNacional.ocupar(unPais,1); 
         }
-        */
-        ejercitoNacional.atacar(unPais);
-        unPais.serOcupadoPor(duenio);
-        // TODO: Preguntar al usuario cuantos ejercitos quiere pasar
-        ejercitoNacional.ocupar(unPais,1);
     }
 
     public void serAtacadoPor(Ejercito ejercito) {
