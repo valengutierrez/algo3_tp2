@@ -72,7 +72,7 @@ public class PaisTest {
 
     @Test
     public void test05UnPaisPuedeOcuparOtroPais(){
-        //TODO
+        //TODO: Un pais debe poder ocupar otro pais
         
     }
 
