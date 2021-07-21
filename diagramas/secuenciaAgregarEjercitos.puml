@@ -1,0 +1,29 @@
+@startuml agregarEjercitos
+title Un Jugador agrega ejercitos a un pais
+skinparam style strictuml
+
+participant Juego
+participant "unJugador:Jugador" as Jugador1
+participant "otroJugador:Jugador" as Jugador2
+participant "Argentina:Pais" as Argentina
+participant "ejercitoArgentino:Ejercito" as ejercitoArgentino
+participant "Brasil:Pais" as Brasil
+participant "ejercitoBrasilero:Ejercito" as ejercitoBrasilero
+participant "Chile:Pais" as Chile
+participant "ejercitoChileno:Ejercito" as ejercitoChileno
+
+Juego -> Jugador1: colocar(5)
+loop mientras tenga fichas disponibles
+	Jugador1 -> Argentina: incrementarEjercito(4)
+	Argentina -> ejercitoArgentino: incrementar(4)
+	Jugador1 -> Brasil: incrementarEjercito(1)
+	Brasil -> ejercitoBrasilero: incrementar(1)
+end
+Juego -> Jugador2: colocar(5)
+loop mientras tenga fichas disponibles
+	Jugador2 -> Chile: incrementarEjercito(5)
+	Chile -> ejercitoChileno: incrementar(5)
+end
+	
+
+@enduml

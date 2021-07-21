@@ -1,14 +1,22 @@
-@startuml agregarEjercitos
-title Un Jugador agrega ejercitos a un pais
+@startuml Diagrama de secuencia - hay clases presenciales
+title Ronda de colocacion de paises
 skinparam style strictuml
-participant "TEG:Juego" as Juego
-participant "unJugador:Jugador" as Jugador1
-participant "Argentina:Pais" as Argentina
-participant "ejercitoNacional:Ejercito" as EjercitoNacional
 
+participant Juego
+actor Jugador1 as JugadorAzul
+participant PaisAzul
+participant ejercitoAzul
 
-Juego -> Jugador1: agregarEjercitos(argentina,5)
-Jugador1 -> Argentina: incrementarEjercito(5)
-Argentina -> EjercitoNacional: incrementar(5)
+Juego -> JugadorAzul: rondaDeColocacionPaises()
+loop cantidad de paises ocupados / 2
+	JugadorAzul -> PaisAzul: incrementarEjercito(5)
+	PaisAzul -> ejercitoAzul: incrementar(5)
+end 
+
+Juego -> JugadorAzul: rondaDeColocacionContinentes(reglaDeColocacion)
+JugadorAzul -> ReglaDeColocacion: getEjercitosAColocar(misPaises)
+return 
+Juego -> JugadorAzul: activarCartas()
+
 
 @enduml

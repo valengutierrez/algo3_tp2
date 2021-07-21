@@ -1,0 +1,26 @@
+@startuml Diagrama de secuencia 4
+title Creacion de nuevo juego
+skinparam style strictuml
+actor Usuario as Usuario
+participant "TEG:Juego" as Juego
+participant "Jugador" as Jugador
+participant "pais:Pais" as Pais
+participant "objetivo:Objetivo" as Objetivo
+
+
+Usuario -> Juego**: nuevoJuego(cantidadDeJugadores)
+
+' Juego -> Pais**: CrearPaises()
+Juego -> Objetivo**: CrearObjetivos()
+loop cantidadDeJugadores times
+    Juego -> Jugador**: nuevoJugador()
+    Juego -> Jugador: asignarObjetivo(unObjetivoSecreto)
+    Juego -> Jugador: asignarObjetivo(unObjetivoComun)
+    loop cantidadDePaises/cantidadDeJugadores times
+        Juego -> Pais**: CrearPaises()
+        Juego -> Jugador: ocupar(Pais)
+        Jugador -> Pais:ocupar()
+    end
+end
+
+@enduml
