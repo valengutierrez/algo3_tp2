@@ -23,9 +23,7 @@ public class PaisTest {
     public void test02UnPaisSeLeAsignaDuenio(){
         Jugador unJugador = new Jugador();
         Pais argentina = new Pais(unJugador);
-
-        argentina.serOcupadoPor(unJugador);
-
+        
         assertEquals(unJugador, argentina.obtenerDuenio());
     }
 

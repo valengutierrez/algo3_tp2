@@ -9,9 +9,10 @@ public class CampoDeBatalla {
 	private ArrayList<Integer> resultadoDefensor;
 	private int bajasDefensoras=0;
 	private int bajasAtacantes=0;
+	private int caras=6;
 
 	public CampoDeBatalla(){
-		unosDados = new Dados(6);
+		unosDados = new Dados(caras);
 		resultadoAtacante = new ArrayList<Integer>();
 		resultadoDefensor = new ArrayList<Integer>();
 	}

@@ -4,16 +4,17 @@ import java.util.ArrayList;
 
 public class Pais {
     private Ejercito ejercitoNacional;
-    private Jugador duenio;
     private ArrayList<Pais> paisesLimitrofes;
+    private estadoOcupacion estado;
 
     public Pais(){
-        duenio = new Jugador();
+        estado = new estadoDesocupado();
         ejercitoNacional = new Ejercito();
         paisesLimitrofes = new ArrayList<Pais>();
     }
     public Pais(Jugador unJugador){
-        duenio = unJugador;
+        estado = new estadoDesocupado();
+        estado = estado.cambiarAOcupado(unJugador);
         ejercitoNacional = new Ejercito();
         paisesLimitrofes = new ArrayList<Pais>();
     }
@@ -31,7 +32,7 @@ public class Pais {
     }
 
     public Jugador obtenerDuenio(){
-        return duenio;
+        return estado.obtenerDuenio();
     }
 
     public Ejercito getEjercito() { return ejercitoNacional; }
@@ -41,7 +42,7 @@ public class Pais {
         
         if(paisesLimitrofes.contains(unPais)){
             ejercitoNacional.atacar(unPais);
-            unPais.serOcupadoPor(duenio);
+            unPais.serOcupadoPor(estado.obtenerDuenio());
             // TODO: Preguntar al usuario cuantos ejercitos quiere pasar
             ejercitoNacional.ocupar(unPais,1); 
         }
@@ -50,27 +51,17 @@ public class Pais {
     public void serAtacadoPor(Ejercito ejercito) {
         ejercitoNacional.defenderseDe(ejercito);
         if(ejercitoNacional.tamanio() == 0) {
-            duenio.desocupar(this);
-            desocupar();
+            estado.obtenerDuenio().desocupar(this);
+            estado = estado.cambiarADesocupado();
         }
     }
 
     public void serOcupadoPor(Jugador unJugador){
         //TODO: Delegar el comportamiento de saber si esta ocupado o no a un estadoOcupacion
         // estado.cambiarAOcupado(unJugador);
-        if (duenio == null)
-            duenio = unJugador;
+            estado = estado.cambiarAOcupado(unJugador);
     }
 
-    private void desocupar(){
-        duenio = null;
-    }
-    
-    // TODO: Patron State
-    public boolean esOcupable(){
-        return duenio == null;
-    }
-    
     public void setPaisLimitrofe(Pais unPais){
         paisesLimitrofes.add(unPais);
     }
@@ -78,9 +69,5 @@ public class Pais {
     public ArrayList<Pais> getPaisesLimitrofes(){
         return paisesLimitrofes;
     }
-	public Jugador getDuenio() {
-        return duenio;
-	}
-    
     
 }

@@ -23,7 +23,8 @@ public class EjercitoTest {
 
     @Test
     public void test03UnEjercitoAtacaAUnPais(){
-        Pais brasil = new Pais();
+        Jugador unJugador = new Jugador();
+        Pais brasil = new Pais(unJugador);
         Ejercito ejercitoArgentino = new Ejercito();
         ejercitoArgentino.incrementar(2);
         

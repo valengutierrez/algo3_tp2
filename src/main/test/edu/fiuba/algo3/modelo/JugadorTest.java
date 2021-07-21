@@ -34,6 +34,6 @@ public class JugadorTest {
 		Jugador unJugador = new Jugador();
 		Pais argentina = new Pais(unJugador);
 		unJugador.colocarEjercitos(argentina,5);
-		assertEquals(unJugador, argentina.getDuenio());
+		assertEquals(unJugador, argentina.obtenerDuenio());
 	}
 }

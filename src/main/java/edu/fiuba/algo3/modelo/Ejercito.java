@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Ejercito {
     private int tamanio;
+    private int maximaTirada = 3;
 
     public Ejercito (){
         tamanio = 1;
@@ -33,11 +34,11 @@ public class Ejercito {
 	}
 
     public ArrayList<Integer> tirarDadosDefensores(Dados unosDados) {
-        return unosDados.arrojar(Math.min(tamanio, 3));
+        return unosDados.arrojar(Math.min(tamanio, maximaTirada));
     }
-
+    
     public ArrayList<Integer> tirarDadosAtacantes(Dados unosDados) {
-        return unosDados.arrojar(Math.min(tamanio-1, 3));
+        return unosDados.arrojar(Math.min(tamanio-1, maximaTirada));
     }
     
     public void ocupar(Pais unPais,int unaCantidad) {
