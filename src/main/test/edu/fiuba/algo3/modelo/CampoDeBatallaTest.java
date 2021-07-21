@@ -44,14 +44,14 @@ public class CampoDeBatallaTest {
 	@Test
 	public void test03SeObtieneUnaBatallaDondeSiempreGanaDefensor(){
 		CampoDeBatalla unCampo = new CampoDeBatalla();
+		Ejercito ejercitoBrasilero = mock(Ejercito.class);
 		Ejercito ejercitoArgentino = new Ejercito();
-		Ejercito ejercitoBrasilero = new Ejercito();
 
-		// Brasil ataca a Argentina
 
-		//TODO: Mockear ejercito atacante para que siempre pierda
-		// Mockear ejercito defensor para que gane
-		unCampo.iniciarBatallaYQueGaneElDefensor(ejercitoBrasilero, ejercitoArgentino);
+		when(ejercitoBrasilero.tirarDadosAtacantes(new Dados(6))).thenReturn(new ArrayList<Integer>() {{add(0);}});
+        ejercitoBrasilero.incrementar(1);
+
+		unCampo.iniciarBatalla(ejercitoBrasilero, ejercitoArgentino);
 		
 		assertNotEquals(0, ejercitoArgentino.tamanio());
 	}
@@ -59,14 +59,11 @@ public class CampoDeBatallaTest {
 	@Test
 	public void test04SeObtieneUnaBatallaDondeSiempreGanaAtacante(){
 		CampoDeBatalla unCampo = new CampoDeBatalla();
-		Ejercito ejercitoArgentino = new Ejercito();
+		Ejercito ejercitoArgentino = mock(Ejercito.class);
 		Ejercito ejercitoBrasilero = new Ejercito();
 		
-		// Brasil ataca a Argentina
-
-		//TODO: Mockear ejercito defensor para que siempre pierda
-		// Mockear ejercito atacante para que gane
-		unCampo.iniciarBatallaYQueGaneElAtacante(ejercitoBrasilero, ejercitoArgentino);
+		when(ejercitoArgentino.tirarDadosDefensores(new Dados(6))).thenReturn(new ArrayList<Integer>() {{add(0);}});
+		unCampo.iniciarBatalla(ejercitoBrasilero, ejercitoArgentino);
 
 		assertEquals(0, ejercitoArgentino.tamanio());
 	}

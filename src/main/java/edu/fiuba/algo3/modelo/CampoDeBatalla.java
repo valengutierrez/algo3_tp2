@@ -55,21 +55,4 @@ public class CampoDeBatalla {
 	public void setResultadoDefensor(ArrayList<Integer> unTiroDeDados) {
 		resultadoDefensor = unTiroDeDados;
 	}
-	/*******Only Testing Purposes*******/
-
-	public void iniciarBatallaYQueGaneElDefensor(Ejercito unEjercitoAtacante, Ejercito unEjercitoDefensor){
-		setResultadoAtacante(unosDados.tiroPerdedor()); // [5]
-		setResultadoDefensor(unosDados.tiroGanador()); // [6,4,1]
-		comparar(); //[bajas atacantes = 1 ; bajas defensoras = 0]
-		unEjercitoAtacante.reducir(getBajasAtacantes());
-		unEjercitoDefensor.reducir(getBajasDefensoras());
-	}
-
-	public void iniciarBatallaYQueGaneElAtacante(Ejercito unEjercitoAtacante, Ejercito unEjercitoDefensor){
-		setResultadoAtacante(unosDados.tiroGanador()); // [5]
-		setResultadoDefensor(unosDados.tiroPerdedor()); // [6,4,1]
-		comparar(); //[bajas atacantes = 1 ; bajas defensoras = 0]
-		unEjercitoAtacante.reducir(getBajasAtacantes());
-		unEjercitoDefensor.reducir(getBajasDefensoras());
-	}
 }
