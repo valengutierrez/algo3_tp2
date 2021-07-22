@@ -11,7 +11,7 @@ public class Continente {
         ejercitosAAgregar = ejercitos;
     }
 
-    public int ejercioPorContinente(ArrayList<Pais> paisesDelJugador) {
+    public int ejercitoPorContinente(ArrayList<Pais> paisesDelJugador) {
         for (Pais p : paises) {
             if (!paisesDelJugador.contains(p)) {
                 return 0;

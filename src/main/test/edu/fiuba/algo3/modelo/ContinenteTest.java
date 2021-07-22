@@ -27,7 +27,7 @@ public class ContinenteTest {
 
         ArrayList<Pais> paisesDelJugador = unJugador.getPaisesOcupados();
 
-        assertEquals(2, Oceania.ejercioPorContinente(paisesDelJugador));
+        assertEquals(2, Oceania.ejercitoPorContinente(paisesDelJugador));
     }
 
     @Test
@@ -49,6 +49,6 @@ public class ContinenteTest {
 
         ArrayList<Pais> paisesDelJugador = unJugador.getPaisesOcupados();
 
-        assertEquals(0, Oceania.ejercioPorContinente(paisesDelJugador));
+        assertEquals(0, Oceania.ejercitoPorContinente(paisesDelJugador));
     }
 }
