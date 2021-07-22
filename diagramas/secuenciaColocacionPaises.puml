@@ -6,6 +6,8 @@ participant Juego
 actor Jugador1 as JugadorAzul
 participant PaisAzul
 participant ejercitoAzul
+participant Continente
+participant TarjetaPais
 
 Juego -> JugadorAzul: rondaDeColocacionPaises()
 loop cantidad de paises ocupados / 2
@@ -13,10 +15,18 @@ loop cantidad de paises ocupados / 2
 	PaisAzul -> ejercitoAzul: incrementar(5)
 end 
 
-Juego -> JugadorAzul: rondaDeColocacionContinentes(reglaDeColocacion)
-JugadorAzul -> ReglaDeColocacion: getEjercitosAColocar(misPaises)
-return 
+Juego -> JugadorAzul: rondaDeColocacionContinentes()
+loop para cada continente
+    JugadorAzul -> Continente: ejercitoPorContinente(Paises)
+    return cantidadEjercitos
+end
+loop cantidadEjercitos
+	JugadorAzul -> PaisAzul: incrementarEjercito(cantidadEjercitos)
+	PaisAzul -> ejercitoAzul: incrementar(cantidadEjercitos)
+end
+
 Juego -> JugadorAzul: activarCartas()
+JugadorAzul -> TarjetaPais: activar(paises)
 
 
 @enduml

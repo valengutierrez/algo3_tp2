@@ -15,6 +15,7 @@ public class Pais {
     public Pais(Jugador unJugador){
         estado = new estadoDesocupado();
         estado = estado.cambiarAOcupado(unJugador);
+        unJugador.ocupar(this);
         ejercitoNacional = new Ejercito();
         paisesLimitrofes = new ArrayList<Pais>();
     }

@@ -4,6 +4,7 @@ public class estadoDesocupado extends estadoOcupacion{
 
 	@Override
 	estadoOcupacion cambiarAOcupado(Jugador unJugador) {
+		//unJugador.ocupar(unPais);
 		return new estadoOcupado(unJugador);
 	}
 
