@@ -53,7 +53,7 @@ public class JuegoTest {
 
         Ejercito ejercitoDefensorChile = mock(Ejercito.class);
         when(ejercitoDefensorChile.tirarDadosDefensores(new Dados(6))).thenReturn(new ArrayList<Integer>() {{add(0);}});
-        brasil.agregarEjercito(ejercitoDefensorChile);
+        chile.agregarEjercito(ejercitoDefensorChile);
 
         argentina.setPaisLimitrofe(brasil);
         argentina.setPaisLimitrofe(chile);
