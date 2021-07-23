@@ -29,7 +29,7 @@ public class EstadoOcupacionTest {
 		estadoOcupacion unEstado = new estadoDesocupado();
 		Jugador unJugador = new Jugador();
 
-		unEstado = unEstado.cambiarAOcupado(unJugador);
+		unEstado = unEstado.cambiarAOcupado(unJugador, new Pais());
 
 		assertEquals(estadoOcupado.class, unEstado.getClass());
 	}
@@ -49,7 +49,7 @@ public class EstadoOcupacionTest {
 		estadoOcupacion unEstado = new estadoDesocupado();
 		Jugador unJugador = new Jugador();
 	
-		unEstado = unEstado.cambiarAOcupado(unJugador);
+		unEstado = unEstado.cambiarAOcupado(unJugador, new Pais());
 	
 		assertEquals(unJugador, unEstado.obtenerDuenio());
 	}

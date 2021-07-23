@@ -31,30 +31,80 @@ public class JuegoTest {
 
     @Test
     public void test02UnJugadorAtacaADosPaisesYLosConquista() {
+        Juego TEG = new Juego();
         Jugador jugadorAzul = new Jugador();
         Jugador jugadorVerde = new Jugador();
 
-        Ejercito ejercitoAtacante = mock(Ejercito.class);
-        when(ejercitoAtacante.tirarDadosAtacantes(new Dados(6))).thenReturn(new ArrayList<Integer>() {{add(7);}});
-        ejercitoAtacante.incrementar(3);
+        TEG.añadirJugador(jugadorAzul);
+        TEG.añadirJugador(jugadorVerde);
 
         Pais argentina = new Pais(jugadorAzul);
-        //argentina.agregarEjercito(ejercitoAtacante);
+        TarjetaPais tarjetaArgentina = new TarjetaPais(argentina, "globo");
+        argentina.incrementarEjercito(9);
 
         Pais brasil = new Pais(jugadorVerde);
+        TarjetaPais tarjetaBrasil = new TarjetaPais(brasil, "canion");
         Pais chile = new Pais(jugadorVerde);
+        TarjetaPais tarjetaChile = new TarjetaPais(chile, "barco");
 
-        Ejercito ejercitoDefensor = mock(Ejercito.class);
-        when(ejercitoDefensor.tirarDadosAtacantes(new Dados(6))).thenReturn(new ArrayList<Integer>() {{add(0);}});
-        //brasil.agregarEjercito(ejercitoDefensor);
+        Ejercito ejercitoDefensorBrasil = mock(Ejercito.class);
+        when(ejercitoDefensorBrasil.tirarDadosDefensores(new Dados(6))).thenReturn(new ArrayList<Integer>() {{add(0);}});
+        brasil.agregarEjercito(ejercitoDefensorBrasil);
+
+        Ejercito ejercitoDefensorChile = mock(Ejercito.class);
+        when(ejercitoDefensorChile.tirarDadosDefensores(new Dados(6))).thenReturn(new ArrayList<Integer>() {{add(0);}});
+        brasil.agregarEjercito(ejercitoDefensorChile);
 
         argentina.setPaisLimitrofe(brasil);
         argentina.setPaisLimitrofe(chile);
-        jugadorAzul.atacar(argentina, brasil);
-        jugadorAzul.atacar(argentina, chile);
+
+        ArrayList<TarjetaPais> mazo = new ArrayList<TarjetaPais>();
+        mazo.add(tarjetaArgentina);
+        mazo.add(tarjetaBrasil);
+        mazo.add(tarjetaChile);
+
+        TEG.agregarMazo(mazo);
+
+        TEG.jugadorEnTurnoAtaca(argentina, brasil);
+        TEG.jugadorEnTurnoAtaca(argentina, chile);
+
+        TEG.reagrupar(argentina, brasil, 2);
+
+        TEG.pasarTurno();
 
         assertEquals(jugadorAzul, brasil.obtenerDuenio());
-        //assertEquals(jugadorAzul, chile.obtenerDuenio());
+        assertEquals(jugadorAzul, chile.obtenerDuenio());
+
+        assertEquals(1, jugadorAzul.obtenerTarjetas().size());
     }
+
+    @Test
+    public void test03RondaDeColocacionDeUnJugadorQueControlaOceania(){
+        Jugador jugadorAzul = new Jugador();
+
+        Pais Australia = new Pais(jugadorAzul);
+        Pais Java = new Pais(jugadorAzul);
+        Pais Sumatra = new Pais(jugadorAzul);
+        Pais Borneo = new Pais(jugadorAzul);
+
+        ArrayList<Pais> paisesDeOceania = new ArrayList<Pais>();
+        paisesDeOceania.add(Australia);
+        paisesDeOceania.add(Java);
+        paisesDeOceania.add(Sumatra);
+        paisesDeOceania.add(Borneo);
+
+        Continente Oceania = new Continente(paisesDeOceania, 2);
+
+        int ejercitosPorContinente = Oceania.ejercitoPorContinente(jugadorAzul.getPaisesOcupados());
+
+        jugadorAzul.fichasPorPais();
+        jugadorAzul.incrementarFichasDisponibles(ejercitosPorContinente);
+
+        jugadorAzul.colocarEjercitos(Australia, 4);
+        jugadorAzul.colocarEjercitos(Australia, 5);
+
+        assertEquals(5, Australia.obtenerEjercito());
+    }
+
 
 }

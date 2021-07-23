@@ -7,7 +7,7 @@ public class estadoOcupado extends estadoOcupacion{
 	}
 
 	@Override
-	estadoOcupacion cambiarAOcupado(Jugador unJugador) {
+	estadoOcupacion cambiarAOcupado(Jugador unJugador, Pais unPais) {
 		return this;
 	}
 

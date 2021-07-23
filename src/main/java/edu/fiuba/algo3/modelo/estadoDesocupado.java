@@ -3,8 +3,8 @@ package edu.fiuba.algo3.modelo;
 public class estadoDesocupado extends estadoOcupacion{
 
 	@Override
-	estadoOcupacion cambiarAOcupado(Jugador unJugador) {
-		//unJugador.ocupar(unPais);
+	estadoOcupacion cambiarAOcupado(Jugador unJugador, Pais unPais) {
+		unJugador.ocupar(unPais);
 		return new estadoOcupado(unJugador);
 	}
 

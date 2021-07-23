@@ -41,8 +41,15 @@ public class Ejercito {
         return unosDados.arrojar(Math.min(tamanio-1, maximaTirada));
     }
     
-    public void ocupar(Pais unPais,int unaCantidad) {
+    public void ocupar(Pais unPais ,int unaCantidad) {
         reducir(unaCantidad);
         unPais.incrementarEjercito(unaCantidad);
+    }
+
+    public void moverEjercito(Pais paisDestino, int cantidadEjercito){
+        if (cantidadEjercito < tamanio){
+            paisDestino.incrementarEjercito(cantidadEjercito);
+            tamanio -= cantidadEjercito;
+        }
     }
 }

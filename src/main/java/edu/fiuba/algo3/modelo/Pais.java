@@ -14,8 +14,7 @@ public class Pais {
     }
     public Pais(Jugador unJugador){
         estado = new estadoDesocupado();
-        estado = estado.cambiarAOcupado(unJugador);
-        unJugador.ocupar(this);
+        estado = estado.cambiarAOcupado(unJugador, this);
         ejercitoNacional = new Ejercito();
         paisesLimitrofes = new ArrayList<Pais>();
     }
@@ -45,7 +44,8 @@ public class Pais {
             ejercitoNacional.atacar(unPais);
             unPais.serOcupadoPor(estado.obtenerDuenio());
             // TODO: Preguntar al usuario cuantos ejercitos quiere pasar
-            ejercitoNacional.ocupar(unPais,1); 
+            if (this.obtenerDuenio() == unPais.obtenerDuenio())
+                ejercitoNacional.ocupar(unPais, 1);
         }
     }
 
@@ -60,7 +60,11 @@ public class Pais {
     public void serOcupadoPor(Jugador unJugador){
         //TODO: Delegar el comportamiento de saber si esta ocupado o no a un estadoOcupacion
         // estado.cambiarAOcupado(unJugador);
-            estado = estado.cambiarAOcupado(unJugador);
+            estado = estado.cambiarAOcupado(unJugador, this);
+    }
+
+    public void moverEjercito(Pais paisDestino, int cantidadEjercito){
+        ejercitoNacional.moverEjercito(paisDestino, cantidadEjercito);
     }
 
     public void setPaisLimitrofe(Pais unPais){
