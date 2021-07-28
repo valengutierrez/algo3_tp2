@@ -1,4 +1,4 @@
-package edu.fiuba.algo3;
+package edu.fiuba.algo3.vista;
 
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -13,7 +13,7 @@ public class Main extends Application {
     public static int height;
 
     public static void main(String[] args) {
-        launch(args);
+        launch();
     }
 
     @Override
