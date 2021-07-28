@@ -6,7 +6,7 @@ public class Juego {
     private ArrayList<Jugador> jugadores;
     private Jugador jugadorEnTurno;
     private boolean jugadorConquisto;
-    private ArrayList<TarjetaPais> mazoTarjetasPais;
+    private ArrayList<TarjetaPais> mazoTarjetasPais; // Cambiar aca a List, interfaz mas general
 
     public Juego(){
         jugadores = new ArrayList<Jugador>();
@@ -24,6 +24,7 @@ public class Juego {
 
     public void jugadorEnTurnoAtaca(Pais paisAtacante, Pais paisDefensor){
         int paisesIniciales = jugadorEnTurno.getPaisesOcupados().size();
+        // Mover validacion de conquista al metodo de ataque del jugador
         jugadorEnTurno.atacar(paisAtacante, paisDefensor);
         int paisesFinales = jugadorEnTurno.getPaisesOcupados().size();
         if (paisesFinales > paisesIniciales){
