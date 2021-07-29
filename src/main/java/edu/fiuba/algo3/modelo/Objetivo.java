@@ -28,4 +28,16 @@ public class Objetivo {
 							+ " " + Europa
 							+ " " + Oceania);
 	}
+
+	public ArrayList<Integer> getCantidades() {
+		ArrayList<Integer> retval = new ArrayList<Integer>();
+
+		retval.add(America_del_norte);
+		retval.add(America_del_Sur);
+		retval.add(Africa);
+		retval.add(Asia);
+		retval.add(Europa);
+		retval.add(Oceania);
+		return retval;
+	}
 }

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 public class Juego {
     private ArrayList<Jugador> jugadores;
     private ArrayList<Pais> paises;
+    private ArrayList<Continente> continentes;
+    private ArrayList<Objetivo> objetivos;
     private Jugador jugadorEnTurno;
     private boolean jugadorConquisto;
     private ArrayList<TarjetaPais> mazoTarjetasPais; // TODO: Cambiar aca a List, interfaz mas general
@@ -119,6 +121,54 @@ public class Juego {
     public ArrayList<TarjetaPais> getTarjetas() {
         return mazoTarjetasPais;
     }
+
+    public void crearContinentes(String archivo) {
+        Parser unParser = new Parser(archivo);
+        ArrayList<String[]> datos = new ArrayList<String[]>();
+        continentes = new ArrayList<Continente>();
+		datos = unParser.parsePaises();
+
+        for(int i = 0; i<datos.size(); i++){
+            String nombreContinente = datos.get(i)[1];
+            String nombrePais = datos.get(i)[0];
+            if(!continentes.contains(this.buscarContinente(nombreContinente))){
+                Continente unContinente = new Continente(nombreContinente);
+                continentes.add(unContinente);
+            }
+            //Continentes cargados, falta poblarlos
+            Continente unContinente = this.buscarContinente(nombreContinente);
+            Pais unPais = this.buscarPais(nombrePais);
+            unContinente.poblarContinente(unPais);
+        }
+    }
+
+    public Continente buscarContinente(String nombre) {
+        for(Continente i: continentes){
+            if(i.getNombre().equals(nombre)){
+                return i;
+            }
+        }
+        return null;
+    }
+
+	public ArrayList<Continente> getContinentes() {
+		return continentes;
+	}
+
+    public void crearObjetivos(String archivo) {
+        Parser unParser = new Parser(archivo);
+        ArrayList<ArrayList<Integer>> datos = new ArrayList<ArrayList<Integer>>();
+		datos = unParser.parse();
+        objetivos = new ArrayList<Objetivo>();
+
+        for(ArrayList<Integer> linea : datos){
+			objetivos.add(new Objetivo(linea));
+		}
+    }
+
+	public ArrayList<Objetivo> getObjetivos() {
+		return objetivos;
+	}
 
 }
 /*

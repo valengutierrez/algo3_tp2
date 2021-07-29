@@ -5,6 +5,11 @@ import java.util.ArrayList;
 public class Continente {
     private ArrayList<Pais> paises;
     private int ejercitosAAgregar;
+    private String nombre;
+
+    public Continente(String unNombre){
+        nombre = unNombre;
+    }
 
     public Continente(ArrayList<Pais> paisesDelContinente, int ejercitos){
         paises = paisesDelContinente;
@@ -19,4 +24,20 @@ public class Continente {
         }
         return ejercitosAAgregar;
     }
+
+	public String getNombre() {
+		return nombre;
+	}
+
+    public void poblarContinente(Pais unPais) {
+        if(paises == null){
+            paises = new ArrayList<Pais>();
+        }
+        paises.add(unPais);
+    }
+
+	public Integer tamanio() {
+		return paises.size();
+	}
+
 }

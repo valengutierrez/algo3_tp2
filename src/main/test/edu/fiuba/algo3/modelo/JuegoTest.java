@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -142,7 +143,30 @@ public class JuegoTest {
         
     }
 
-    // Un juego carga los objetivos
-    // Un juego carga los continentes
-
+    @Test
+    public void test06UnJuegoCargaLosContinentes() {
+        Juego TEG = new Juego();
+        TEG.crearPaises("src/main/resources/Teg - Cartas.csv");
+        TEG.crearContinentes("src/main/resources/Teg - Fronteras.csv");
+        assertEquals(6, TEG.getContinentes().size());
+        assertEquals(15, TEG.buscarContinente("Asia").tamanio());
+    }
+    
+    @Test
+    public void test06UnJuegoCargaLosObjetivos() {
+        Juego TEG = new Juego();
+        TEG.crearObjetivos("src/main/resources/Objetivos.csv");
+        
+        ArrayList<Integer> objetivo1 = new ArrayList<Integer>();
+		objetivo1.add(5);
+		objetivo1.add(0);
+		objetivo1.add(6);
+		objetivo1.add(0);
+		objetivo1.add(4);
+		objetivo1.add(0);
+        
+        assertTrue(objetivo1.equals(TEG.getObjetivos().get(0).getCantidades()));
+        
+        
+    }
 }
