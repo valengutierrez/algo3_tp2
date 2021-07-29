@@ -1,0 +1,62 @@
+Continente, Pais
+AMERICA DEL NORTE (10)
+    Alaska
+    Californía
+    Canadá
+    Groenlandia
+    Labrador
+    México
+    Nueva York
+    Oregón
+    Terranova
+    Yukón
+
+AMERICA DEL SUR (6)
+    Argentina
+    Brasíl
+    Chile
+    Colombia
+    Perú
+    Uruguay
+
+ÁFRICA (6)
+    Egipto
+    Etiopia
+    Madagascar
+    Sahara
+    Sudafrica
+    Zaire
+
+EUROPA (9)
+    Alemania
+    España
+    Francia
+    Gran Bretaña
+    Islandia
+    Italia
+    Polonia
+    Rusia
+    Suecia
+
+ASIA (15)
+    Arabia
+    Aral
+    China
+    Gobi
+    India
+    Irán
+    Israel
+    Japón
+    Kamchatka
+    Malasia
+    Mongolia
+    Siberia
+    Tartaria
+    Taymir
+    Turquía
+
+OCEANÍA (4)
+    Australia
+    Borneo
+    Java
+    Sumatra
