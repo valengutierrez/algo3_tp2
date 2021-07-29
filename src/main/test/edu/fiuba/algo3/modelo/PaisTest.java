@@ -70,8 +70,7 @@ public class PaisTest {
 
     @Test
     public void test05UnPaisEsOcupadoPorUnJugador(){
-        Jugador otroJugador = new Jugador();
-        Pais unPais = new Pais(otroJugador);
+        Pais unPais = new Pais();
         Jugador unJugador = new Jugador();
 
         unPais.serOcupadoPor(unJugador);
