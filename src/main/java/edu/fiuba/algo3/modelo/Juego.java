@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Juego {
     private ArrayList<Jugador> jugadores;
+    private ArrayList<Pais> paises;
     private Jugador jugadorEnTurno;
     private boolean jugadorConquisto;
     private ArrayList<TarjetaPais> mazoTarjetasPais; // TODO: Cambiar aca a List, interfaz mas general
@@ -54,6 +55,69 @@ public class Juego {
 
     public Jugador turnoDe(){
         return jugadorEnTurno;
+    }
+
+	public void agregarPais(Pais unPais) {
+        if(paises==null){
+            paises = new ArrayList<Pais>();
+        }
+        paises.add(unPais);
+	}
+
+    public Pais buscarPais(String nombre) {
+        for(Pais i: paises){
+            if(i.getNombre().equals(nombre)){
+                return i;
+            }
+        }
+        return null;
+    }
+
+	public void crearPaises(String archivo) {
+        Parser unParser = new Parser(archivo);
+        ArrayList<String[]> datos = new ArrayList<String[]>();
+        paises = new ArrayList<Pais>();
+		datos = unParser.parsePaises();
+
+        for(int i = 0; i<datos.size(); i++){
+            Pais unPais = new Pais(datos.get(i)[0]);
+            paises.add(unPais);
+        }
+	}
+
+	public ArrayList<Pais> getPaises() {
+		return paises;
+	}
+
+	public void cargarFronteras(String archivo) {
+        Parser unParser= new Parser(archivo);
+        ArrayList<String[]> datos = new ArrayList<String[]>();
+        datos = unParser.parseFronteras();
+        
+        for(int j = 0; j<datos.size() ; j++){
+            Pais paisAColocarleFronteras = this.buscarPais(datos.get(j)[0]);
+            for(int k = 2 ; k<datos.get(j).length; k++){
+                Pais paisFronterizo = this.buscarPais(datos.get(j)[k]);
+                paisAColocarleFronteras.setPaisLimitrofe(paisFronterizo);
+            }
+        }
+
+	}
+
+	public void cargarTarjetas(String archivo) {
+        Parser unParser = new Parser(archivo);
+        ArrayList<String[]> datos = new ArrayList<String[]>();
+        mazoTarjetasPais = new ArrayList<TarjetaPais>();
+		datos = unParser.parsePaises();
+
+        for(int i = 0; i<datos.size(); i++){
+            TarjetaPais unaTarjeta = new TarjetaPais(this.buscarPais(datos.get(i)[0]),datos.get(i)[1]);
+            mazoTarjetasPais.add(unaTarjeta);
+        }
+	}
+
+    public ArrayList<TarjetaPais> getTarjetas() {
+        return mazoTarjetasPais;
     }
 
 }

@@ -1,0 +1,33 @@
+@startuml Diagrama de clases
+skinparam classAttributeIconSize 0
+skinparam style strictuml
+hide class circle
+hide abstract circle
+
+
+Class Juego{
+    - lista de jugadores
+    - jugador en turno: Jugador
+    - mazoDeTarjetasDePais
+    - lista de paises
+    - lista de objetivos
+
+    ' + agregarMazo(unMazo:Mazo)
+    ' + añadirJugador(unJugador:jugador)
+    + iniciarJuego()
+    - cargarPaisesYContinentes(fronteras.csv)
+    - cargarCartas(cartas.csv)
+    - cargarObjetivos(objetivos.csv)
+    + buscarPais(nombre : String) : Pais
+
+
+
+
+    + jugadorEnTurnoAtaca(paisAtacante, paisDefensor)
+    + reagrupar(paisOrigen,paisDestino,cantidad)
+    + pasarTurno()
+    + turnoDe(): Jugador
+
+}
+
+@enduml

@@ -81,7 +81,7 @@ public class JuegoTest {
     @Test
     public void test03RondaDeColocacionDeUnJugadorQueControlaOceania(){
         Jugador jugadorAzul = new Jugador();
-
+        
         Pais Australia = new Pais(jugadorAzul);
         Pais Java = new Pais(jugadorAzul);
         Pais Sumatra = new Pais(jugadorAzul);
@@ -92,19 +92,57 @@ public class JuegoTest {
         paisesDeOceania.add(Java);
         paisesDeOceania.add(Sumatra);
         paisesDeOceania.add(Borneo);
-
+        
         Continente Oceania = new Continente(paisesDeOceania, 2);
 
         int ejercitosPorContinente = Oceania.ejercitoPorContinente(jugadorAzul.getPaisesOcupados());
-
+        
         jugadorAzul.fichasPorPais();
         jugadorAzul.incrementarFichasDisponibles(ejercitosPorContinente);
-
+        
         jugadorAzul.colocarEjercitos(Australia, 4);
         jugadorAzul.colocarEjercitos(Australia, 5);
-
+        
         assertEquals(5, Australia.obtenerEjercito());
     }
+    
+    @Test
+    public void test04UnJuegoEncuentraUnPaisYLoDevuelve(){
+        Pais argentina = new Pais("Argentina");
+        Juego unJuego = new Juego();
+        unJuego.agregarPais(argentina);
 
+        assertEquals(argentina, unJuego.buscarPais("Argentina"));
+    }
+
+    @Test
+    public void test05UnJuegoCargaLosPaises() {
+        Juego TEG = new Juego();
+        TEG.crearPaises("src/main/resources/Teg - Cartas.csv");
+        
+        assertEquals(50,TEG.getPaises().size());
+    }
+
+    @Test
+    public void test05UnJuegoCargaLasFronteras() {
+        Juego TEG = new Juego();
+        TEG.crearPaises("src/main/resources/Teg - Cartas.csv");
+        TEG.cargarFronteras("src/main/resources/Teg - Fronteras.csv");
+        
+        assertEquals(4,TEG.buscarPais("Argentina").getPaisesLimitrofes().size());
+    }
+
+    @Test
+    public void test06UnJuegoCargaLasTarjetas() {
+        Juego TEG = new Juego();
+        TEG.crearPaises("src/main/resources/Teg - Cartas.csv");
+        TEG.cargarTarjetas("src/main/resources/Teg - Cartas.csv");
+
+        assertEquals(50, TEG.getTarjetas().size());
+        
+    }
+
+    // Un juego carga los objetivos
+    // Un juego carga los continentes
 
 }

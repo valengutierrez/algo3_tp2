@@ -93,7 +93,7 @@ public class PaisTest {
         ArrayList<String[]> datos = new ArrayList<String[]>();
         ArrayList<Pais> paises = new ArrayList<Pais>();
 		datos = unParser.parsePaises();
-
+        
         String nombrePais;
 
         for(String[] dupla: datos){
@@ -104,6 +104,38 @@ public class PaisTest {
         for(Pais i : paises){
             System.out.println(i.getNombre());
         }
+    }
+
+    @Test
+    public void test08LeoElArchivoDeFronteras() {
+        Parser unParser = new Parser("src/main/resources/Teg - Fronteras.csv");
+        ArrayList<String[]> datos = new ArrayList<String[]>();
+        datos = unParser.parseFronteras();
+        String[] linea = datos.get(0);
+        System.out.println("Pais: " + linea[0]);
+        System.out.println("Continente: " + linea[1]);
+        System.out.printf("Cantidad de paises fronterizos: %s",linea.length-2);
+        
+    }
+
+    @Test
+    public void test09CargoLasFronterasAPaisesYaCreados(){
+        Juego juego = new Juego();
+        juego.crearPaises("src/main/resources/Teg - Cartas.csv");
+                
+        Parser otroParser = new Parser("src/main/resources/Teg - Fronteras.csv");
+        ArrayList<String[]> otrosDatos = new ArrayList<String[]>();
+        otrosDatos = otroParser.parseFronteras();
+        
+        for(int j = 0; j<otrosDatos.size() ; j++){
+            Pais paisAColocarleFronteras = juego.buscarPais(otrosDatos.get(j)[0]);
+            for(int k = 2 ; k<otrosDatos.get(j).length; k++){
+                Pais paisFronterizo = juego.buscarPais(otrosDatos.get(j)[k]);
+                paisAColocarleFronteras.setPaisLimitrofe(paisFronterizo);
+            }
+        }
+        assertEquals(4,juego.buscarPais("Argentina").getPaisesLimitrofes().size());
+
     }
 
 }
