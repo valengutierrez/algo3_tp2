@@ -69,9 +69,42 @@ public class PaisTest {
     }
 
     @Test
-    public void test05UnPaisPuedeOcuparOtroPais(){
-        //TODO: Un pais debe poder ocupar otro pais
+    public void test05UnPaisEsOcupadoPorUnJugador(){
+        Jugador otroJugador = new Jugador();
+        Pais unPais = new Pais(otroJugador);
+        Jugador unJugador = new Jugador();
+
+        unPais.serOcupadoPor(unJugador);
+        assertEquals(unJugador, unPais.obtenerDuenio());
         
+    }
+
+    @Test
+    public void test06LeoUnArchivoYCreoUnPais(){
+        Parser unParser = new Parser("src/main/resources/Teg - Cartas.csv");
+        ArrayList<String[]> datos = new ArrayList<String[]>();
+		datos = unParser.parsePaises();
+        Pais unPais= new Pais(datos.get(0)[0]);
+        assertEquals("Francia", unPais.getNombre());
+    }
+
+    @Test
+    public void test07LeoUnArchivoYCreoTodosLosPaises(){
+        Parser unParser = new Parser("src/main/resources/Teg - Cartas.csv");
+        ArrayList<String[]> datos = new ArrayList<String[]>();
+        ArrayList<Pais> paises = new ArrayList<Pais>();
+		datos = unParser.parsePaises();
+
+        String nombrePais;
+
+        for(String[] dupla: datos){
+            nombrePais = dupla[0];
+            Pais unPais= new Pais(nombrePais);
+            paises.add(unPais);
+        }
+        for(Pais i : paises){
+            System.out.println(i.getNombre());
+        }
     }
 
 }

@@ -20,4 +20,12 @@ public class TarjetaPais {
             activada = true;
         }
     }
+
+    public String getSimbolo() {
+        return simbolo;
+    }
+
+    public String getNombre() {
+        return pais.getNombre();
+    }
 }

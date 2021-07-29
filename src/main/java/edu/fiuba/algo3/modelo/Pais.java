@@ -6,12 +6,21 @@ public class Pais {
     private Ejercito ejercitoNacional;
     private ArrayList<Pais> paisesLimitrofes;
     private estadoOcupacion estado;
+    private String nombre;
 
     public Pais(){
         estado = new estadoDesocupado();
         ejercitoNacional = new Ejercito();
         paisesLimitrofes = new ArrayList<Pais>();
     }
+
+    public Pais(String unNombre){
+        estado = new estadoDesocupado();
+        ejercitoNacional = new Ejercito();
+        paisesLimitrofes = new ArrayList<Pais>();
+        nombre = unNombre;
+    }
+
     public Pais(Jugador unJugador){
         estado = new estadoDesocupado();
         estado = estado.cambiarAOcupado(unJugador, this);
@@ -74,5 +83,9 @@ public class Pais {
     public ArrayList<Pais> getPaisesLimitrofes(){
         return paisesLimitrofes;
     }
+
+	public String getNombre() {
+		return nombre;
+	}
     
 }

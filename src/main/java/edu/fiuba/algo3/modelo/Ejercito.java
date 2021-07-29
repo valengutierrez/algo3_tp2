@@ -29,8 +29,8 @@ public class Ejercito {
     }
 
 	public void reducir(int i) {
-        //TODO: Validar que el tamanio no sea negativo
-        tamanio-=i;
+        if(tamanio >= i)
+            tamanio-=i;
 	}
 
     public ArrayList<Integer> tirarDadosDefensores(Dados unosDados) {
