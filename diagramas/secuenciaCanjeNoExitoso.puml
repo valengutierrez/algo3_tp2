@@ -1,0 +1,21 @@
+@startuml SecuenciaObjetivos
+title Jugador realiza canje no exitoso
+skinparam style strictuml
+actor Jugador
+participant PrimerCanje
+
+Jugador -> PrimerCanje: realizarCanje(Tarjeta1, Tarjeta2, Tarjeta3)
+group compara tarjetas
+PrimerCanje -> PrimerCanje: compararTarjetas()
+note right
+en caso de tarjetas incorrectas: canjeRealizado = false
+end note
+end
+
+Jugador <-- PrimerCanje: 0
+
+
+Jugador -> PrimerCanje: actualizarCanje()
+Jugador <-- PrimerCanje: this
+
+@enduml
