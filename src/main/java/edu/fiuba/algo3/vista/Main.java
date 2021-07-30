@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.vista;
+package edu.fiuba.algo3;
 
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;

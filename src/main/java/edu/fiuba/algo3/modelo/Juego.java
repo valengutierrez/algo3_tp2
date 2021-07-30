@@ -1,11 +1,17 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.vista.VentanaJuego;
+import javafx.stage.Stage;
+
 import java.util.ArrayList;
+import java.util.Observable;
 
 
-public class Juego {
+public class Juego extends Observable {
     private ArrayList<Jugador> jugadores;
     private ArrayList<Pais> paises;
+    private Pais paisOrigen;
+    private Pais paisDestino;
     private ArrayList<Continente> continentes;
     private ArrayList<Objetivo> objetivos;
     private Jugador jugadorEnTurno;
@@ -16,6 +22,42 @@ public class Juego {
         jugadores = new ArrayList<Jugador>();
     }
 
+    public void crearVentana(Stage primaryStage){
+        VentanaJuego.crearVentana(primaryStage, this);
+    }
+
+    public void crearModelo(){
+        Jugador jugadorAzul = new Jugador();
+        Jugador jugadorVerde = new Jugador();
+
+        Pais argentina = new Pais("argentina");
+        Pais brasil = new Pais("brasil");
+        Pais canada = new Pais("canada");
+        argentina.serOcupadoPor(jugadorAzul);
+        brasil.serOcupadoPor(jugadorVerde);
+        canada.serOcupadoPor(jugadorVerde);
+
+        argentina.incrementarEjercito(5);
+        argentina.setPaisLimitrofe(brasil);
+
+        añadirJugador(jugadorAzul);
+        añadirJugador(jugadorVerde);
+
+
+        agregarPais(argentina);
+        agregarPais(brasil);
+        agregarPais(canada);
+    }
+
+    public void seleccionarPais(String id) {
+        if (paisOrigen == null){
+            paisOrigen = this.buscarPais(id);
+        } else if (paisDestino == null){
+            paisDestino = this.buscarPais(id);
+        }
+        setChanged();
+    }
+
     public void agregarMazo(ArrayList<TarjetaPais> mazo){
         mazoTarjetasPais = mazo;
     }
@@ -24,6 +66,23 @@ public class Juego {
         jugadores.add(jugador);
         if(jugadorEnTurno == null)
             jugadorEnTurno = jugador;
+    }
+
+    public void jugadorEnTurnoAtaca(String paisOrigen, String paisDestino){
+        Pais paisAtacante = this.buscarPais(paisOrigen);
+        Pais paisDefensor = this.buscarPais(paisDestino);
+        System.out.println("ejercito antes de atacar: " + paisAtacante.obtenerEjercito());
+        System.out.println("dueño brasil: " + paisDefensor.obtenerDuenio());
+        int paisesIniciales = jugadorEnTurno.getPaisesOcupados().size();
+        // Mover validacion de conquista al metodo de ataque del jugador
+        jugadorEnTurno.atacar(paisAtacante, paisDefensor);
+        int paisesFinales = jugadorEnTurno.getPaisesOcupados().size();
+        if (paisesFinales > paisesIniciales){
+            jugadorConquisto = true;
+        }
+        System.out.println("ejercito despues de atacar: " + paisAtacante.obtenerEjercito());
+        System.out.println("dueño brasil: " + paisDefensor.obtenerDuenio());
+        setChanged();
     }
 
     public void jugadorEnTurnoAtaca(Pais paisAtacante, Pais paisDefensor){
