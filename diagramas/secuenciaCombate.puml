@@ -47,18 +47,4 @@ group El jugador trata de ocupar el pais
 	EjercitoAtacante -> PaisAtacado: incrementarEjercito(unaCantidad)
 end
 
-
-
-' CampoDeBatalla -> EjercitoAtacante: puedeOcupar()
-
-
-
-
-' ' --------------------------------------------------
-' EjercitoAtacado --> PaisAtacado: derrotado
-' PaisAtacado -> JugadorAtacado: desocupar()
-' PaisAtacado --> JugadorAtacante: puedeOcupar
-' JugadorAtacante -> PaisAtacado: ocupar()
-
-
 @enduml

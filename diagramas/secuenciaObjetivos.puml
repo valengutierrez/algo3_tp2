@@ -1,0 +1,42 @@
+@startuml SecuenciaObjetivos
+title Argentina ocupa Brasil y se verifican los objetivos
+skinparam style strictuml
+actor Usuario
+participant "TEG : Juego"  as Juego
+participant ObjetivoOcupar
+participant ObjetivoDestruir
+participant ObjetivoComun
+participant Jugador1
+participant Jugador2
+
+Usuario -> Juego: jugadorEnTurnoAtaca("Argentina","Brasil")
+
+
+group Logica de combate, Jugador1 ocupa pais de Jugador2
+end
+
+
+Usuario -> Juego: jugadorEnTurnoGano()
+
+alt Verifico los objetivos
+else Si tiene objetivo de ocupar
+	Juego -> ObjetivoOcupar: cumplido()
+	ObjetivoOcupar -> Jugador1: getPaises()
+	return paises
+	Juego <-- ObjetivoOcupar: false
+
+else si tiene objetivo de destruir
+	Juego -> ObjetivoDestruir: cumplido()
+	ObjetivoOcupar -> Jugador2: getPaises()
+	return paises
+	Juego <-- ObjetivoOcupar: false
+end
+
+Juego -> ObjetivoComun: cumplido()
+ObjetivoComun -> Jugador1: getPaises()
+return paises
+Juego <-- ObjetivoComun: true
+
+
+
+@enduml

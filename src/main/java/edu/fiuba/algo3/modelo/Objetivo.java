@@ -2,6 +2,8 @@ package edu.fiuba.algo3.modelo;
 
 import java.util.ArrayList;
 
+
+// TODO: Usar clase abstracta
 public class Objetivo {
 	
 	private int America_del_norte;

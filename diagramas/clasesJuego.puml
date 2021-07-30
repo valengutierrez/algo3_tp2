@@ -5,29 +5,45 @@ hide class circle
 hide abstract circle
 
 
-Class Juego{
-    - lista de jugadores
-    - jugador en turno: Jugador
-    - mazoDeTarjetasDePais
-    - lista de paises
-    - lista de objetivos
+' Class Juego{
+'     - lista de jugadores
+'     - jugador en turno: Jugador
+'     - mazoDeTarjetasDePais
+'     - lista de paises
+'     - lista de objetivos
 
-    ' + agregarMazo(unMazo:Mazo)
-    ' + añadirJugador(unJugador:jugador)
-    + iniciarJuego()
-    - cargarPaisesYContinentes(fronteras.csv)
-    - cargarCartas(cartas.csv)
-    - cargarObjetivos(objetivos.csv)
-    + buscarPais(nombre : String) : Pais
-
-
+'     ' + agregarMazo(unMazo:Mazo)
+'     ' + añadirJugador(unJugador:jugador)
+'     + iniciarJuego()
+'     - cargarPaisesYContinentes(fronteras.csv)
+'     - cargarCartas(cartas.csv)
+'     - cargarObjetivos(objetivos.csv)
+'     + buscarPais(nombre : String) : Pais
 
 
-    + jugadorEnTurnoAtaca(paisAtacante, paisDefensor)
-    + reagrupar(paisOrigen,paisDestino,cantidad)
-    + pasarTurno()
-    + turnoDe(): Jugador
 
+
+'     + jugadorEnTurnoAtaca(paisAtacante, paisDefensor)
+'     + reagrupar(paisOrigen,paisDestino,cantidad)
+'     + pasarTurno()
+'     + turnoDe(): Jugador
+
+' }
+
+
+class Objetivo{
+    - duenio : Jugador
+
+    - cumplido() : boolean
 }
+class ObjetivoOcupar{
+    - Lista de paises por continente
+}
+class ObjetivoDestruir{
+    - target : Jugador
+}
+
+Objetivo <|-- ObjetivoOcupar
+Objetivo <|-- ObjetivoDestruir
 
 @enduml
