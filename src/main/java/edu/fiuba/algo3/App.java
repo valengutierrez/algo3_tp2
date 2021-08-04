@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Pais;
 import edu.fiuba.algo3.modelo.TarjetaPais;
+import edu.fiuba.algo3.vista.VentanaJuego;
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.event.EventHandler;
@@ -47,7 +48,7 @@ public class App extends Application {
         Juego TEG = new Juego();
 
         TEG.crearModelo();
-        TEG.crearVentana(primaryStage);
+        VentanaJuego.crearVentana(primaryStage, TEG);
 
         primaryStage.show();
     }

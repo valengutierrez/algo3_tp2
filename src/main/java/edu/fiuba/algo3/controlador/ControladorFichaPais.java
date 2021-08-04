@@ -16,8 +16,8 @@ public class ControladorFichaPais implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        String id = vista.getId();
-        modelo.seleccionarPais(id);
-        modelo.notifyObservers(vista);
+        String nombrePais = vista.getId();
+        modelo.seleccionarPais(nombrePais);
+        //modelo.notifyObservers(vista);
     }
 }

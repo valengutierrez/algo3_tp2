@@ -5,6 +5,7 @@ import edu.fiuba.algo3.vista.VistaContenedorOrigenDestino;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class ControladorBotonAccion implements EventHandler<ActionEvent> {
 
@@ -24,8 +25,22 @@ public class ControladorBotonAccion implements EventHandler<ActionEvent> {
         String PaisDestino = labelDestino.getText();
 
         if (!(PaisOrigen.isEmpty() && PaisDestino.isEmpty())) {
-            modelo.jugadorEnTurnoAtaca(PaisOrigen, PaisDestino);
+            System.out.println(modelo.obtenerEtapa());
+            switch (modelo.obtenerEtapa()){
+                case ATAQUE: {
+                    modelo.jugadorEnTurnoAtaca(PaisOrigen, PaisDestino);
+                    return;
+                }
+                case REAGRUPACION: {
+                    System.out.println(modelo.obtenerEtapa());
+                    TextField ejercitosText = (TextField) vista.getChildren().get(7);
+                    int cantidadEjercitos = Integer.parseInt(ejercitosText.getText());
+                    modelo.reagrupar(PaisOrigen, PaisDestino, cantidadEjercitos);
+                    return;
+                }
+                case INCORPORACION_EJERCITOS: return; //TODO
+            }
+
         }
-        //modelo.notifyObservers(vista);
     }
 }

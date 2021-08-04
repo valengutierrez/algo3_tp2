@@ -1,9 +1,11 @@
 package edu.fiuba.algo3.vista;
 
 import edu.fiuba.algo3.modelo.Juego;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -67,14 +69,34 @@ public class VentanaJuego {
         Label paisOrigen = new Label();
         Label paisDestino = new Label();
 
+        Label fichasDisponiblesLabel = new Label();
+        fichasDisponiblesLabel.setText("Fichas Disponibles: ");
+        Label cantidadFichasLabel = new Label();
+        cantidadFichasLabel.setText("Cantidad de Fichas: ");
+
+        TextField fichasDisponibles = new TextField();
+        fichasDisponibles.setEditable(false);
+        fichasDisponibles.setText("50");
+        fichasDisponibles.setMaxWidth(30);
+        TextField cantidadFichas = new TextField();
+        cantidadFichas.setMaxWidth(30);
+
         Button botonAccion = new Button();
         botonAccion.setText("Atacar!");
 
+        Button botonEtapaReagrupar = new Button();
+        botonEtapaReagrupar.setText("Etapa Reagrupar");
+
+        Button botonPasarTurno = new Button();
+        botonPasarTurno.setText("Pasar Turno");
+
         //fichaArgentina.setOnAction(new ControladorFichaPais(modelo));
 
-        VistaContenedorOrigenDestino contenedorOrigenDestino = new VistaContenedorOrigenDestino(modelo, origen, paisOrigen, destino, paisDestino, botonAccion);
+        VistaContenedorOrigenDestino contenedorOrigenDestino = new VistaContenedorOrigenDestino(modelo, origen, paisOrigen, destino, paisDestino, fichasDisponiblesLabel, fichasDisponibles, cantidadFichasLabel, cantidadFichas, botonAccion, botonEtapaReagrupar, botonPasarTurno);
+        contenedorOrigenDestino.setAlignment(Pos.BASELINE_CENTER);
 
         HBox contenedorPrincipal = new HBox(mapaMundo, contenedorOrigenDestino);
+        contenedorPrincipal.getChildren().get(1).setTranslateX(150);
 
         Scene escena = new Scene(contenedorPrincipal, 1280, 720);
 

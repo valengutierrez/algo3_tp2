@@ -8,6 +8,12 @@ import java.util.Observable;
 
 
 public class Juego extends Observable {
+    /*
+    public enum Etapa
+    {
+        COLOCACION_INICIAL, ATAQUE, REAGRUPACION, INCORPORACION_EJERCITOS
+    }
+    */
     private ArrayList<Jugador> jugadores;
     private ArrayList<Pais> paises;
     private Pais paisOrigen;
@@ -17,6 +23,7 @@ public class Juego extends Observable {
     private Jugador jugadorEnTurno;
     private boolean jugadorConquisto;
     private ArrayList<TarjetaPais> mazoTarjetasPais; // TODO: Cambiar aca a List, interfaz mas general
+    private Etapa etapa;
 
     public Juego(){
         jugadores = new ArrayList<Jugador>();
@@ -24,6 +31,14 @@ public class Juego extends Observable {
 
     public void crearVentana(Stage primaryStage){
         VentanaJuego.crearVentana(primaryStage, this);
+    }
+
+    public void setearEtapa(Etapa etapa){
+        this.etapa = etapa;
+    }
+
+    public Etapa obtenerEtapa() {
+        return etapa;
     }
 
     public void crearModelo(){
@@ -40,22 +55,38 @@ public class Juego extends Observable {
         argentina.incrementarEjercito(5);
         argentina.setPaisLimitrofe(brasil);
 
+        canada.incrementarEjercito(5);
+        canada.setPaisLimitrofe(brasil);
+
         añadirJugador(jugadorAzul);
         añadirJugador(jugadorVerde);
-
 
         agregarPais(argentina);
         agregarPais(brasil);
         agregarPais(canada);
+
+        TarjetaPais tarjetaArgentina = new TarjetaPais(argentina, "globo");
+        TarjetaPais tarjetaBrasil = new TarjetaPais(brasil, "canion");
+        TarjetaPais tarjetaCanada = new TarjetaPais(canada, "barco");
+
+        ArrayList<TarjetaPais> mazo = new ArrayList<TarjetaPais>();
+        mazo.add(tarjetaArgentina);
+        mazo.add(tarjetaBrasil);
+        mazo.add(tarjetaCanada);
+
+        this.agregarMazo(mazo);
+
+        setearEtapa(Etapa.ATAQUE);
     }
 
-    public void seleccionarPais(String id) {
+    public void seleccionarPais(String nombrePais) {
         if (paisOrigen == null){
-            paisOrigen = this.buscarPais(id);
+            paisOrigen = this.buscarPais(nombrePais);
         } else if (paisDestino == null){
-            paisDestino = this.buscarPais(id);
+            paisDestino = this.buscarPais(nombrePais);
         }
         setChanged();
+        notifyObservers(nombrePais);
     }
 
     public void agregarMazo(ArrayList<TarjetaPais> mazo){
@@ -71,6 +102,7 @@ public class Juego extends Observable {
     public void jugadorEnTurnoAtaca(String paisOrigen, String paisDestino){
         Pais paisAtacante = this.buscarPais(paisOrigen);
         Pais paisDefensor = this.buscarPais(paisDestino);
+        System.out.println("Jugador en turno: " + jugadorEnTurno);
         System.out.println("ejercito antes de atacar: " + paisAtacante.obtenerEjercito());
         System.out.println("dueño brasil: " + paisDefensor.obtenerDuenio());
         int paisesIniciales = jugadorEnTurno.getPaisesOcupados().size();
@@ -82,7 +114,11 @@ public class Juego extends Observable {
         }
         System.out.println("ejercito despues de atacar: " + paisAtacante.obtenerEjercito());
         System.out.println("dueño brasil: " + paisDefensor.obtenerDuenio());
+        this.paisOrigen = null;
+        this.paisDestino = null;
+        System.out.println("----------fin ataque----------");
         setChanged();
+        notifyObservers("fin ataque");
     }
 
     public void jugadorEnTurnoAtaca(Pais paisAtacante, Pais paisDefensor){
@@ -95,23 +131,53 @@ public class Juego extends Observable {
         }
     }
 
+    public void reagrupar(String paisOrigen, String paisDestino, int cantidad){
+        Pais paisPartida = this.buscarPais(paisOrigen);
+        Pais paisLlegada = this.buscarPais(paisDestino);
+        System.out.println("Jugador en turno: " + jugadorEnTurno);
+        System.out.println("ejercito antes de reagrupar origen: " + paisPartida.obtenerEjercito());
+        System.out.println("ejercito antes de reagrupar destino: " + paisLlegada.obtenerEjercito());
+
+        this.reagrupar(paisPartida, paisLlegada, cantidad);
+
+        System.out.println("ejercito antes de reagrupar origen: " + paisPartida.obtenerEjercito());
+        System.out.println("ejercito antes de reagrupar destino: " + paisLlegada.obtenerEjercito());
+        this.paisOrigen = null;
+        this.paisDestino = null;
+        System.out.println("----------fin reagrupacion----------");
+        setChanged();
+        notifyObservers("fin ataque");
+    }
+
     public void reagrupar(Pais paisOrigen, Pais paisDestino, int cantidad){
         jugadorEnTurno.reagrupar(paisOrigen, paisDestino, cantidad);
     }
 
     public void pasarTurno(){
         if (jugadorConquisto) {
+            System.out.println("saco carta");
             TarjetaPais tarjetaParaElJugador = mazoTarjetasPais.remove(0);
             jugadorEnTurno.recibirTarjetaPais(tarjetaParaElJugador);
         }
+        if (this.etapa == Etapa.REAGRUPACION) this.etapa = Etapa.ATAQUE;
+        System.out.println("Paso turno");
         int indiceDeProximoJugador = jugadores.indexOf(jugadorEnTurno) + 1;
         if(indiceDeProximoJugador == jugadores.size()) {
             indiceDeProximoJugador = 0;
-            // faseDeJuego = rondaDeAtaque;
-            //return;
+            this.cambiarEtapaDeJuego();
         }
         jugadorEnTurno = jugadores.get(indiceDeProximoJugador);
         jugadorConquisto = false;
+        setChanged();
+        notifyObservers();
+    }
+
+    public void cambiarEtapaDeJuego(){
+        if (this.etapa == Etapa.INCORPORACION_EJERCITOS) {
+            this.etapa = Etapa.ATAQUE;
+        } else {
+            this.etapa = Etapa.INCORPORACION_EJERCITOS;
+        }
     }
 
     public Jugador turnoDe(){
@@ -162,7 +228,6 @@ public class Juego extends Observable {
                 paisAColocarleFronteras.setPaisLimitrofe(paisFronterizo);
             }
         }
-
 	}
 
 	public void cargarTarjetas(String archivo) {
@@ -229,11 +294,9 @@ public class Juego extends Observable {
 		return objetivos;
 	}
 
+    public void etapaReagrupar() {
+        this.etapa = Etapa.REAGRUPACION;
+        setChanged();
+        notifyObservers();
+    }
 }
-/*
-estadoAtaque.moverEjercitosDe(jugadorDeTruno,pais1,pais2){
-    jugadorDeTurno.ataque(pais1,pais2)
-}
-estadoReagrupar.moverEj(jugadorDeTruno,pais1,pais2){
-    jugadorDeTurno.reagrupar(pais1,pais2)
-}*/
