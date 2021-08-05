@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 
 public class Jugador {
@@ -8,11 +10,20 @@ public class Jugador {
 	private ArrayList<TarjetaPais> mazoJugador;
 	private int fichasDisponibles;
 	private int fichasMinimas = 3;
+	private Color color;
 
 	public Jugador(){
 		paisesOcupados = new ArrayList<Pais>();
 		mazoJugador = new ArrayList<TarjetaPais>();
 		fichasDisponibles = 0;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public Color getColor(){
+		return color;
 	}
 
 	public ArrayList<TarjetaPais> obtenerTarjetas(){
@@ -54,12 +65,23 @@ public class Jugador {
 		mazoJugador.add(unaTarjetaPais);
 	}
 
+	public int fichasDisponibles(){
+		return fichasDisponibles;
+	}
+
 	public void fichasPorPais(){
-		fichasDisponibles += Math.max(paisesOcupados.size() / 2, fichasMinimas) ;
+		fichasDisponibles = Math.max(paisesOcupados.size() / 2, fichasMinimas);
 	}
 
 	public void incrementarFichasDisponibles(int fichasAIncrementar){
 		fichasDisponibles += fichasAIncrementar;
 	}
 
+	public void activarTarjeta(String nombreTarjeta) {
+		for (TarjetaPais tarjetaPais : mazoJugador){
+			if (tarjetaPais.getNombre().equals(nombreTarjeta)) {
+				tarjetaPais.activar(paisesOcupados);
+			}
+		}
+	}
 }

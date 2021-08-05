@@ -24,23 +24,35 @@ public class ControladorBotonAccion implements EventHandler<ActionEvent> {
         Label labelDestino = (Label) vista.getChildren().get(3);
         String PaisDestino = labelDestino.getText();
 
-        if (!(PaisOrigen.isEmpty() && PaisDestino.isEmpty())) {
-            System.out.println(modelo.obtenerEtapa());
-            switch (modelo.obtenerEtapa()){
-                case ATAQUE: {
+        System.out.println(modelo.obtenerEtapa());
+        switch (modelo.obtenerEtapa()){
+            case ATAQUE: {
+                if (!PaisOrigen.isEmpty() && !PaisDestino.isEmpty()){
                     modelo.jugadorEnTurnoAtaca(PaisOrigen, PaisDestino);
-                    return;
                 }
-                case REAGRUPACION: {
-                    System.out.println(modelo.obtenerEtapa());
+                return;
+            }
+            case REAGRUPACION: {
+                if (!PaisOrigen.isEmpty() && !PaisDestino.isEmpty()){
                     TextField ejercitosText = (TextField) vista.getChildren().get(7);
                     int cantidadEjercitos = Integer.parseInt(ejercitosText.getText());
                     modelo.reagrupar(PaisOrigen, PaisDestino, cantidadEjercitos);
-                    return;
                 }
-                case INCORPORACION_EJERCITOS: return; //TODO
+                return;
             }
-
+            case INCORPORACION_EJERCITOS: {
+                if (!PaisOrigen.isEmpty()){
+                    TextField ejercitosText = (TextField) vista.getChildren().get(7);
+                    int cantidadEjercitos = Integer.parseInt(ejercitosText.getText());
+                    modelo.colocarEjercitos(PaisOrigen, cantidadEjercitos);
+                    System.out.println("-------------ControladorBotonAccion----------");
+                    int fichasDisponibles = modelo.fichasDisponiblesJugador();
+                    TextField fichasDisponiblesField = (TextField) vista.getChildren().get(5);
+                    fichasDisponiblesField.setText(String.valueOf(fichasDisponibles));
+                }
+            }
         }
+
+
     }
 }

@@ -92,6 +92,8 @@ public class VentanaJuego {
 
         //fichaArgentina.setOnAction(new ControladorFichaPais(modelo));
 
+        VBox tarjetasJugador = new VBox();
+
         VistaContenedorOrigenDestino contenedorOrigenDestino = new VistaContenedorOrigenDestino(modelo, origen, paisOrigen, destino, paisDestino, fichasDisponiblesLabel, fichasDisponibles, cantidadFichasLabel, cantidadFichas, botonAccion, botonEtapaReagrupar, botonPasarTurno);
         contenedorOrigenDestino.setAlignment(Pos.BASELINE_CENTER);
 

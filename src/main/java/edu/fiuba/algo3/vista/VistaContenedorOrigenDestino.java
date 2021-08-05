@@ -5,9 +5,11 @@ import edu.fiuba.algo3.controlador.ControladorBotonEtapaReagrupar;
 import edu.fiuba.algo3.controlador.ControladorPasarTurno;
 import edu.fiuba.algo3.modelo.Etapa;
 import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.TarjetaPais;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 import java.util.Observable;
@@ -44,7 +46,7 @@ public class VistaContenedorOrigenDestino extends VBox implements Observer {
         Label paisOrigen = (Label) getChildren().get(1);
         Label paisDestino = (Label) getChildren().get(3);
 
-        if (nombrePais.equals("fin ataque")) {
+        if (nombrePais.equals("borrar paises")) {
             paisOrigen.setText("");
             paisDestino.setText("");
             return;
@@ -52,6 +54,33 @@ public class VistaContenedorOrigenDestino extends VBox implements Observer {
 
         if (modelo.obtenerEtapa() == Etapa.INCORPORACION_EJERCITOS) {
             paisOrigen.setText(nombrePais);
+            if (this.getChildren().size() == 12){
+                this.getChildren().remove(11);
+            }
+            VistaActivarTarjeta contenedorTarjetas = new VistaActivarTarjeta(modelo);
+            /*
+            Label labelTarjetas = new Label("tarjetas:");
+            contenedorTarjetas.getChildren().add(labelTarjetas);
+            for (TarjetaPais tarjetaPais : modelo.getJugadorEnTurno().obtenerTarjetas()){
+                String nombreTarjeta = tarjetaPais.getNombre();
+                String simbolo = tarjetaPais.getSimbolo();
+
+                Label tarjeta = new Label(nombreTarjeta + " " + simbolo);
+                contenedorTarjetas.getChildren().add(tarjeta);
+            }
+            TextField tarjetaSeleccionada = new TextField();
+            tarjetaSeleccionada.setText("Ingrese tarjeta");
+
+            Button botonActviarTarjeta = new Button();
+            botonActviarTarjeta.setOnAction(new controladorBotonActivarTarjeta(modelo, this));
+            botonActviarTarjeta.setText("Activar");
+
+            contenedorTarjetas.getChildren().add(tarjetaSeleccionada);
+            contenedorTarjetas.getChildren().add(botonActviarTarjeta);
+
+             */
+
+            this.getChildren().add(contenedorTarjetas);
             return;
         }
 
