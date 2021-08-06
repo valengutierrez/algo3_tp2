@@ -21,12 +21,14 @@ public class Juego extends Observable {
     private boolean jugadorConquisto;
     private ArrayList<TarjetaPais> mazoTarjetasPais; // TODO: Cambiar aca a List, interfaz mas general
     private Etapa etapa;
+    private boolean jugadorGano;
 
     public Juego(){
         jugadores = new ArrayList<Jugador>();
         continentes = new ArrayList<Continente>();
         etapa = Etapa.COLOCACION_INICIAL;
         objetivos = new ArrayList<Objetivo>();
+        jugadorGano = false;
     }
 
     public void setearEtapa(Etapa etapa){
@@ -129,6 +131,7 @@ public class Juego extends Observable {
         int paisesFinales = jugadorEnTurno.getPaisesOcupados().size();
         if (paisesFinales > paisesIniciales){
             jugadorConquisto = true;
+            jugadorGano = jugadorEnTurno.cumplido();
         }
         this.paisOrigen = null;
         this.paisDestino = null;
@@ -354,7 +357,8 @@ public class Juego extends Observable {
         Random random = new Random();
         for(Jugador j : jugadores){
             int nroObjetivo = random.nextInt(objetivos.size());
-            j.asignarObjetivo(objetivos.get(nroObjetivo));
+            j.asignarObjetivoParticular(objetivos.get(nroObjetivo));
+            j.asignarObjetivoComun(new ObjetivoComun());
             objetivos.remove(nroObjetivo);
         }
     }

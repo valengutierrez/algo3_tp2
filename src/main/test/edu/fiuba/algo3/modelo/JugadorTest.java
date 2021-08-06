@@ -91,8 +91,10 @@ public class JugadorTest {
 	@Test
 	public void test07UnJugadorRespondeSiGano() {
 		Jugador unJugador = new Jugador();
-		Objetivo unObjetivo = mock(Objetivo.class);
-		unJugador.asignarObjetivo(unObjetivo);
+		Objetivo unObjetivo = mock(ObjetivoOcupar.class);
+		Objetivo otroObjetivo = new ObjetivoComun();
+		unJugador.asignarObjetivoParticular(unObjetivo);
+		unJugador.asignarObjetivoComun(otroObjetivo);
 		when(unObjetivo.cumplido(unJugador.getPaisesOcupados())).thenReturn(true);
 		assertTrue(unJugador.cumplido());
 	}

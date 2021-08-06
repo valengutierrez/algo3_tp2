@@ -102,10 +102,13 @@ public class Jugador {
 			}
 		}
 	}
-	public void asignarObjetivo(Objetivo unObjetivo) {
-		objetivoParticular = unObjetivo;
-	}
 	public boolean cumplido() {
 		return objetivoComun.cumplido(paisesOcupados)|objetivoParticular.cumplido(paisesOcupados);
+	}
+	public void asignarObjetivoParticular(Objetivo unObjetivo) {
+		objetivoParticular = unObjetivo;
+	}
+	public void asignarObjetivoComun(Objetivo otroObjetivo) {
+		objetivoComun = otroObjetivo;
 	}
 }
