@@ -37,13 +37,14 @@ public class ObjetivoOcupar implements Objetivo {
 	@Override
 	public String mostrarse() {
 		String mensaje,americaDelNorte,americaDelSur,Africa,Asia,Europa,Oceania;
-		americaDelNorte = cantidadAOcupar.get(0) + "paises de america del norte\n";
-		americaDelSur = cantidadAOcupar.get(1) + "paises de america del sur\n";
-		Africa = cantidadAOcupar.get(2) + "paises de africa\n";
-		Asia= cantidadAOcupar.get(3) + "paises de asia\n";
-		Europa = cantidadAOcupar.get(4) + "paises de europa\n";
-		Oceania = cantidadAOcupar.get(5) + "paises de oceania\n";
-		mensaje = americaDelNorte+americaDelSur+Africa+Asia+Europa+Oceania;
+		mensaje = "Ocupar: \n";
+		americaDelNorte = cantidadAOcupar.get(0) + " paises de america del norte\n";
+		americaDelSur = cantidadAOcupar.get(1) + " paises de america del sur\n";
+		Africa = cantidadAOcupar.get(2) + " paises de africa\n";
+		Asia= cantidadAOcupar.get(3) + " paises de asia\n";
+		Europa = cantidadAOcupar.get(4) + " paises de europa\n";
+		Oceania = cantidadAOcupar.get(5) + " paises de oceania\n";
+		mensaje += americaDelNorte+americaDelSur+Africa+Asia+Europa+Oceania;
 		return mensaje;
 	}
 }
