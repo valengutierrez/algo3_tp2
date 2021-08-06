@@ -2,6 +2,9 @@ package edu.fiuba.algo3.modelo;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import javafx.scene.paint.Color;
 
 // TODO: < REFACTOR > Usar polimorfismo
 public class Parser {
@@ -10,7 +13,8 @@ public class Parser {
 	private ArrayList<ArrayList<Integer>> values;
 	private ArrayList<String[]> valuesPais;
 	private ArrayList<String[]> valuesFronteras;
-	private ArrayList<String> valuesJugadores;
+	private ArrayList<Color> valuesColores;
+	private HashMap<String,Color> dictJugadores;
 	private BufferedReader reader;
 	private String line;
 
@@ -78,11 +82,19 @@ public class Parser {
 		}
 		return valuesFronteras;
 	}
-	public ArrayList<String> parseJugadores() {
+	public ArrayList<Color> parseJugadores() {
+		dictJugadores = new HashMap<String,Color>();
+		dictJugadores.put("azul",Color.BLUE);
+		dictJugadores.put("rojo",Color.RED);
+		dictJugadores.put("negro",Color.BLACK);
+		dictJugadores.put("amarillo",Color.YELLOW);
+		dictJugadores.put("verde",Color.GREEN);
+		dictJugadores.put("rosa",Color.PINK);
 		try {
 			reader = new BufferedReader(new FileReader(filepath));
+			reader.readLine();
 			while((line = reader.readLine())!= null){
-				valuesJugadores.add(line);
+				valuesColores.add(dictJugadores.get(line));
 			}
 			reader.close();
 		} catch (FileNotFoundException e) {
@@ -90,6 +102,6 @@ public class Parser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return valuesJugadores;
+		return valuesColores;
 	}
 }

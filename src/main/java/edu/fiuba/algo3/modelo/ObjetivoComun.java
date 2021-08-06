@@ -10,5 +10,10 @@ public class ObjetivoComun implements Objetivo {
 	public boolean cumplido(ArrayList<Pais> paisesOcupados) {
 		return paisesOcupados.size() >= cantidadObjetivo;
 	}
+
+	@Override
+	public String mostrarse() {
+		return "Ocupar " + cantidadObjetivo + " paises";
+	}
 	
 }

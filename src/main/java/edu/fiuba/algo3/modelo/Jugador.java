@@ -13,6 +13,7 @@ public class Jugador {
 	private int fichasMinimas = 3;
 	private Color color;
 	private String nombre;
+	private String nombreColor;
 	private Objetivo objetivoParticular;
 	private Objetivo objetivoComun;
 	
@@ -22,6 +23,12 @@ public class Jugador {
 		mazoJugador = new ArrayList<TarjetaPais>();
 		fichasDisponibles = 5;
 		// objetivoComun = new ObjetivoComun();
+	}
+	public String getNombreColor() {
+		return nombreColor;
+	}
+	public void setNombreColor(String nombreColor) {
+		this.nombreColor = nombreColor;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;

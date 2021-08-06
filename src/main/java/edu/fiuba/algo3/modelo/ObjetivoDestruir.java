@@ -14,5 +14,13 @@ public class ObjetivoDestruir implements Objetivo{
 	public boolean cumplido(ArrayList<Pais> paisesOcupados) {
 		return jugadorADestruir.getPaisesOcupados().isEmpty();
 	}
+
+	@Override
+	public String mostrarse() {
+		String mensaje;
+		mensaje = "Destruir al jugador: " + jugadorADestruir.getNombre();
+		return mensaje;
+		
+	}
 	
 }

@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Random;
 
 
 public class Juego extends Observable {
@@ -341,15 +342,24 @@ public class Juego extends Observable {
 
     public void crearObjetivosDestruir(String archivo) {
         Parser unParser = new Parser(archivo);
-        ArrayList<String> colores = new ArrayList<String>();
+        ArrayList<Color> colores = new ArrayList<Color>();
 		colores = unParser.parseJugadores();
-
-        for(String unColor : colores){
+        
+        for(Color unColor : colores){
 			objetivos.add(new ObjetivoDestruir(this.buscarJugador(unColor)));
 		}
     }
+    
+    public void asignarObjetivos() {
+        Random random = new Random();
+        for(Jugador j : jugadores){
+            int nroObjetivo = random.nextInt(objetivos.size());
+            j.asignarObjetivo(objetivos.get(nroObjetivo));
+            objetivos.remove(nroObjetivo);
+        }
+    }
 
-	private Jugador buscarJugador(String unColor) {
+	private Jugador buscarJugador(Color unColor) {
         for(Jugador j : jugadores){
             if(j.getColor().equals(unColor)){
                 return j;
