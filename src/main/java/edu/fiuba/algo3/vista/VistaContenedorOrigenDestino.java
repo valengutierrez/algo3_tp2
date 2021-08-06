@@ -119,10 +119,12 @@ public class VistaContenedorOrigenDestino extends VBox implements Observer {
         labelJugadorEnTurno.setTextFill(jugadorEnTurno.getColor());
     }
 
+
     private void actualizarObjetivo(){
         TextArea objetivo = (TextArea) getChildren().get(12);
         Jugador jugadorEnTurno = modelo.turnoDe();
-        objetivo.setText("Texto del objetivoooooooooooooooooooooooooooo\noooooooooooooooooooooooooooooooooooooooo");
+        objetivo.setText(modelo.textoObjetivo());
     }
+
 }
 

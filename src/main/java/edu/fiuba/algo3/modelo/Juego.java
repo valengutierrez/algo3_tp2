@@ -67,59 +67,6 @@ public class Juego extends Observable {
 
         this.repartirPaises();
 
-        /*
-        Jugador jugadorAzul = jugadores.get(0);
-//        jugadorAzul.setColor(Color.BLUE);
-        Jugador jugadorVerde = jugadores.get(1);
-  //      jugadorVerde.setColor(Color.GREEN);
-
-
-        Pais argentina = new Pais("argentina");
-        Pais brasil = new Pais("brasil");
-        Pais canada = new Pais("canada");
-
-        ArrayList<Pais> paisesAmericaDelSur = new ArrayList<Pais>();
-        paisesAmericaDelSur.add(argentina);
-        paisesAmericaDelSur.add(brasil);
-
-        Continente AmericaDelSur = new Continente(paisesAmericaDelSur, 5);
-        this.continentes.add(AmericaDelSur);
-
-        argentina.serOcupadoPor(jugadorAzul);
-        brasil.serOcupadoPor(jugadorVerde);
-        canada.serOcupadoPor(jugadorVerde);
-
-        // argentina.incrementarEjercito(5);
-        argentina.setPaisLimitrofe(brasil);
-
-        // canada.incrementarEjercito(5);
-        canada.setPaisLimitrofe(brasil);
-        brasil.setPaisLimitrofe((argentina));
-        brasil.setPaisLimitrofe((canada));
-//        añadirJugador(jugadorAzul);
-//        añadirJugador(jugadorVerde);
-
-        agregarPais(argentina);
-        agregarPais(brasil);
-        agregarPais(canada);
-
-        TarjetaPais tarjetaArgentina = new TarjetaPais(argentina, "globo");
-        TarjetaPais tarjetaBrasil = new TarjetaPais(brasil, "canion");
-        TarjetaPais tarjetaCanada = new TarjetaPais(canada, "barco");
-
-        ArrayList<TarjetaPais> mazo = new ArrayList<TarjetaPais>();
-        mazo.add(tarjetaArgentina);
-        mazo.add(tarjetaBrasil);
-        mazo.add(tarjetaCanada);
-
-        this.agregarMazo(mazo);
-
-        System.out.println(jugadorAzul.getColor());
-        System.out.println(jugadorVerde.getColor().toString());
-
-        setearEtapa(Etapa.COLOCACION_INICIAL);
-
-         */
         setChanged();
         notifyObservers("iniciar partida");
     }
@@ -154,6 +101,7 @@ public class Juego extends Observable {
         int paisesFinales = jugadorEnTurno.getPaisesOcupados().size();
         if (paisesFinales > paisesIniciales){
             jugadorConquisto = true;
+            System.out.println("Por ver si gane: ");
             jugadorGano = jugadorEnTurno.cumplido();
         }
         this.paisOrigen = null;
@@ -267,7 +215,6 @@ public class Juego extends Observable {
 
     public void cambiarEtapaDeJuego(){
         if (this.etapa == Etapa.COLOCACION_INICIAL){
-            System.out.println("Cambio de etapa2");
             this.etapa = Etapa.ATAQUE;
         } else if (this.etapa == Etapa.INCORPORACION_EJERCITOS) {
             this.etapa = Etapa.ATAQUE;
@@ -299,7 +246,6 @@ public class Juego extends Observable {
 	public void crearPaises(String archivo) {
         Parser unParser = new Parser(archivo);
         ArrayList<String[]> datos = new ArrayList<String[]>();
-        //paises = new ArrayList<Pais>();
 		datos = unParser.parsePaises();
 
         for(int i = 0; i<datos.size(); i++){
@@ -345,7 +291,6 @@ public class Juego extends Observable {
     public void crearContinentes(String archivo) {
         Parser unParser = new Parser(archivo);
         ArrayList<String[]> datos = new ArrayList<String[]>();
-        //continentes = new ArrayList<Continente>();
 		datos = unParser.parsePaises();
 
         for(int i = 0; i<datos.size(); i++){
@@ -384,9 +329,8 @@ public class Juego extends Observable {
 
     public void crearObjetivosOcupar(String archivo) {
         Parser unParser = new Parser(archivo);
-        ArrayList<ArrayList<Integer>> datos = new ArrayList<ArrayList<Integer>>();
+        ArrayList<ArrayList<Integer>> datos;
 		datos = unParser.parse();
-        
 
         for(ArrayList<Integer> linea : datos){
 			objetivos.add(new ObjetivoOcupar(linea,continentes));
@@ -395,11 +339,20 @@ public class Juego extends Observable {
 
     public void crearObjetivosDestruir(String archivo) {
         Parser unParser = new Parser(archivo);
-        ArrayList<Color> colores = new ArrayList<Color>();
+        ArrayList<Color> colores;
 		colores = unParser.parseJugadores();
         
         for(Color unColor : colores){
-			objetivos.add(new ObjetivoDestruir(this.buscarJugador(unColor)));
+            for (Jugador j : jugadores){
+                if (j.getColor() == unColor){
+                    int indiceSiguienteJugador = jugadores.indexOf(j) + 1;
+                    if (indiceSiguienteJugador == jugadores.size()) {
+                        indiceSiguienteJugador = 0;
+                    }
+                    Jugador jugadorSiguiente = jugadores.get(indiceSiguienteJugador);
+                    objetivos.add(new ObjetivoDestruir(this.buscarJugador(unColor), jugadorSiguiente));
+                }
+            }
 		}
     }
     

@@ -7,7 +7,7 @@ public class ObjetivoComun implements Objetivo {
 	private int cantidadObjetivo = 30;
 
 	@Override
-	public boolean cumplido(ArrayList<Pais> paisesOcupados) {
+	public boolean cumplido(ArrayList<Pais> paisesOcupados, Jugador unJugador) {
 		return paisesOcupados.size() >= cantidadObjetivo;
 	}
 

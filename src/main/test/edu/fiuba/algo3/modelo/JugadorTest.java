@@ -96,7 +96,7 @@ public class JugadorTest {
 		Objetivo otroObjetivo = new ObjetivoComun();
 		unJugador.asignarObjetivoParticular(unObjetivo);
 		unJugador.asignarObjetivoComun(otroObjetivo);
-		when(unObjetivo.cumplido(unJugador.getPaisesOcupados())).thenReturn(true);
+		when(unObjetivo.cumplido(unJugador.getPaisesOcupados(), unJugador)).thenReturn(true);
 		assertTrue(unJugador.cumplido());
 	}
 

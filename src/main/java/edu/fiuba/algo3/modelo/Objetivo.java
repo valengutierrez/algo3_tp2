@@ -5,6 +5,6 @@ import java.util.ArrayList;
 
 public interface Objetivo {
 
-	public boolean cumplido(ArrayList<Pais> paisesOcupados);
+	public boolean cumplido(ArrayList<Pais> paisesOcupados, Jugador jugador);
 	public String mostrarse();
 }

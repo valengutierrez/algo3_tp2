@@ -21,6 +21,7 @@ public class VentanaJuego implements Observer {
     Scene escena;
     Juego modelo;
     VBox jugadores = new VBox();
+
     public VentanaJuego(Stage primaryStage, Juego modelo){
         this.stage = primaryStage;
         this.modelo = modelo;
@@ -29,93 +30,6 @@ public class VentanaJuego implements Observer {
         Image icon = new Image("icon.png");
         primaryStage.getIcons().add(icon);
         ImageView imageView = new ImageView(icon);
-
-/*
-        VistaFicha fichaCanada = new VistaFicha("canada", modelo);
-        fichaCanada.setStyle(
-                "-fx-background-radius: 5em; " +
-                        "-fx-min-width: 20px; " +
-                        "-fx-min-height: 20px; " +
-                        "-fx-max-width: 20px; " +
-                        "-fx-max-height: 20px;" +
-                        "-fx-background-color: RED"
-        );
-
-        VistaFicha fichaArgentina = new VistaFicha("argentina", modelo);
-        fichaArgentina.setStyle(
-                "-fx-background-radius: 5em; " +
-                        "-fx-min-width: 20px; " +
-                        "-fx-min-height: 20px; " +
-                        "-fx-max-width: 20px; " +
-                        "-fx-max-height: 20px;" +
-                        "-fx-background-color: BLUE"
-        );
-        VistaFicha fichaBrasil = new VistaFicha("brasil", modelo);
-        fichaBrasil.setStyle(
-                "-fx-background-radius: 5em; " +
-                        "-fx-min-width: 20px; " +
-                        "-fx-min-height: 20px; " +
-                        "-fx-max-width: 20px; " +
-                        "-fx-max-height: 20px;" +
-                        "-fx-background-color: GREEN"
-        );
-
-
-        StackPane mapaMundo = new StackPane();
-        mapaMundo.getChildren().addAll(imageView, fichaArgentina, fichaBrasil, fichaCanada);
-        mapaMundo.getChildren().get(1).setTranslateX(-130);
-        mapaMundo.getChildren().get(1).setTranslateY(150);
-        mapaMundo.getChildren().get(2).setTranslateX(-100);
-        mapaMundo.getChildren().get(2).setTranslateY(100);
-        mapaMundo.getChildren().get(3).setTranslateX(-290);
-        mapaMundo.getChildren().get(3).setTranslateY(-165);
-
-        Label origen = new Label();
-        origen.setText("Pais origen: ");
-
-        Label destino = new Label();
-        destino.setText("Pais destino: ");
-
-        Label paisOrigen = new Label();
-        Label paisDestino = new Label();
-
-        Label fichasDisponiblesLabel = new Label();
-        fichasDisponiblesLabel.setText("Fichas Disponibles: ");
-        Label cantidadFichasLabel = new Label();
-        cantidadFichasLabel.setText("Cantidad de Fichas: ");
-
-        TextField fichasDisponibles = new TextField();
-        fichasDisponibles.setEditable(false);
-        fichasDisponibles.setText("5");
-        fichasDisponibles.setMaxWidth(30);
-        TextField cantidadFichas = new TextField();
-        cantidadFichas.setMaxWidth(30);
-
-        Button botonAccion = new Button();
-        botonAccion.setText("Atacar!");
-
-        Button botonEtapaReagrupar = new Button();
-        botonEtapaReagrupar.setText("Etapa Reagrupar");
-
-        Button botonPasarTurno = new Button();
-        botonPasarTurno.setText("Pasar Turno");
-
-        Label jugadorEnTurno = new Label();
-        //fichaArgentina.setOnAction(new ControladorFichaPais(modelo));
-
-        VBox tarjetasJugador = new VBox();
-
-        VistaContenedorOrigenDestino contenedorOrigenDestino = new VistaContenedorOrigenDestino(
-                modelo, origen, paisOrigen, destino, paisDestino,
-                fichasDisponiblesLabel, fichasDisponibles, cantidadFichasLabel, cantidadFichas, botonAccion,
-                botonEtapaReagrupar, botonPasarTurno, jugadorEnTurno);
-        contenedorOrigenDestino.setAlignment(Pos.BASELINE_CENTER);
-
-        HBox contenedorPrincipal = new HBox(mapaMundo, contenedorOrigenDestino);
-        contenedorPrincipal.getChildren().get(1).setTranslateX(150);
-
-        Scene escena = new Scene(contenedorPrincipal, 1280, 720);
-*/
 
         Map<String, Color> listaJugadores = new HashMap<>();
         for (int i = 0; i < 6; i ++) {
@@ -185,49 +99,10 @@ public class VentanaJuego implements Observer {
         Image icon = new Image("tableroTEG.png");
         stage.getIcons().add(icon);
         ImageView imageView = new ImageView(icon);
-
-        //VistaFicha fichaCanada = new VistaFicha("canada", modelo);
-/*        fichaCanada.setStyle(
-                "-fx-background-radius: 5em; " +
-                        "-fx-min-width: 20px; " +
-                        "-fx-min-height: 20px; " +
-                        "-fx-max-width: 20px; " +
-                        "-fx-max-height: 20px;" +
-                        "-fx-background-color: RED"
-        );*/
-
-        //VistaFicha fichaArgentina = new VistaFicha("argentina", modelo);
-        /*fichaArgentina.setStyle(
-                "-fx-background-radius: 5em; " +
-                        "-fx-min-width: 20px; " +
-                        "-fx-min-height: 20px; " +
-                        "-fx-max-width: 20px; " +
-                        "-fx-max-height: 20px;" +
-                        "-fx-background-color: BLUE"
-        );*/
-        //VistaFicha fichaBrasil = new VistaFicha("brasil", modelo);
-        /*fichaBrasil.setStyle(
-                "-fx-background-radius: 5em; " +
-                        "-fx-min-width: 20px; " +
-                        "-fx-min-height: 20px; " +
-                        "-fx-max-width: 20px; " +
-                        "-fx-max-height: 20px;" +
-                        "-fx-background-color: GREEN"
-        );*/
-
         ArrayList<VistaFicha> fichas = ParserFichas.crearFicha(modelo);
 
         StackPane mapaMundo = new StackPane();
         mapaMundo.getChildren().add(imageView);
-        /*
-        mapaMundo.getChildren().get(1).setTranslateX(-130);
-        mapaMundo.getChildren().get(1).setTranslateY(150);
-        mapaMundo.getChildren().get(2).setTranslateX(-100);
-        mapaMundo.getChildren().get(2).setTranslateY(100);
-        mapaMundo.getChildren().get(3).setTranslateX(-290);
-        mapaMundo.getChildren().get(3).setTranslateY(-165);
-
-         */
 
         for (VistaFicha ficha : fichas) {
             mapaMundo.getChildren().add(ficha);
@@ -264,9 +139,6 @@ public class VentanaJuego implements Observer {
         botonPasarTurno.setText("Pasar Turno");
 
         Label jugadorEnTurno = new Label();
-        //fichaArgentina.setOnAction(new ControladorFichaPais(modelo));
-
-        VBox tarjetasJugador = new VBox();
 
         TextArea objetivo = new TextArea();
         objetivo.setEditable(false);

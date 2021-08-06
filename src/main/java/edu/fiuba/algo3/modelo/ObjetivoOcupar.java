@@ -8,6 +8,8 @@ public class ObjetivoOcupar implements Objetivo {
 	private ArrayList<Integer> cantidadAOcupar;
 
 	public ObjetivoOcupar(ArrayList<Integer> cantidades, ArrayList<Continente> lista) {
+		continentes = new ArrayList<Continente>();
+		cantidadAOcupar = new ArrayList<Integer>();
 		int i;
 		for(i=0;i<lista.size();i++){
 			continentes.add(lista.get(i));
@@ -16,7 +18,7 @@ public class ObjetivoOcupar implements Objetivo {
 	}
 
 	@Override
-	public boolean cumplido(ArrayList<Pais> paisesOcupados) {
+	public boolean cumplido(ArrayList<Pais> paisesOcupados, Jugador jugador) {
 		for(int j=0;j<continentes.size();j++){
 			int cantidadOcupada=0;
 			Continente c = continentes.get(j);
@@ -35,7 +37,6 @@ public class ObjetivoOcupar implements Objetivo {
 	@Override
 	public String mostrarse() {
 		String mensaje,americaDelNorte,americaDelSur,Africa,Asia,Europa,Oceania;
-		mensaje = "Ocupar: ";
 		americaDelNorte = cantidadAOcupar.get(0) + "paises de america del norte\n";
 		americaDelSur = cantidadAOcupar.get(1) + "paises de america del sur\n";
 		Africa = cantidadAOcupar.get(2) + "paises de africa\n";
