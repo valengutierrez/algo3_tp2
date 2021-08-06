@@ -403,4 +403,8 @@ public class Juego extends Observable {
         }
     }
 
+    public void jugadorEnTurnoCanjea(String t1,String t2,String t3) {
+        jugadorEnTurno.canjear(t1,t2,t3);
+    }
+
 }

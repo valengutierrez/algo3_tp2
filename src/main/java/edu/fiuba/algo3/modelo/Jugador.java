@@ -16,6 +16,7 @@ public class Jugador {
 	private String nombreColor;
 	private Objetivo objetivoParticular;
 	private Objetivo objetivoComun;
+	private GestorDeCanjes unGestorCanjes;
 	
 
 	public Jugador(){
@@ -111,4 +112,27 @@ public class Jugador {
 	public void asignarObjetivoComun(Objetivo otroObjetivo) {
 		objetivoComun = otroObjetivo;
 	}
+	public void canjear(String t1, String t2, String t3 ) {
+		TarjetaPais tarjeta1,tarjeta2,tarjeta3;
+		int fichasDisponiblesInicial = fichasDisponibles;
+		tarjeta1 = this.buscarTarjeta(t1);
+		tarjeta2 = this.buscarTarjeta(t2);
+		tarjeta3 = this.buscarTarjeta(t3);
+
+		fichasDisponibles += unGestorCanjes.canjear(tarjeta1,tarjeta2,tarjeta3);
+		if(fichasDisponibles>fichasDisponiblesInicial){
+			mazoJugador.remove(tarjeta1);
+			mazoJugador.remove(tarjeta2);
+			mazoJugador.remove(tarjeta3);
+		}
+	}
+	private TarjetaPais buscarTarjeta(String t1) {
+		for (TarjetaPais tarjetaPais : mazoJugador){
+			if (tarjetaPais.getNombre().equals(t1)) {
+				return tarjetaPais;
+			}
+		}
+		return null;
+	}
+
 }
