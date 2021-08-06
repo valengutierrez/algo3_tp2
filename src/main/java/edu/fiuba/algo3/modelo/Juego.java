@@ -24,6 +24,7 @@ public class Juego extends Observable {
     public Juego(){
         jugadores = new ArrayList<Jugador>();
         continentes = new ArrayList<Continente>();
+        etapa = Etapa.COLOCACION_INICIAL;
     }
 
     public void setearEtapa(Etapa etapa){

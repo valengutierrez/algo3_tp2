@@ -16,16 +16,26 @@ public class JuegoTest {
         Jugador jugadorDos = new Jugador();
         Jugador jugadorTres = new Jugador();
         Juego juego = new Juego();
-
+        Pais brasil = new Pais();
+        Pais argentina = new Pais();
+        Pais canada = new Pais();
+        brasil.serOcupadoPor(jugadorDos);
+        argentina.serOcupadoPor(jugadorUno);
+        canada.serOcupadoPor(jugadorTres);
         juego.añadirJugador(jugadorUno);
         juego.añadirJugador(jugadorDos);
         juego.añadirJugador(jugadorTres);
 
+        // Se agregan ejercitos porque al comenzar el juego
+        // se encuentra en fase de colocacion inicial de 5 ejercitos.
         assertEquals(jugadorUno, juego.turnoDe());
+        jugadorUno.colocarEjercitos(argentina, 5);
         juego.pasarTurno();
         assertEquals (jugadorDos, juego.turnoDe());
+        jugadorDos.colocarEjercitos(brasil, 5);
         juego.pasarTurno();
         assertEquals (jugadorTres, juego.turnoDe());
+        jugadorTres.colocarEjercitos(canada, 5);
         juego.pasarTurno();
         assertEquals (jugadorUno, juego.turnoDe());
     }
