@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Observable;
 
 
@@ -25,10 +26,6 @@ public class Juego extends Observable {
         continentes = new ArrayList<Continente>();
     }
 
-    public void crearVentana(Stage primaryStage){
-        VentanaJuego.crearVentana(primaryStage, this);
-    }
-
     public void setearEtapa(Etapa etapa){
         this.etapa = etapa;
     }
@@ -37,11 +34,18 @@ public class Juego extends Observable {
         return etapa;
     }
 
-    public void crearModelo(){
-        Jugador jugadorAzul = new Jugador();
-        jugadorAzul.setColor(Color.BLUE);
-        Jugador jugadorVerde = new Jugador();
-        jugadorVerde.setColor(Color.GREEN);
+    public void crearModelo(Map<String, Color> mapaDeJugadores){
+        for(Map.Entry<String, Color> entry : mapaDeJugadores.entrySet()){
+            Jugador j = new Jugador();
+            j.setNombre(entry.getKey());
+            j.setColor(entry.getValue());
+            añadirJugador(j);
+        }
+
+        Jugador jugadorAzul = jugadores.get(0);
+//        jugadorAzul.setColor(Color.BLUE);
+        Jugador jugadorVerde = jugadores.get(1);
+  //      jugadorVerde.setColor(Color.GREEN);
 
 
         Pais argentina = new Pais("argentina");
@@ -59,14 +63,15 @@ public class Juego extends Observable {
         brasil.serOcupadoPor(jugadorVerde);
         canada.serOcupadoPor(jugadorVerde);
 
-        argentina.incrementarEjercito(5);
+        // argentina.incrementarEjercito(5);
         argentina.setPaisLimitrofe(brasil);
 
-        canada.incrementarEjercito(5);
+        // canada.incrementarEjercito(5);
         canada.setPaisLimitrofe(brasil);
-
-        añadirJugador(jugadorAzul);
-        añadirJugador(jugadorVerde);
+        brasil.setPaisLimitrofe((argentina));
+        brasil.setPaisLimitrofe((canada));
+//        añadirJugador(jugadorAzul);
+//        añadirJugador(jugadorVerde);
 
         agregarPais(argentina);
         agregarPais(brasil);
@@ -86,7 +91,9 @@ public class Juego extends Observable {
         System.out.println(jugadorAzul.getColor());
         System.out.println(jugadorVerde.getColor().toString());
 
-        setearEtapa(Etapa.ATAQUE);
+        setearEtapa(Etapa.COLOCACION_INICIAL);
+        setChanged();
+        notifyObservers("iniciar partida");
     }
 
     public void seleccionarPais(String nombrePais) {
@@ -177,14 +184,19 @@ public class Juego extends Observable {
             jugadorEnTurno.recibirTarjetaPais(tarjetaParaElJugador);
         }
         jugadorConquisto = false;
-
+        System.out.println(etapa.toString());
         if (this.etapa == Etapa.REAGRUPACION) this.etapa = Etapa.ATAQUE;
 
-        if (this.etapa == Etapa.INCORPORACION_EJERCITOS && fichasDisponiblesJugador() != 0) return;
+        if ((this.etapa == Etapa.INCORPORACION_EJERCITOS || this.etapa == Etapa.COLOCACION_INICIAL)
+            && fichasDisponiblesJugador() != 0) return;
 
         System.out.println("Paso turno");
         int indiceDeProximoJugador = jugadores.indexOf(jugadorEnTurno) + 1;
+        System.out.println("tamaño de jugadores: " + jugadores.size());
+        System.out.println("indice de jugadores: " + indiceDeProximoJugador);
+
         if(indiceDeProximoJugador == jugadores.size()) {
+            System.out.println("Cambio de etapa1");
             indiceDeProximoJugador = 0;
             this.cambiarEtapaDeJuego();
         }
@@ -205,7 +217,10 @@ public class Juego extends Observable {
     }
 
     public void cambiarEtapaDeJuego(){
-        if (this.etapa == Etapa.INCORPORACION_EJERCITOS) {
+        if (this.etapa == Etapa.COLOCACION_INICIAL){
+            System.out.println("Cambio de etapa2");
+            this.etapa = Etapa.ATAQUE;
+        } else if (this.etapa == Etapa.INCORPORACION_EJERCITOS) {
             this.etapa = Etapa.ATAQUE;
         } else {
             this.etapa = Etapa.INCORPORACION_EJERCITOS;

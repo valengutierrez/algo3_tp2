@@ -11,12 +11,18 @@ public class Jugador {
 	private int fichasDisponibles;
 	private int fichasMinimas = 3;
 	private Color color;
+	private String nombre;
 
 	public Jugador(){
 		paisesOcupados = new ArrayList<Pais>();
 		mazoJugador = new ArrayList<TarjetaPais>();
-		fichasDisponibles = 0;
+		fichasDisponibles = 5;
 	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getNombre() {return nombre; }
 
 	public void setColor(Color color) {
 		this.color = color;

@@ -51,6 +51,17 @@ public class ControladorBotonAccion implements EventHandler<ActionEvent> {
                     fichasDisponiblesField.setText(String.valueOf(fichasDisponibles));
                 }
             }
+            case COLOCACION_INICIAL: {
+                if (!PaisOrigen.isEmpty()){
+                    TextField ejercitosText = (TextField) vista.getChildren().get(7);
+                    int cantidadEjercitos = Integer.parseInt(ejercitosText.getText());
+                    modelo.colocarEjercitos(PaisOrigen, cantidadEjercitos);
+                    System.out.println("-------------ControladorBotonAccion----------");
+                    int fichasDisponibles = modelo.fichasDisponiblesJugador();
+                    TextField fichasDisponiblesField = (TextField) vista.getChildren().get(5);
+                    fichasDisponiblesField.setText(String.valueOf(fichasDisponibles));
+                }
+            }
         }
 
 

@@ -20,7 +20,7 @@ public class ControladorPasarTurno implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         modelo.pasarTurno();
-        if (modelo.obtenerEtapa() == Etapa.INCORPORACION_EJERCITOS){
+        if (modelo.obtenerEtapa() == Etapa.INCORPORACION_EJERCITOS || modelo.obtenerEtapa() == Etapa.COLOCACION_INICIAL){
             System.out.println("-------------ControladorPasarTurno----------");
             int fichasDisponibles = modelo.fichasDisponiblesJugador();
             TextField fichasDisponiblesField = (TextField) vista.getChildren().get(5);

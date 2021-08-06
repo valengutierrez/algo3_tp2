@@ -47,8 +47,8 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         Juego TEG = new Juego();
 
-        TEG.crearModelo();
-        VentanaJuego.crearVentana(primaryStage, TEG);
+        //TEG.crearModelo();
+        VentanaJuego ventana = new VentanaJuego(primaryStage, TEG);
 
         primaryStage.show();
     }

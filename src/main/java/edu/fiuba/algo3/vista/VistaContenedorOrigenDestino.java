@@ -5,6 +5,7 @@ import edu.fiuba.algo3.controlador.ControladorBotonEtapaReagrupar;
 import edu.fiuba.algo3.controlador.ControladorPasarTurno;
 import edu.fiuba.algo3.modelo.Etapa;
 import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.TarjetaPais;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -12,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,6 +24,7 @@ public class VistaContenedorOrigenDestino extends VBox implements Observer {
     private Button botonAccion;
     private Button botonEtapaReagrupar;
     private Button botonPasarTurno;
+    private Map<String, String> coloresDeJugadores;
 
     public VistaContenedorOrigenDestino(Juego modelo, Node... var1){
         super(var1);
@@ -32,6 +36,10 @@ public class VistaContenedorOrigenDestino extends VBox implements Observer {
         botonAccion.setOnAction(new ControladorBotonAccion(modelo, this));
         botonPasarTurno.setOnAction(new ControladorPasarTurno(modelo, this));
         botonEtapaReagrupar.setOnAction(new ControladorBotonEtapaReagrupar(modelo, this));
+        coloresDeJugadores = new HashMap<>();
+        coloresDeJugadores.put("0x008000ff", "Verde");
+        coloresDeJugadores.put("0x0000ffff", "Azul");
+
     }
 
     @Override
@@ -46,16 +54,20 @@ public class VistaContenedorOrigenDestino extends VBox implements Observer {
         Label paisOrigen = (Label) getChildren().get(1);
         Label paisDestino = (Label) getChildren().get(3);
 
+        Label labelJugadorEnTurno = (Label) getChildren().get(11);
+
+        Jugador jugadorEnTurno = modelo.turnoDe();
+        labelJugadorEnTurno.setText("Turno de jugador " + (jugadorEnTurno.getNombre()));
         if (nombrePais.equals("borrar paises")) {
             paisOrigen.setText("");
             paisDestino.setText("");
             return;
         }
 
-        if (modelo.obtenerEtapa() == Etapa.INCORPORACION_EJERCITOS) {
+        if (modelo.obtenerEtapa() == Etapa.INCORPORACION_EJERCITOS || modelo.obtenerEtapa() == Etapa.COLOCACION_INICIAL) {
             paisOrigen.setText(nombrePais);
-            if (this.getChildren().size() == 12){
-                this.getChildren().remove(11);
+            if (this.getChildren().size() == 13){
+                this.getChildren().remove(12);
             }
             VistaActivarTarjeta contenedorTarjetas = new VistaActivarTarjeta(modelo);
             /*
