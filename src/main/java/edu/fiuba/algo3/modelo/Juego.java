@@ -1,8 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.vista.VentanaJuego;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 import java.util.*;
 
@@ -16,7 +14,7 @@ public class Juego extends Observable {
     private ArrayList<Objetivo> objetivos;
     private Jugador jugadorEnTurno;
     private boolean jugadorConquisto;
-    private ArrayList<TarjetaPais> mazoTarjetasPais; // TODO: Cambiar aca a List, interfaz mas general
+    private ArrayList<TarjetaPais> mazoTarjetasPais;
     private Etapa etapa;
     private HashMap<String, Integer> ejerecitosContinente = new HashMap<String, Integer>(){{
         put("America del Sur", 3);
@@ -60,7 +58,7 @@ public class Juego extends Observable {
         this.crearPaises("src/main/resources/Teg - Fronteras.csv");
         this.cargarFronteras("src/main/resources/Teg - Fronteras.csv");
         this.crearContinentes("src/main/resources/Teg - Fronteras.csv");
-        this.cargarTarjetas("src/main/resources/Teg - cartas.csv");
+        this.cargarTarjetas("src/main/resources/Teg - Cartas.csv");
         this.crearObjetivosDestruir("src/main/resources/ObjetivoDestruir.csv");
         this.crearObjetivosOcupar("src/main/resources/Objetivos.csv");
         this.asignarObjetivos();
@@ -103,6 +101,7 @@ public class Juego extends Observable {
             jugadorConquisto = true;
             System.out.println("Por ver si gane: ");
             jugadorGano = jugadorEnTurno.cumplido();
+            System.out.println(jugadorEnTurno.cumplido());
         }
         this.paisOrigen = null;
         this.paisDestino = null;
@@ -112,7 +111,6 @@ public class Juego extends Observable {
 
     public void jugadorEnTurnoAtaca(Pais paisAtacante, Pais paisDefensor){
         int paisesIniciales = jugadorEnTurno.getPaisesOcupados().size();
-        // TODO: Mover validacion de conquista al metodo de ataque del jugador
         jugadorEnTurno.atacar(paisAtacante, paisDefensor);
         int paisesFinales = jugadorEnTurno.getPaisesOcupados().size();
         if (paisesFinales > paisesIniciales){
@@ -123,17 +121,11 @@ public class Juego extends Observable {
     public void reagrupar(String paisOrigen, String paisDestino, int cantidad){
         Pais paisPartida = this.buscarPais(paisOrigen);
         Pais paisLlegada = this.buscarPais(paisDestino);
-        System.out.println("Jugador en turno: " + jugadorEnTurno);
-        System.out.println("ejercito antes de reagrupar origen: " + paisPartida.obtenerEjercito());
-        System.out.println("ejercito antes de reagrupar destino: " + paisLlegada.obtenerEjercito());
 
         this.reagrupar(paisPartida, paisLlegada, cantidad);
 
-        System.out.println("ejercito antes de reagrupar origen: " + paisPartida.obtenerEjercito());
-        System.out.println("ejercito antes de reagrupar destino: " + paisLlegada.obtenerEjercito());
         this.paisOrigen = null;
         this.paisDestino = null;
-        System.out.println("----------fin reagrupacion----------");
         setChanged();
         notifyObservers("borrar paises");
     }
@@ -145,11 +137,8 @@ public class Juego extends Observable {
     public void colocarEjercitos(String nombrePais, int cantidadDeFichas){
         Pais pais = this.buscarPais(nombrePais);
 
-        System.out.println("ejercito inicial: " + pais.obtenerEjercito());
-
         jugadorEnTurno.colocarEjercitos(pais, cantidadDeFichas);
 
-        System.out.println("ejercito final: " + pais.obtenerEjercito());
         setChanged();
         notifyObservers("borrar paises");
     }
@@ -176,47 +165,39 @@ public class Juego extends Observable {
 
     public void pasarTurno(){
         if (jugadorConquisto) {
-            System.out.println("saco carta");
             darTarjetaAJugador();
         }
         jugadorConquisto = false;
-        System.out.println(etapa.toString());
         if (this.etapa == Etapa.REAGRUPACION) this.etapa = Etapa.ATAQUE;
 
-        if ((this.etapa == Etapa.INCORPORACION_EJERCITOS || this.etapa == Etapa.COLOCACION_INICIAL)
+        if ((this.etapa == Etapa.INCORPORACION_EJERCITOS || this.etapa == Etapa.COLOCACION_INICIAL || this.etapa == Etapa.COLOCACION_SECUNDARIA)
             && fichasDisponiblesJugador() != 0) return;
 
-        System.out.println("Paso turno");
         int indiceDeProximoJugador = jugadores.indexOf(jugadorEnTurno) + 1;
-        System.out.println("tamaño de jugadores: " + jugadores.size());
-        System.out.println("indice de jugadores: " + indiceDeProximoJugador);
-
         if(indiceDeProximoJugador == jugadores.size()) {
-            System.out.println("Cambio de etapa1");
             indiceDeProximoJugador = 0;
             this.cambiarEtapaDeJuego();
         }
         jugadorEnTurno = jugadores.get(indiceDeProximoJugador);
 
         if (this.etapa == Etapa.INCORPORACION_EJERCITOS) {
-            System.out.println("calcula fichas a colocar");
             jugadorEnTurno.fichasPorPais();
             for (Continente continente : continentes) {
                 int ejercitosContiente = continente.ejercitoPorContinente(jugadorEnTurno.getPaisesOcupados());
-                System.out.println(continente.getNombre() + "agrega: " + ejercitosContiente);
                 jugadorEnTurno.incrementarFichasDisponibles(ejercitosContiente);
             }
-            System.out.println("fichas a colocar: " + fichasDisponiblesJugador());
         }
-
+        if (this.etapa == Etapa.COLOCACION_SECUNDARIA) {
+            jugadorEnTurno.incrementarFichasDisponibles(3);
+        }
         setChanged();
         notifyObservers("borrar paises");
     }
 
     public void cambiarEtapaDeJuego(){
         if (this.etapa == Etapa.COLOCACION_INICIAL){
-            this.etapa = Etapa.ATAQUE;
-        } else if (this.etapa == Etapa.INCORPORACION_EJERCITOS) {
+            this.etapa = Etapa.COLOCACION_SECUNDARIA;
+        } else if (this.etapa == Etapa.INCORPORACION_EJERCITOS || this.etapa == Etapa.COLOCACION_SECUNDARIA) {
             this.etapa = Etapa.ATAQUE;
         } else {
             this.etapa = Etapa.INCORPORACION_EJERCITOS;
@@ -375,10 +356,6 @@ public class Juego extends Observable {
         return null;
     }
 
-    public ArrayList<Objetivo> getObjetivos() {
-		return objetivos;
-	}
-
     public void etapaReagrupar() {
         this.etapa = Etapa.REAGRUPACION;
         setChanged();
@@ -401,13 +378,6 @@ public class Juego extends Observable {
         jugadorEnTurno.activarTarjeta(nombreTarjeta);
         setChanged();
         notifyObservers();
-    }
-
-    public void jugadorEnTurnoGano() {
-        // TODO: Preguntar si devolvemos algo
-        if(jugadorEnTurno.cumplido()){
-            // Gano
-        }
     }
 
     public void jugadorEnTurnoCanjea(String t1,String t2,String t3) {

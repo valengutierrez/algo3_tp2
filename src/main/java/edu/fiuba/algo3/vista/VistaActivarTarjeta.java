@@ -6,7 +6,6 @@ import edu.fiuba.algo3.controlador.ControladorBotonEtapaReagrupar;
 import edu.fiuba.algo3.controlador.ControladorPasarTurno;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.TarjetaPais;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

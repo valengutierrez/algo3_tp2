@@ -42,28 +42,16 @@ public class ControladorBotonAccion implements EventHandler<ActionEvent> {
                 return;
             }
             case INCORPORACION_EJERCITOS:
-            case COLOCACION_INICIAL: {
+            case COLOCACION_INICIAL:
+            case COLOCACION_SECUNDARIA:{
                 if (!PaisOrigen.isEmpty() && ejercitos.matches("^[1-9]\\d*$")){
                     int cantidadEjercitos = Integer.parseInt(ejercitosText.getText());
                     modelo.colocarEjercitos(PaisOrigen, cantidadEjercitos);
-                    System.out.println("-------------ControladorBotonAccion Incorporar Ejercito----------");
                     int fichasDisponibles = modelo.fichasDisponiblesJugador();
                     TextField fichasDisponiblesField = (TextField) vista.getChildren().get(5);
                     fichasDisponiblesField.setText(String.valueOf(fichasDisponibles));
                 }
             }
-            /*
-            case COLOCACION_INICIAL: {
-                if (!PaisOrigen.isEmpty()){
-                    TextField ejercitosText = (TextField) vista.getChildren().get(7);
-                    int cantidadEjercitos = Integer.parseInt(ejercitosText.getText());
-                    modelo.colocarEjercitos(PaisOrigen, cantidadEjercitos);
-                    System.out.println("-------------ControladorBotonAccion----------");
-                    int fichasDisponibles = modelo.fichasDisponiblesJugador();
-                    TextField fichasDisponiblesField = (TextField) vista.getChildren().get(5);
-                    fichasDisponiblesField.setText(String.valueOf(fichasDisponibles));
-                }
-            }*/
         }
 
 

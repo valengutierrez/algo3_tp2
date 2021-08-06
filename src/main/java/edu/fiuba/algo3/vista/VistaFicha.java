@@ -46,7 +46,6 @@ public class VistaFicha extends Button implements Observer{
         this.setText(String.valueOf(cantidadFichas));
     }
 
-
     @Override
     public void update(Observable o, Object arg) {
         int cantidadFichas = modelo.buscarPais(nombre).getEjercito().tamanio();

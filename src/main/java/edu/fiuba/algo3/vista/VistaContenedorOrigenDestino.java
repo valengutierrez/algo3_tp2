@@ -40,15 +40,9 @@ public class VistaContenedorOrigenDestino extends VBox implements Observer {
         botonPasarTurno.setOnAction(new ControladorPasarTurno(modelo, this));
         botonEtapaReagrupar.setOnAction(new ControladorBotonEtapaReagrupar(modelo, this));
         botonEtapaReagrupar.setDisable(true);
-        //coloresDeJugadores = new HashMap<>();
-        //coloresDeJugadores.put("0x008000ff", "Verde");
-        //coloresDeJugadores.put("0x0000ffff", "Azul");
         actualizarTarjetas();
         actualizarJugadorEnTurno();
         actualizarObjetivo();
-        //Label labelJugadorEnTurno = (Label) getChildren().get(11);
-        //Jugador jugadorEnTurno = modelo.turnoDe();
-        //labelJugadorEnTurno.setText("Turno de jugador " + (jugadorEnTurno.getNombre()));
     }
 
     @Override
@@ -80,9 +74,6 @@ public class VistaContenedorOrigenDestino extends VBox implements Observer {
         TextField cantidadFichasSeleccionadas = (TextField) getChildren().get(7);
 
         actualizarJugadorEnTurno();
-        //Label labelJugadorEnTurno = (Label) getChildren().get(11);
-        //Jugador jugadorEnTurno = modelo.turnoDe();
-        //labelJugadorEnTurno.setText("Turno de jugador " + (jugadorEnTurno.getNombre()));
 
         if (nombrePais.equals("borrar paises")) {
             paisOrigen.setText("");
@@ -91,7 +82,7 @@ public class VistaContenedorOrigenDestino extends VBox implements Observer {
             return;
         }
 
-        if (modelo.obtenerEtapa() == Etapa.INCORPORACION_EJERCITOS || modelo.obtenerEtapa() == Etapa.COLOCACION_INICIAL) {
+        if (modelo.obtenerEtapa() == Etapa.INCORPORACION_EJERCITOS || modelo.obtenerEtapa() == Etapa.COLOCACION_INICIAL || modelo.obtenerEtapa() == Etapa.COLOCACION_SECUNDARIA) {
             paisOrigen.setText(nombrePais);
             return;
         }

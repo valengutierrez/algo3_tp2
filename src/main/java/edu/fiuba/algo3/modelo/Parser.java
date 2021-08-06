@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 import javafx.scene.paint.Color;
 
-// TODO: < REFACTOR > Usar polimorfismo
 public class Parser {
 	
 	private String filepath;

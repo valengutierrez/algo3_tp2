@@ -47,12 +47,9 @@ public class Pais {
     public Ejercito getEjercito() { return ejercitoNacional; }
 
     public void atacar(Pais unPais){
-        //TODO: Si el pais no es limitrofe tirar una excepcion
-        
         if(paisesLimitrofes.contains(unPais)){
             ejercitoNacional.atacar(unPais);
             unPais.serOcupadoPor(estado.obtenerDuenio());
-            // TODO: Preguntar al usuario cuantos ejercitos quiere pasar
             if (this.obtenerDuenio() == unPais.obtenerDuenio())
                 ejercitoNacional.ocupar(unPais, 1);
         }
@@ -67,8 +64,6 @@ public class Pais {
     }
 
     public void serOcupadoPor(Jugador unJugador){
-        //TODO: Delegar el comportamiento de saber si esta ocupado o no a un estadoOcupacion
-        // estado.cambiarAOcupado(unJugador);
             estado = estado.cambiarAOcupado(unJugador, this);
     }
 

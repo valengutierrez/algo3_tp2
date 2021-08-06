@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class TarjetaPais {
     Pais pais;
     String simbolo;
-    //EstadoTarjeta estado;
     boolean activada;
 
     public TarjetaPais(Pais unPais, String unSimbolo){
