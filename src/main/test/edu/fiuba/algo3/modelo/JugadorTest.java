@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -107,5 +108,62 @@ public class JugadorTest {
 	@Test
 	public void test09UnJugadorTieneUnObjetivoParticular(){
 
+	}
+
+	@Test
+	public void test10SeAsignaUnNombreAUnJugador(){
+		Jugador unJugador = new Jugador();
+		unJugador.setNombre("Azul");
+
+		assertEquals("Azul", unJugador.getNombre());
+	}
+
+	@Test
+	public void test11SeAsignaUnColorAUnJugador(){
+		Jugador unJugador = new Jugador();
+		unJugador.setColor(Color.BLUE);
+
+		assertEquals(Color.BLUE, unJugador.getColor());
+	}
+
+	@Test
+	public void test12JugadorActivaTarjeta(){
+		Jugador unJugador = new Jugador();
+		Pais argentina = new Pais("argentina");
+		argentina.serOcupadoPor(unJugador);
+		TarjetaPais tarjetaPais = new TarjetaPais(argentina, "canion");
+		assertEquals(1, argentina.getEjercito().tamanio());
+		unJugador.recibirTarjetaPais(tarjetaPais);
+		unJugador.activarTarjeta("argentina");
+		assertEquals(3, argentina.getEjercito().tamanio());
+	}
+
+	@Test
+	public void test14JugadorCanjeaTarjeta(){
+		Jugador unJugador = new Jugador();
+		Pais argentina = new Pais("argentina");
+		TarjetaPais tarjetaPaisUno = new TarjetaPais(argentina, "canion");
+		Pais brasil = new Pais("brasil");
+		TarjetaPais tarjetaPaisDos = new TarjetaPais(brasil, "canion");
+		Pais canada = new Pais("canada");
+		TarjetaPais tarjetaPaisTres = new TarjetaPais(canada, "canion");
+		unJugador.recibirTarjetaPais(tarjetaPaisUno);
+		unJugador.recibirTarjetaPais(tarjetaPaisDos);
+		unJugador.recibirTarjetaPais(tarjetaPaisTres);
+		assertEquals(5, unJugador.fichasDisponibles());
+		unJugador.canjear("argentina", "brasil", "canada");
+		assertEquals(9, unJugador.fichasDisponibles());
+	}
+
+	@Test
+	public void test13JugadorBuscaTarjetaPais(){
+		/*Jugador unJugador = new Jugador();
+		Pais argentina = new Pais("argentina");
+		argentina.serOcupadoPor(unJugador);
+		TarjetaPais tarjetaPais = new TarjetaPais(argentina, "canion");
+		assertEquals(null, unJugador.buscarTarjeta("argentina"));
+		unJugador.recibirTarjetaPais(tarjetaPais);
+		unJugador.activarTarjeta("argentina");
+		assertEquals(3, argentina.getEjercito().tamanio());*/
 	}
 }

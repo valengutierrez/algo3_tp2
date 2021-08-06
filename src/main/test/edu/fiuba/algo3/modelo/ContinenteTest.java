@@ -31,7 +31,7 @@ public class ContinenteTest {
     }
 
     @Test
-    public void test01SiJugadorNoTieneTodosLosPaisesDeOceaniaNoAgregaEjercitos(){
+    public void test02SiJugadorNoTieneTodosLosPaisesDeOceaniaNoAgregaEjercitos(){
         Jugador unJugador = new Jugador();
 
         Pais Australia = new Pais(unJugador);
@@ -50,5 +50,22 @@ public class ContinenteTest {
         ArrayList<Pais> paisesDelJugador = unJugador.getPaisesOcupados();
 
         assertEquals(0, Oceania.ejercitoPorContinente(paisesDelJugador));
+    }
+
+    @Test
+    public void test03ContinenteSeCargaConPaises(){
+        Pais Australia = new Pais();
+        Pais Java = new Pais();
+        Pais Sumatra = new Pais();
+        Pais Borneo = new Pais();
+
+        ArrayList<Pais> paisesDeOceania = new ArrayList<Pais>();
+        paisesDeOceania.add(Australia);
+        paisesDeOceania.add(Java);
+        paisesDeOceania.add(Sumatra);
+        paisesDeOceania.add(Borneo);
+
+        Continente Oceania = new Continente(paisesDeOceania, 2);
+        assertEquals(4, Oceania.getPaises().size());
     }
 }

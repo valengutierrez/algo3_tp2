@@ -53,4 +53,16 @@ public class EstadoOcupacionTest {
 	
 		assertEquals(unJugador, unEstado.obtenerDuenio());
 	}
+
+	@Test
+	public void test06EstadoDesocupadoNoDevuelveDuenio(){
+		estadoOcupacion unEstado = new estadoDesocupado();
+		assertEquals(null, unEstado.obtenerDuenio());
+	}
+
+	@Test
+	public void test07EstadoDesocupadoNoDevuelveDuenio(){
+		estadoOcupacion unEstado = new estadoDesocupado();
+		assertEquals(unEstado, unEstado.cambiarADesocupado());
+	}
 }
