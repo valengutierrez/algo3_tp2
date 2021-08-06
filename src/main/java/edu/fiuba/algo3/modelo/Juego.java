@@ -4,10 +4,7 @@ import edu.fiuba.algo3.vista.VentanaJuego;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Random;
+import java.util.*;
 
 
 public class Juego extends Observable {
@@ -21,14 +18,27 @@ public class Juego extends Observable {
     private boolean jugadorConquisto;
     private ArrayList<TarjetaPais> mazoTarjetasPais; // TODO: Cambiar aca a List, interfaz mas general
     private Etapa etapa;
+    private HashMap<String, Integer> ejerecitosContinente = new HashMap<String, Integer>(){{
+        put("America del Sur", 3);
+        put("America del Norte", 5);
+        put("Oceania", 2);
+        put("Africa", 3);
+        put("Europa", 5);
+        put("Asia", 7);
+    }};
     private boolean jugadorGano;
 
     public Juego(){
         jugadores = new ArrayList<Jugador>();
         continentes = new ArrayList<Continente>();
+        paises = new ArrayList<Pais>();
         etapa = Etapa.COLOCACION_INICIAL;
         objetivos = new ArrayList<Objetivo>();
         jugadorGano = false;
+    }
+
+    public boolean getJugadorGano(){
+        return jugadorGano;
     }
 
     public void setearEtapa(Etapa etapa){
@@ -47,6 +57,17 @@ public class Juego extends Observable {
             añadirJugador(j);
         }
 
+        this.crearPaises("src/main/resources/Teg - Fronteras.csv");
+        this.cargarFronteras("src/main/resources/Teg - Fronteras.csv");
+        this.crearContinentes("src/main/resources/Teg - Fronteras.csv");
+        this.cargarTarjetas("src/main/resources/Teg - cartas.csv");
+        this.crearObjetivosDestruir("src/main/resources/ObjetivoDestruir.csv");
+        this.crearObjetivosOcupar("src/main/resources/Objetivos.csv");
+        this.asignarObjetivos();
+
+        this.repartirPaises();
+
+        /*
         Jugador jugadorAzul = jugadores.get(0);
 //        jugadorAzul.setColor(Color.BLUE);
         Jugador jugadorVerde = jugadores.get(1);
@@ -97,6 +118,8 @@ public class Juego extends Observable {
         System.out.println(jugadorVerde.getColor().toString());
 
         setearEtapa(Etapa.COLOCACION_INICIAL);
+
+         */
         setChanged();
         notifyObservers("iniciar partida");
     }
@@ -183,11 +206,30 @@ public class Juego extends Observable {
         notifyObservers("borrar paises");
     }
 
+    private void darTarjetaAJugador(){
+        Random random = new Random();
+        int indiceTarjeta = random.nextInt(mazoTarjetasPais.size());
+        TarjetaPais tarjetaParaElJugador = mazoTarjetasPais.remove(indiceTarjeta);
+        jugadorEnTurno.recibirTarjetaPais(tarjetaParaElJugador);
+    }
+
+    private void repartirPaises(){
+        int i = 0;
+        ArrayList<Pais> paisesAOcupar = (ArrayList<Pais>) paises.clone();
+        while (!paisesAOcupar.isEmpty()) {
+            Random random = new Random();
+            int indicePais = random.nextInt(paisesAOcupar.size());
+            Pais paisAOcupar = paisesAOcupar.remove(indicePais);
+            paisAOcupar.serOcupadoPor(jugadores.get(i));
+            i++;
+            if (i == jugadores.size()) i = 0;
+        }
+    }
+
     public void pasarTurno(){
         if (jugadorConquisto) {
             System.out.println("saco carta");
-            TarjetaPais tarjetaParaElJugador = mazoTarjetasPais.remove(0);
-            jugadorEnTurno.recibirTarjetaPais(tarjetaParaElJugador);
+            darTarjetaAJugador();
         }
         jugadorConquisto = false;
         System.out.println(etapa.toString());
@@ -213,6 +255,7 @@ public class Juego extends Observable {
             jugadorEnTurno.fichasPorPais();
             for (Continente continente : continentes) {
                 int ejercitosContiente = continente.ejercitoPorContinente(jugadorEnTurno.getPaisesOcupados());
+                System.out.println(continente.getNombre() + "agrega: " + ejercitosContiente);
                 jugadorEnTurno.incrementarFichasDisponibles(ejercitosContiente);
             }
             System.out.println("fichas a colocar: " + fichasDisponiblesJugador());
@@ -256,7 +299,7 @@ public class Juego extends Observable {
 	public void crearPaises(String archivo) {
         Parser unParser = new Parser(archivo);
         ArrayList<String[]> datos = new ArrayList<String[]>();
-        paises = new ArrayList<Pais>();
+        //paises = new ArrayList<Pais>();
 		datos = unParser.parsePaises();
 
         for(int i = 0; i<datos.size(); i++){
@@ -302,7 +345,7 @@ public class Juego extends Observable {
     public void crearContinentes(String archivo) {
         Parser unParser = new Parser(archivo);
         ArrayList<String[]> datos = new ArrayList<String[]>();
-        continentes = new ArrayList<Continente>();
+        //continentes = new ArrayList<Continente>();
 		datos = unParser.parsePaises();
 
         for(int i = 0; i<datos.size(); i++){
@@ -312,10 +355,17 @@ public class Juego extends Observable {
                 Continente unContinente = new Continente(nombreContinente);
                 continentes.add(unContinente);
             }
-            //Continentes cargados, falta poblarlos
+
             Continente unContinente = this.buscarContinente(nombreContinente);
             Pais unPais = this.buscarPais(nombrePais);
             unContinente.poblarContinente(unPais);
+        }
+
+        for (Map.Entry<String, Integer> entry : ejerecitosContinente.entrySet()) {
+            String nombreContinente = entry.getKey();
+            int ejercitos = entry.getValue();
+            Continente continente = this.buscarContinente(nombreContinente);
+            continente.setEjercitosAAgregar(ejercitos);
         }
     }
 
@@ -384,6 +434,10 @@ public class Juego extends Observable {
 
     public int fichasDisponiblesJugador() {
         return jugadorEnTurno.fichasDisponibles();
+    }
+
+    public String textoObjetivo(){
+        return jugadorEnTurno.textoObjetivo();
     }
 
     public Jugador getJugadorEnTurno() {

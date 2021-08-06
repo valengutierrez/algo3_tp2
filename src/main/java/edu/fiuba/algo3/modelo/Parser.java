@@ -23,6 +23,7 @@ public class Parser {
 		values = new ArrayList<>();
 		valuesPais = new ArrayList<>();
 		valuesFronteras = new ArrayList<>();
+		valuesColores = new ArrayList<Color>();
 		line = "";
 	}
 	public ArrayList<ArrayList<Integer>> parse() {

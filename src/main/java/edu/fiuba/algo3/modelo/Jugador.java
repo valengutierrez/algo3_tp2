@@ -135,4 +135,7 @@ public class Jugador {
 		return null;
 	}
 
+	public String textoObjetivo() {
+		return objetivoParticular.mostrarse();
+	}
 }

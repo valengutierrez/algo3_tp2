@@ -29,6 +29,10 @@ public class Continente {
 		return nombre;
 	}
 
+    public void setEjercitosAAgregar(int ejercitosAAgregar){
+        this.ejercitosAAgregar = ejercitosAAgregar;
+    }
+
     public void poblarContinente(Pais unPais) {
         if(paises == null){
             paises = new ArrayList<Pais>();

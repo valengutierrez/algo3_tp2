@@ -6,6 +6,7 @@ import edu.fiuba.algo3.vista.VistaContenedorOrigenDestino;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class ControladorPasarTurno implements EventHandler<ActionEvent> {
@@ -26,5 +27,7 @@ public class ControladorPasarTurno implements EventHandler<ActionEvent> {
             TextField fichasDisponiblesField = (TextField) vista.getChildren().get(5);
             fichasDisponiblesField.setText(String.valueOf(fichasDisponibles));
         }
+        TextArea textoObjetivo = (TextArea) vista.getChildren().get(12);
+        textoObjetivo.setText(modelo.textoObjetivo());
     }
 }

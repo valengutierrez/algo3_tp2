@@ -9,8 +9,9 @@ public enum Etapa {
     @Override
     public String toString() {
         switch (this){
-            case COLOCACION_INICIAL: return "Colocar";
-            case INCORPORACION_EJERCITOS: return "Colocar";
+            case COLOCACION_INICIAL:
+            case INCORPORACION_EJERCITOS:
+                return "Colocar";
             case ATAQUE: return "Atacar!";
             case REAGRUPACION: return "Reagrupar";
         }

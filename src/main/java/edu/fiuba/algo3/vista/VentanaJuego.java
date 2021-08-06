@@ -29,6 +29,7 @@ public class VentanaJuego implements Observer {
         Image icon = new Image("icon.png");
         primaryStage.getIcons().add(icon);
         ImageView imageView = new ImageView(icon);
+
 /*
         VistaFicha fichaCanada = new VistaFicha("canada", modelo);
         fichaCanada.setStyle(
@@ -179,13 +180,13 @@ public class VentanaJuego implements Observer {
         if(arg == null)
             return;
         String argumento = (String) arg;
-        if(argumento != "iniciar partida")
+        if(!argumento.equals("iniciar partida"))
             return;
         Image icon = new Image("tableroTEG.png");
         stage.getIcons().add(icon);
         ImageView imageView = new ImageView(icon);
 
-        VistaFicha fichaCanada = new VistaFicha("canada", modelo);
+        //VistaFicha fichaCanada = new VistaFicha("canada", modelo);
 /*        fichaCanada.setStyle(
                 "-fx-background-radius: 5em; " +
                         "-fx-min-width: 20px; " +
@@ -195,7 +196,7 @@ public class VentanaJuego implements Observer {
                         "-fx-background-color: RED"
         );*/
 
-        VistaFicha fichaArgentina = new VistaFicha("argentina", modelo);
+        //VistaFicha fichaArgentina = new VistaFicha("argentina", modelo);
         /*fichaArgentina.setStyle(
                 "-fx-background-radius: 5em; " +
                         "-fx-min-width: 20px; " +
@@ -204,7 +205,7 @@ public class VentanaJuego implements Observer {
                         "-fx-max-height: 20px;" +
                         "-fx-background-color: BLUE"
         );*/
-        VistaFicha fichaBrasil = new VistaFicha("brasil", modelo);
+        //VistaFicha fichaBrasil = new VistaFicha("brasil", modelo);
         /*fichaBrasil.setStyle(
                 "-fx-background-radius: 5em; " +
                         "-fx-min-width: 20px; " +
@@ -214,15 +215,23 @@ public class VentanaJuego implements Observer {
                         "-fx-background-color: GREEN"
         );*/
 
+        ArrayList<VistaFicha> fichas = ParserFichas.crearFicha(modelo);
 
         StackPane mapaMundo = new StackPane();
-        mapaMundo.getChildren().addAll(imageView, fichaArgentina, fichaBrasil, fichaCanada);
+        mapaMundo.getChildren().add(imageView);
+        /*
         mapaMundo.getChildren().get(1).setTranslateX(-130);
         mapaMundo.getChildren().get(1).setTranslateY(150);
         mapaMundo.getChildren().get(2).setTranslateX(-100);
         mapaMundo.getChildren().get(2).setTranslateY(100);
         mapaMundo.getChildren().get(3).setTranslateX(-290);
         mapaMundo.getChildren().get(3).setTranslateY(-165);
+
+         */
+
+        for (VistaFicha ficha : fichas) {
+            mapaMundo.getChildren().add(ficha);
+        }
 
         Label origen = new Label();
         origen.setText("Pais origen: ");
@@ -246,7 +255,7 @@ public class VentanaJuego implements Observer {
         cantidadFichas.setMaxWidth(30);
 
         Button botonAccion = new Button();
-        botonAccion.setText("Atacar!");
+        botonAccion.setText("Colocar");
 
         Button botonEtapaReagrupar = new Button();
         botonEtapaReagrupar.setText("Etapa Reagrupar");
@@ -259,14 +268,20 @@ public class VentanaJuego implements Observer {
 
         VBox tarjetasJugador = new VBox();
 
+        TextArea objetivo = new TextArea();
+        objetivo.setEditable(false);
+        objetivo.setWrapText(true);
+        objetivo.setMaxWidth(200);
+
         VistaContenedorOrigenDestino contenedorOrigenDestino = new VistaContenedorOrigenDestino(
                 modelo, origen, paisOrigen, destino, paisDestino,
                 fichasDisponiblesLabel, fichasDisponibles, cantidadFichasLabel, cantidadFichas, botonAccion,
-                botonEtapaReagrupar, botonPasarTurno, jugadorEnTurno);
-        contenedorOrigenDestino.setAlignment(Pos.BASELINE_CENTER);
+                botonEtapaReagrupar, botonPasarTurno, jugadorEnTurno, objetivo);
+
+        contenedorOrigenDestino.setAlignment(Pos.TOP_CENTER);
 
         HBox contenedorPrincipal = new HBox(mapaMundo, contenedorOrigenDestino);
-        contenedorPrincipal.getChildren().get(1).setTranslateX(150);
+        contenedorPrincipal.getChildren().get(1).setTranslateX(100);
 
         Scene escena = new Scene(contenedorPrincipal, 1280, 720);
 

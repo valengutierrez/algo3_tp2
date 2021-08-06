@@ -23,6 +23,8 @@ public class ControladorBotonAccion implements EventHandler<ActionEvent> {
         String PaisOrigen = labelOrigen.getText();
         Label labelDestino = (Label) vista.getChildren().get(3);
         String PaisDestino = labelDestino.getText();
+        TextField ejercitosText = (TextField) vista.getChildren().get(7);
+        String ejercitos = ejercitosText.getText();
 
         System.out.println(modelo.obtenerEtapa());
         switch (modelo.obtenerEtapa()){
@@ -33,24 +35,24 @@ public class ControladorBotonAccion implements EventHandler<ActionEvent> {
                 return;
             }
             case REAGRUPACION: {
-                if (!PaisOrigen.isEmpty() && !PaisDestino.isEmpty()){
-                    TextField ejercitosText = (TextField) vista.getChildren().get(7);
+                if (!PaisOrigen.isEmpty() && !PaisDestino.isEmpty() && ejercitos.matches("^[1-9]\\d*$")){
                     int cantidadEjercitos = Integer.parseInt(ejercitosText.getText());
                     modelo.reagrupar(PaisOrigen, PaisDestino, cantidadEjercitos);
                 }
                 return;
             }
-            case INCORPORACION_EJERCITOS: {
-                if (!PaisOrigen.isEmpty()){
-                    TextField ejercitosText = (TextField) vista.getChildren().get(7);
+            case INCORPORACION_EJERCITOS:
+            case COLOCACION_INICIAL: {
+                if (!PaisOrigen.isEmpty() && ejercitos.matches("^[1-9]\\d*$")){
                     int cantidadEjercitos = Integer.parseInt(ejercitosText.getText());
                     modelo.colocarEjercitos(PaisOrigen, cantidadEjercitos);
-                    System.out.println("-------------ControladorBotonAccion----------");
+                    System.out.println("-------------ControladorBotonAccion Incorporar Ejercito----------");
                     int fichasDisponibles = modelo.fichasDisponiblesJugador();
                     TextField fichasDisponiblesField = (TextField) vista.getChildren().get(5);
                     fichasDisponiblesField.setText(String.valueOf(fichasDisponibles));
                 }
             }
+            /*
             case COLOCACION_INICIAL: {
                 if (!PaisOrigen.isEmpty()){
                     TextField ejercitosText = (TextField) vista.getChildren().get(7);
@@ -61,7 +63,7 @@ public class ControladorBotonAccion implements EventHandler<ActionEvent> {
                     TextField fichasDisponiblesField = (TextField) vista.getChildren().get(5);
                     fichasDisponiblesField.setText(String.valueOf(fichasDisponibles));
                 }
-            }
+            }*/
         }
 
 
