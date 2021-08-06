@@ -3,6 +3,8 @@ package edu.fiuba.algo3.modelo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 public class JugadorTest {
@@ -84,5 +86,24 @@ public class JugadorTest {
 		unJugador.atacar(argentina,brasil);
 		int ejercitosFinales = argentina.obtenerEjercito() + brasil.obtenerEjercito();
 		assertTrue(ejercitosIniciales == ejercitosFinales);
+	}
+
+	@Test
+	public void test07UnJugadorRespondeSiGano() {
+		Jugador unJugador = new Jugador();
+		Objetivo unObjetivo = mock(Objetivo.class);
+		unJugador.asignarObjetivo(unObjetivo);
+		when(unObjetivo.cumplido(unJugador.getPaisesOcupados())).thenReturn(true);
+		assertTrue(unJugador.cumplido());
+	}
+
+	@Test
+	public void test08UnJugadorTieneUnObjetivoComun(){
+		
+	}
+
+	@Test
+	public void test09UnJugadorTieneUnObjetivoParticular(){
+
 	}
 }

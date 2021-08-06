@@ -25,6 +25,7 @@ public class Juego extends Observable {
         jugadores = new ArrayList<Jugador>();
         continentes = new ArrayList<Continente>();
         etapa = Etapa.COLOCACION_INICIAL;
+        objetivos = new ArrayList<Objetivo>();
     }
 
     public void setearEtapa(Etapa etapa){
@@ -327,18 +328,37 @@ public class Juego extends Observable {
 		return continentes;
 	}
 
-    public void crearObjetivos(String archivo) {
+    public void crearObjetivosOcupar(String archivo) {
         Parser unParser = new Parser(archivo);
         ArrayList<ArrayList<Integer>> datos = new ArrayList<ArrayList<Integer>>();
 		datos = unParser.parse();
-        objetivos = new ArrayList<Objetivo>();
+        
 
         for(ArrayList<Integer> linea : datos){
-			objetivos.add(new Objetivo(linea));
+			objetivos.add(new ObjetivoOcupar(linea,continentes));
 		}
     }
 
-	public ArrayList<Objetivo> getObjetivos() {
+    public void crearObjetivosDestruir(String archivo) {
+        Parser unParser = new Parser(archivo);
+        ArrayList<String> colores = new ArrayList<String>();
+		colores = unParser.parseJugadores();
+
+        for(String unColor : colores){
+			objetivos.add(new ObjetivoDestruir(this.buscarJugador(unColor)));
+		}
+    }
+
+	private Jugador buscarJugador(String unColor) {
+        for(Jugador j : jugadores){
+            if(j.getColor().equals(unColor)){
+                return j;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Objetivo> getObjetivos() {
 		return objetivos;
 	}
 
@@ -361,4 +381,12 @@ public class Juego extends Observable {
         setChanged();
         notifyObservers();
     }
+
+    public void jugadorEnTurnoGano() {
+        // TODO: Preguntar si devolvemos algo
+        if(jugadorEnTurno.cumplido()){
+            // Gano
+        }
+    }
+
 }

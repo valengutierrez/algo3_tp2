@@ -40,4 +40,8 @@ public class Continente {
 		return paises.size();
 	}
 
+	public ArrayList<Pais> getPaises() {
+		return paises;
+	}
+
 }

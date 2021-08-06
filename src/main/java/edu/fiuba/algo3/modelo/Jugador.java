@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.function.BooleanSupplier;
 
 public class Jugador {
 
@@ -12,11 +13,15 @@ public class Jugador {
 	private int fichasMinimas = 3;
 	private Color color;
 	private String nombre;
+	private Objetivo objetivoParticular;
+	private Objetivo objetivoComun;
+	
 
 	public Jugador(){
 		paisesOcupados = new ArrayList<Pais>();
 		mazoJugador = new ArrayList<TarjetaPais>();
 		fichasDisponibles = 5;
+		// objetivoComun = new ObjetivoComun();
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
@@ -89,5 +94,11 @@ public class Jugador {
 				tarjetaPais.activar(paisesOcupados);
 			}
 		}
+	}
+	public void asignarObjetivo(Objetivo unObjetivo) {
+		objetivoParticular = unObjetivo;
+	}
+	public boolean cumplido() {
+		return objetivoComun.cumplido(paisesOcupados)|objetivoParticular.cumplido(paisesOcupados);
 	}
 }

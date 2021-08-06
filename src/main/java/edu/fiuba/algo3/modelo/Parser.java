@@ -10,6 +10,7 @@ public class Parser {
 	private ArrayList<ArrayList<Integer>> values;
 	private ArrayList<String[]> valuesPais;
 	private ArrayList<String[]> valuesFronteras;
+	private ArrayList<String> valuesJugadores;
 	private BufferedReader reader;
 	private String line;
 
@@ -76,5 +77,19 @@ public class Parser {
 			e.printStackTrace();
 		}
 		return valuesFronteras;
+	}
+	public ArrayList<String> parseJugadores() {
+		try {
+			reader = new BufferedReader(new FileReader(filepath));
+			while((line = reader.readLine())!= null){
+				valuesJugadores.add(line);
+			}
+			reader.close();
+		} catch (FileNotFoundException e) {
+			System.err.println("Archivo " + filepath + " no encontrado");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return valuesJugadores;
 	}
 }
