@@ -23,6 +23,7 @@ public class Jugador {
 		paisesOcupados = new ArrayList<Pais>();
 		mazoJugador = new ArrayList<TarjetaPais>();
 		fichasDisponibles = 5;
+		unGestorCanjes = new GestorDeCanjes();
 		// objetivoComun = new ObjetivoComun();
 	}
 	public String getNombreColor() {

@@ -36,9 +36,6 @@ import java.util.Map;
  */
 public class App extends Application {
 
-    public static int width;
-    public static int height;
-
     public static void main(String[] args) {
         launch();
     }
@@ -47,7 +44,6 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         Juego TEG = new Juego();
 
-        //TEG.crearModelo();
         VentanaJuego ventana = new VentanaJuego(primaryStage, TEG);
 
         primaryStage.show();

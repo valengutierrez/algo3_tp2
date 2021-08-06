@@ -26,17 +26,4 @@ public class Dados {
         
         return resultado;
     }
-    
-	public ArrayList<Integer> tiroGanador() {
-        ArrayList<Integer> resultado = new ArrayList<Integer>();
-        resultado.add(6);
-        resultado.add(4);
-        resultado.add(1);
-        return resultado;
-	}
-    public ArrayList<Integer> tiroPerdedor() {
-        ArrayList<Integer> resultado = new ArrayList<Integer>();
-        resultado.add(5);
-        return resultado;
-    }
 }
