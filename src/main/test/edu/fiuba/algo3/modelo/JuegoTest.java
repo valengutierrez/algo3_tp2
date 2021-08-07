@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -190,5 +189,116 @@ public class JuegoTest {
         assertEquals(Etapa.ATAQUE, TEG.obtenerEtapa());
     }
 
+    @Test
+    public void test08CambiosDeEtapa(){
+        Juego TEG = new Juego();
+        assertEquals(Etapa.COLOCACION_INICIAL, TEG.obtenerEtapa());
+        TEG.cambiarEtapaDeJuego();
+        assertEquals(Etapa.COLOCACION_SECUNDARIA, TEG.obtenerEtapa());
+        TEG.cambiarEtapaDeJuego();
+        assertEquals(Etapa.ATAQUE, TEG.obtenerEtapa());
+        TEG.cambiarEtapaDeJuego();
+        assertEquals(Etapa.INCORPORACION_EJERCITOS, TEG.obtenerEtapa());
+        TEG.cambiarEtapaDeJuego();
+        assertEquals(Etapa.ATAQUE, TEG.obtenerEtapa());
+    }
 
+    @Test
+    public void test09ColocacionDeEjercitosEnUnPais(){
+        Juego TEG = new Juego();
+        Jugador unJugador = new Jugador();
+        Pais argentina = new Pais("argentina");
+        argentina.serOcupadoPor(unJugador);
+        TEG.agregarPais(argentina);
+        TEG.añadirJugador(unJugador);
+        assertEquals(1, argentina.getEjercito().tamanio());
+        TEG.colocarEjercitos("argentina", 3);
+        assertEquals(4, argentina.getEjercito().tamanio());
+    }
+
+    @Test
+    public void test10CuandoEmpiezaElJuegoNadieGanoTodavia(){
+        Juego TEG = new Juego();
+        assertFalse(TEG.getJugadorGano());
+    }
+
+    @Test
+    public void test11UnJugadorGanoCuandoCumpleSuObjetivo(){
+        Juego TEG = new Juego();
+        Jugador jugador = new Jugador();
+        TEG.añadirJugador(jugador);
+        ObjetivoComun objetivoComun = new ObjetivoComun();
+        ArrayList<Integer> cantidades = new ArrayList<Integer>();
+        cantidades.add(2);
+        cantidades.add(0);
+        cantidades.add(0);
+        cantidades.add(0);
+        cantidades.add(0);
+        cantidades.add(0);
+        ArrayList<Continente> continentes = new ArrayList<Continente>();
+        Continente c1 = new Continente("nombre");
+        Continente c2 = new Continente("nombre");
+        Continente c3 = new Continente("nombre");
+        Continente c4 = new Continente("nombre");
+        Continente c5 = new Continente("nombre");
+        Continente c6 = new Continente("nombre");
+        continentes.add(c1);
+        continentes.add(c2);
+        continentes.add(c3);
+        continentes.add(c4);
+        continentes.add(c5);
+        continentes.add(c6);
+
+        ObjetivoOcupar objetivoOcupar = new ObjetivoOcupar(cantidades, continentes);
+        jugador.asignarObjetivoComun(objetivoComun);
+        jugador.asignarObjetivoParticular(objetivoOcupar);
+        assertFalse(jugador.cumplido());
+
+        Pais unPais = new Pais(jugador);
+        Pais otroPais = new Pais(jugador);
+        c1.poblarContinente(unPais);
+        c1.poblarContinente(otroPais);
+
+        assertTrue(jugador.cumplido());
+    }
+
+    @Test
+    public void test12JugadorEnTurnoDevuelveDescripcionDeSuObjetivo(){
+        Juego TEG = new Juego();
+
+        Jugador unJugador = new Jugador();
+        Jugador otroJugador = new Jugador();
+        TEG.añadirJugador(unJugador);
+        TEG.añadirJugador(otroJugador);
+        ObjetivoDestruir unObjetivo = new ObjetivoDestruir(unJugador, otroJugador);
+        unJugador.setNombre("Ejercito azul");
+        otroJugador.setNombre("Ejercito rojo");
+        unJugador.asignarObjetivoParticular(unObjetivo);
+        String mensaje = "Destruir a jugador: Ejercito azul\n";
+        mensaje += "De no ser posible destruir a : Ejercito rojo";
+
+        assertTrue(mensaje.equals(TEG.textoObjetivo()));
+    }
+
+    @Test
+    public void test13TEGDevuelveElJugadorEnTUrno(){
+        Juego TEG = new Juego();
+        Jugador unJugador = new Jugador();
+        TEG.añadirJugador(unJugador);
+        assertEquals(unJugador,TEG.getJugadorEnTurno());
+    }
+
+    @Test
+    public void test14JugadorCanjeaTarjeta(){
+        Juego TEG = new Juego();
+        Jugador unJugador = new Jugador();
+        TEG.añadirJugador(unJugador);
+        Pais argentina = new Pais("argentina");
+        argentina.serOcupadoPor(unJugador);
+        TarjetaPais tarjetaPais = new TarjetaPais(argentina, "canion");
+        assertEquals(1, argentina.getEjercito().tamanio());
+        unJugador.recibirTarjetaPais(tarjetaPais);
+        TEG.jugadorActivaTarjeta("argentina");
+        assertEquals(3, argentina.getEjercito().tamanio());
+    }
 }

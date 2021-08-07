@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.controlador;
 
+import edu.fiuba.algo3.modelo.Etapa;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.vista.VistaContenedorOrigenDestino;
 import javafx.event.ActionEvent;
@@ -16,6 +17,6 @@ public class ControladorBotonEtapaReagrupar implements EventHandler<ActionEvent>
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        modelo.etapaReagrupar();
+        modelo.setearEtapa(Etapa.REAGRUPACION);
     }
 }

@@ -41,6 +41,8 @@ public class Juego extends Observable {
 
     public void setearEtapa(Etapa etapa){
         this.etapa = etapa;
+        setChanged();
+        notifyObservers();
     }
 
     public Etapa obtenerEtapa() {
@@ -355,13 +357,13 @@ public class Juego extends Observable {
         }
         return null;
     }
-
+/*
     public void etapaReagrupar() {
         this.etapa = Etapa.REAGRUPACION;
         setChanged();
         notifyObservers();
     }
-
+*/
     public int fichasDisponiblesJugador() {
         return jugadorEnTurno.fichasDisponibles();
     }
