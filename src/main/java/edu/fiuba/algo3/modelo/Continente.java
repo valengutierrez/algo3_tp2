@@ -9,6 +9,7 @@ public class Continente {
 
     public Continente(String unNombre){
         nombre = unNombre;
+        paises = new ArrayList<>();
     }
 
     public Continente(ArrayList<Pais> paisesDelContinente, int ejercitos){

@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -180,4 +181,14 @@ public class JuegoTest {
         
         
     }
+
+    @Test
+    public void test07JuegoSeteaEtapa(){
+        Juego TEG = new Juego();
+        assertEquals(Etapa.COLOCACION_INICIAL, TEG.obtenerEtapa());
+        TEG.setearEtapa(Etapa.ATAQUE);
+        assertEquals(Etapa.ATAQUE, TEG.obtenerEtapa());
+    }
+
+
 }

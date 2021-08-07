@@ -3,6 +3,8 @@ package edu.fiuba.algo3.modelo;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -156,14 +158,27 @@ public class JugadorTest {
 	}
 
 	@Test
-	public void test13JugadorBuscaTarjetaPais(){
-		/*Jugador unJugador = new Jugador();
+	public void test15JugadorTrataDeActivarTarjetaQueNoTieneYNoPuede(){
+		Jugador unJugador = new Jugador();
 		Pais argentina = new Pais("argentina");
 		argentina.serOcupadoPor(unJugador);
 		TarjetaPais tarjetaPais = new TarjetaPais(argentina, "canion");
-		assertEquals(null, unJugador.buscarTarjeta("argentina"));
-		unJugador.recibirTarjetaPais(tarjetaPais);
+		assertEquals(1, argentina.getEjercito().tamanio());
 		unJugador.activarTarjeta("argentina");
-		assertEquals(3, argentina.getEjercito().tamanio());*/
+		assertEquals(1, argentina.getEjercito().tamanio());
+	}
+
+	@Test
+	public void test16JugadorDevuelveDescripcionDeObjetivo(){
+		Jugador unJugador = new Jugador();
+		Jugador otroJugador = new Jugador();
+		ObjetivoDestruir unObjetivo = new ObjetivoDestruir(unJugador, otroJugador);
+		unJugador.setNombre("Ejercito azul");
+		otroJugador.setNombre("Ejercito rojo");
+		unJugador.asignarObjetivoParticular(unObjetivo);
+		String mensaje = "Destruir a jugador: Ejercito azul\n";
+		mensaje += "De no ser posible destruir a : Ejercito rojo";
+
+		assertTrue(mensaje.equals(unJugador.textoObjetivo()));
 	}
 }
