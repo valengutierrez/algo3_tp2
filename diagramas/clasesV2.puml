@@ -1,8 +1,7 @@
 @startuml Diagrama de clases
 skinparam classAttributeIconSize 0
-skinparam style strictuml
 hide class circle
-hide abstract circle
+
 
 
 Class Juego{
@@ -11,76 +10,109 @@ Class Juego{
   +verificarQueDosPaísesSonLimítrofes(in País, in País): Boolean
   +verificarQueDosPaísesNoPertenecenAMismoJugador(in País, in País): Boolean
 }
-' Class Tablero{
 
-' }
-Class Tarjeta{
+Class TarjetaPais{
     -Pais
-    -Simbolo
-    ' +tieneMismoSimboloQue(DosTarjetas): Boolean
-    +tieneMismoSimboloQue(UnaTarjeta): Boolean
+    -Simbolo:String
+    -activada:Boolean
+    +activar(paisesDelJugador):int
 }
+
 Class Continente{
-    +estaCompleto(): Boolean
+    +ejercitoPorContinente(paisesDelJugador): int
+    +poblarContinente(unPais)
 }
+
 Class Dado{
+    -caras:int
     +arrojar(unaCantidad)
 }
 Class Jugador{
-    +nuevoJugador(Color)
-    +ocupar(País)
-    +verificarAtaqueValido(País)
-    +desocupar(País)
+    -Color
+    -Nombre
+    +colocarEjercitos(unPais, unaCantidad)
+    +atacar(paisAtacante, paisDefensor)
+    +reagrupar(paisOrigen, paisDestino, cantidadEjercitos)
+    +recibirTarjetaPais(unaTarjetaPais)
+    activarTarjeta(nombreTarjeta)
+    +canjear(tarjeta1, tarjeta2, tarjeta3 )
 }
 Class País{
-    +asignarDuenio(Jugador)
+    -Nombre
     +atacar(País)
-    +esLimitrofe(País)
     +serAtacadoPor(Ejercito)
-    +defenderseDe(Ejercito)
+    +moverEjercito(paisDestino, cantidadEjercito)
+    +serOcupadoPor(unJugador)
 }
+
+abstract estadoOcupacion{
+	#Jugador
+	+cambiarAOcupado(unJugador, unPais):estadoOcupacion
+	+obtenerDuenio():Jugador
+	+cambiarADesocupado():estadoOcupacion
+}
+
 Class Ejercito{
     +atacar(País)
-    +batallarCon(Ejercito)
-    +reducir(Tamanio)
+    +defenderseDe(Ejercito)
+    +moverEjercito(paisDestino, cantidadEjercito)
+    +ocupar(Pais unPais ,int unaCantidad)
 }
-Class Objetivo{
-    +verificarSiGane(PaisesOcupados): Boolean
-    -verificarQueTengaMitadDePaises(PaisesOcupados): Boolean
+
+interface Objetivo{
+    +cumplido(paisesOcupados, unJugador): Boolean
+    +mostrarse()
 }
+
+/'
+Class ObjetivoComun{
+    -unaCantidad:int
+    +cumplido(paisesOcupados, unJugador): Boolean
+    +mostrarse()
+}
+
 Class ObjetivoOcupar{
-    +verificarSiGane(DePaisesOcupados): Boolean
-    -paisesDelObjetivoEstanEn(PaisesOcupados): Boolean
+    -continentes
+    +cumplido(paisesOcupados, unJugador): Boolean
+    +mostrarse()
 }
+
 Class ObjetivoDestruir{
     -jugadorADestruir:Jugador
-    +verificarSiGane(PaisesOcupados): Boolean
-    -verificarQueJugadorFueDestruido(): Boolean
+    -jugadorAlternativa:Jugador
+    +cumplido(paisesOcupados, unJugador): Boolean
+    +mostrarse()
 }
+'/
+
 Class GestorDeCanje{
-    +validarCanje(TresTarjetas): Boolean
-    +dameCantidadDeEjercitos(numeroDeCanje, TarjetasUsadas): Integer
-    -verificarQueCanjeEsValido(TresTarjetas): Boolean
+    +canjear(targeta1, targeta2, targeta3)
+    -calcularRecompensa
 }
 Class CampoDeBatalla{
+    -recompenesa
+    -n_canjes
     +iniciarBatalla(ejercitoAtacante, ejercitoDefensor)
     +comparar()
 }
 
-
-Juego *-down- Jugador
-Juego -- Tarjeta
-Continente *-down- País
-País o-up- Ejercito
-Jugador *-left- País
-CampoDeBatalla -Down- Dado
-Jugador -- Ejercito
+Juego *-left- "6" Continente
+Juego *-- "50" País
+Juego *-down- "2..6" Jugador
+Juego --> "*" TarjetaPais
+Continente *-down- "1..*" País
+País o-up- "1..*" Ejercito
+País -left-> estadoOcupacion
+Jugador *-left- "*" País
+CampoDeBatalla -right-> Dado
+Jugador --> "*" Ejercito
 Jugador -down- Objetivo
-Jugador -right- Tarjeta
+Jugador -right-> "*" TarjetaPais
 Jugador *-down- GestorDeCanje
-Tarjeta .down. GestorDeCanje 
-Objetivo <|-down- ObjetivoOcupar
-Objetivo <|-down- ObjetivoDestruir
+TarjetaPais <.down. GestorDeCanje
+'Objetivo <|.down. ObjetivoOcupar
+'Objetivo <|.down. ObjetivoDestruir
+'Objetivo <|.down. ObjetivoComun
 Ejercito ..> CampoDeBatalla
 
 

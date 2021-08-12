@@ -5,5 +5,5 @@ public abstract class estadoOcupacion {
 	protected Jugador duenio;
 	abstract estadoOcupacion cambiarAOcupado(Jugador unJugador, Pais unPais);
 	abstract public Jugador obtenerDuenio();
-	abstract public estadoOcupacion cambiarADesocupado();	
+	abstract public estadoOcupacion cambiarADesocupado();
 }

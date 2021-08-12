@@ -1,0 +1,31 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam nodesep 100
+hide class circle
+
+abstract Class estadoOcupacion{
+	#Jugador
+	+cambiarAOcupado(unJugador, unPais):estadoOcupacion
+	+obtenerDuenio():Jugador
+	+cambiarADesocupado():estadoOcupacion
+}
+
+Class estadoOcupado{
+    +cambiarAOcupado(unJugador, unPais):this
+    +obtenerDuenio():Jugador
+    +cambiarADesocupado():estadoDesocupado
+}
+
+Class estadoDescupado{
+    +cambiarAOcupado(unJugador, unPais):estadoOcupado
+	+obtenerDuenio():Jugador
+	+cambiarADesocupado():this
+}
+
+estadoOcupacion <|.. estadoOcupado
+estadoOcupacion <|.. estadoDescupado
+estadoOcupado <.right.> estadoDescupado
+
+
+
+@enduml

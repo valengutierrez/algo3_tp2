@@ -1,0 +1,24 @@
+@startuml SecuenciaObjetivos
+title Jugador mueve dos ejercitos de Argentina a Brasil
+skinparam style strictuml
+actor Usuario
+participant "TEG : Juego"  as Juego
+participant "JugadorEnTurno:Jugador" as jugador1
+participant "Argentina:Pais" as Argentina
+participant "ejercitoArgentino:Ejercito" as ejercitoArgentino
+participant "Brasil:Pais" as Brasil
+participant "ejercitoBrasilero:Ejercito" as ejercitoBrasilero
+
+Usuario -> Juego: reagrupar("Argentina","Brasil", 2)
+
+Juego -> jugador1: reagrupar(Argentina, Brasil, 2)
+jugador1 -> Argentina: moverEjercito(Brasil, 2)
+Argentina -> ejercitoArgentino: moverEjercito(Brasil, 2)
+ejercitoArgentino -> Brasil: incrementarEjercito(2)
+Brasil -> ejercitoBrasilero: incrementar(2)
+ejercitoArgentino -> ejercitoArgentino: reducir(2)
+
+
+
+
+@enduml

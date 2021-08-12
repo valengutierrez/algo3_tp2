@@ -1,0 +1,46 @@
+@startuml
+
+package "Ejercitos" {
+  [Ejercito]
+  [CampoDeBatalla]
+  [Dados]
+}
+
+package "Paises" {
+  [Continente]
+  [Pais]
+  [EstadoOcupacion]
+}
+
+package {
+  [Juego]
+  [Jugador]
+}
+
+package "Objetivos" {
+  [Objetivo]
+  [ObjetivoOcupar]
+  [ObjetivoDestruir]
+  [ObjetivoComun]
+}
+
+package "Tarjetas" {
+  [TarjetaPais]
+  [GestorDeCanjes]
+}
+
+[Jugador] ..> [GestorDeCanjes]
+[Juego] ..> [Jugador]
+[Jugador] ..> [Pais]
+[Pais] ..> [Ejercito]
+[Objetivo] ..> [Continente]
+[Objetivo] ..> [Jugador]
+[Pais] ..> [EstadoOcupacion]
+[Ejercito] ..> [CampoDeBatalla]
+[CampoDeBatalla] ..> [Dados]
+[ObjetivoComun] ..|> [Objetivo]
+[ObjetivoOcupar] ..|> [Objetivo]
+[ObjetivoDestruir] ..|> [Objetivo]
+[Continente] ..> [Pais]
+
+@enduml

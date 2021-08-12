@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+state EtapaColocacionInicial {
+}
+state EtapaColocacionSecundaria {
+}
+state EtapaAtaque {
+}
+state EtapaReagrupar {
+}
+state EtapaIncorporarEjercitos {
+}
+
+[*] --> EtapaColocacionInicial: inicio partida
+EtapaColocacionInicial --> EtapaColocacionSecundaria: último jugador pasa turno
+EtapaColocacionInicial --> EtapaColocacionInicial: jugador no último pasa turno
+EtapaColocacionSecundaria --> EtapaAtaque: último jugador pasa turno
+EtapaColocacionSecundaria --> EtapaColocacionSecundaria: jugador no último pasa turno
+EtapaAtaque -left-> EtapaReagrupar: jugador reagrupa
+EtapaAtaque --> EtapaAtaque: jugador no último pasa turno
+EtapaAtaque --> EtapaIncorporarEjercitos: último jugador pasa turno
+EtapaReagrupar -right-> EtapaAtaque: jugador no último pasa turno
+EtapaReagrupar --> EtapaIncorporarEjercitos: último jugador pasa turno
+EtapaIncorporarEjercitos --> EtapaIncorporarEjercitos: : jugador no último pasa turno
+EtapaIncorporarEjercitos --> EtapaAtaque: último jugador pasa turno
+EtapaAtaque --> [*]: jugador cumple objetivo
+@enduml

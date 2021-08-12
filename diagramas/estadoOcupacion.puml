@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+state EstadoDesocupado {
+}
+
+state EstadoOcupado {
+}
+
+[*] --> EstadoDesocupado: inicio partida
+EstadoDesocupado -right-> EstadoOcupado:ocupar pais
+EstadoOcupado -left-> EstadoDesocupado: desocupar pais
+EstadoOcupado --> [*]: fin partida
+
+@enduml

@@ -24,7 +24,6 @@ public class Jugador {
 		mazoJugador = new ArrayList<TarjetaPais>();
 		fichasDisponibles = 5;
 		unGestorCanjes = new GestorDeCanjes();
-		// objetivoComun = new ObjetivoComun();
 	}
 	public String getNombreColor() {
 		return nombreColor;
@@ -72,13 +71,11 @@ public class Jugador {
 	public void atacar(Pais paisAtacante, Pais paisAtacado){
 		if(paisesOcupados.contains(paisAtacante) && !(paisesOcupados.contains(paisAtacado)))
 			paisAtacante.atacar(paisAtacado);
-		// Else excepcion?
 	}
 
 	public void reagrupar(Pais paisOrigen, Pais paisDestino, int cantidadDeEjercitos){
 		if(paisesOcupados.contains(paisOrigen) && paisesOcupados.contains(paisDestino))
 			paisOrigen.moverEjercito(paisDestino, cantidadDeEjercitos);
-		// Else excepcion?
 	}
 
 	public void recibirTarjetaPais(TarjetaPais unaTarjetaPais){

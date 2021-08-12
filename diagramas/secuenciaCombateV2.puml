@@ -1,0 +1,53 @@
+@startuml SecuenciaCombate
+title Argentina ataca a brasil y lo ocupa
+skinparam style strictuml
+actor Jugador1 as JugadorAtacante
+participant "argentina:Pais" as PaisAtacante
+participant "ejercitoArgentino:Ejercito" as EjercitoAtacante
+participant "brasil:Pais" as PaisAtacado
+participant "ejercitoBrasileño:Ejercito" as EjercitoAtacado
+participant "unCampo:CampoDeBatalla" as CampoDeBatalla
+participant "unEstadoOcupado:EstadoOcupado" as EstadoOcupado
+participant "unEstadoDesocupado:EstadoDescupado" as EstadoDesocupado
+participant Jugador2 as JugadorAtacado
+
+
+JugadorAtacante -> PaisAtacante: atacar(brasil)
+group validar si es limitrofe
+	PaisAtacante -> EjercitoAtacante: atacar(brasil)
+end
+group validar si tiene tamaño suficiente para atacar
+	EjercitoAtacante -> PaisAtacado: serAtacadoPor(self)
+end
+PaisAtacado -> EjercitoAtacado: defenderseDe(ejercitoArgentino)
+' ----------------------------------------------------
+group logica de combate
+	EjercitoAtacado -> CampoDeBatalla**: <<create>>
+	EjercitoAtacado -> CampoDeBatalla: iniciarBatalla(ejercitoArgentino, self)
+	CampoDeBatalla -> EjercitoAtacante: tirarDados(unosDados)
+	return [6,4,1]
+	CampoDeBatalla -> EjercitoAtacado: tirarDados(unosDados)
+	return [5]
+end
+group redistribucion de ejercitos y territorios
+	CampoDeBatalla -> EjercitoAtacante: reducirse(0)
+	CampoDeBatalla -> EjercitoAtacado: reducirse(1)
+end
+group El pais se desocupa si el ejercito fue aniquilado
+	PaisAtacado -> JugadorAtacado: desocupar(self)
+	PaisAtacado -> EstadoOcupado: cambiarADesocupado
+	EstadoOcupado -> EstadoDesocupado**: <<create>>
+	EstadoOcupado -> PaisAtacado: EstadoDesocupado
+end
+
+group El jugador trata de ocupar el pais
+	PaisAtacante -> PaisAtacado: serOcupadoPor(duenio)
+	PaisAtacado -> EstadoDesocupado: cambiarAOcupado(Jugador1, unaCantidad)
+	EstadoDesocupado -> otroEstadoOcupado**: <<create>>
+	EstadoDesocupado -> PaisAtacado: EstadoOcupado
+	PaisAtacante -> EjercitoAtacante: ocupar(brasil,unaCantidad)
+	EjercitoAtacante -> EjercitoAtacante: reducirse(unaCantidad)
+	EjercitoAtacante -> PaisAtacado: incrementarEjercito(unaCantidad)
+end
+
+@enduml

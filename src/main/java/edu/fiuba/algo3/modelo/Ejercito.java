@@ -49,7 +49,7 @@ public class Ejercito {
     public void moverEjercito(Pais paisDestino, int cantidadEjercito){
         if (cantidadEjercito < tamanio){
             paisDestino.incrementarEjercito(cantidadEjercito);
-            tamanio -= cantidadEjercito;
+            reducir(cantidadEjercito);
         }
     }
 }

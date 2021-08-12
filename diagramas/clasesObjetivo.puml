@@ -1,0 +1,33 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide class circle
+
+interface Objetivo{
+    +cumplido(paisesOcupados, unJugador): Boolean
+    +mostrarse()
+}
+
+Class ObjetivoComun{
+    -unaCantidad:int
+    +cumplido(paisesOcupados, unJugador): Boolean
+    +mostrarse()
+}
+
+Class ObjetivoOcupar{
+    -continentes
+    +cumplido(paisesOcupados, unJugador): Boolean
+    +mostrarse()
+}
+
+Class ObjetivoDestruir{
+    -jugadorADestruir:Jugador
+    -jugadorAlternativa:Jugador
+    +cumplido(paisesOcupados, unJugador): Boolean
+    +mostrarse()
+}
+
+Objetivo <|.down. ObjetivoOcupar
+Objetivo <|.down. ObjetivoDestruir
+Objetivo <|.down. ObjetivoComun
+
+@enduml
