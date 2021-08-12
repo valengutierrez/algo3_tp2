@@ -95,16 +95,10 @@ public class Juego extends Observable {
         Pais paisAtacante = this.buscarPais(paisOrigen);
         Pais paisDefensor = this.buscarPais(paisDestino);
         System.out.println("Jugador en turno: " + jugadorEnTurno);
-        int paisesIniciales = jugadorEnTurno.getPaisesOcupados().size();
-        // Mover validacion de conquista al metodo de ataque del jugador
-        jugadorEnTurno.atacar(paisAtacante, paisDefensor);
-        int paisesFinales = jugadorEnTurno.getPaisesOcupados().size();
-        if (paisesFinales > paisesIniciales){
-            jugadorConquisto = true;
-            System.out.println("Por ver si gane: ");
-            jugadorGano = jugadorEnTurno.cumplido();
-            System.out.println(jugadorEnTurno.cumplido());
-        }
+
+        this.jugadorEnTurnoAtaca(paisAtacante, paisDefensor);
+
+        jugadorGano = jugadorEnTurno.cumplido();
         this.paisOrigen = null;
         this.paisDestino = null;
         setChanged();
@@ -357,13 +351,7 @@ public class Juego extends Observable {
         }
         return null;
     }
-/*
-    public void etapaReagrupar() {
-        this.etapa = Etapa.REAGRUPACION;
-        setChanged();
-        notifyObservers();
-    }
-*/
+
     public int fichasDisponiblesJugador() {
         return jugadorEnTurno.fichasDisponibles();
     }

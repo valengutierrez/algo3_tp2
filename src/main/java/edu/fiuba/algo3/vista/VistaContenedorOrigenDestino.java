@@ -26,7 +26,6 @@ public class VistaContenedorOrigenDestino extends VBox implements Observer {
     private Button botonAccion;
     private Button botonEtapaReagrupar;
     private Button botonPasarTurno;
-    //private Map<String, String> coloresDeJugadores;
     VistaActivarTarjeta contenedorTarjetas;
 
     public VistaContenedorOrigenDestino(Juego modelo, Node... var1){
@@ -97,9 +96,11 @@ public class VistaContenedorOrigenDestino extends VBox implements Observer {
     }
 
     private void actualizarTarjetas(){
-        contenedorTarjetas = new VistaActivarTarjeta(modelo);
-        Button boton = (Button) contenedorTarjetas.getChildren().get(contenedorTarjetas.getChildren().size()-1);
-        boton.setDisable(modelo.obtenerEtapa() != Etapa.INCORPORACION_EJERCITOS);
+        contenedorTarjetas = new VistaActivarTarjeta(modelo, (TextField) this.getChildren().get(5));
+        Button botonCanje = (Button) contenedorTarjetas.getChildren().get(contenedorTarjetas.getChildren().size()-1);
+        Button botonActivar = (Button) contenedorTarjetas.getChildren().get(contenedorTarjetas.getChildren().size()-2);
+        botonCanje.setDisable(modelo.obtenerEtapa() != Etapa.INCORPORACION_EJERCITOS);
+        botonActivar.setDisable(modelo.obtenerEtapa() != Etapa.INCORPORACION_EJERCITOS);
         this.getChildren().add(contenedorTarjetas);
     }
 

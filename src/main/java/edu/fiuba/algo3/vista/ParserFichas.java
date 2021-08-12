@@ -35,7 +35,7 @@ public class ParserFichas {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            System.err.println("Archivo " + "Coordenadas.csv" + " no encontrado");
+            System.err.println("Archivo " + path + " no encontrado");
         } catch (IOException e) {
             e.printStackTrace();
         }

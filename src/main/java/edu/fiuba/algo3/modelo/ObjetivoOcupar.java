@@ -19,14 +19,11 @@ public class ObjetivoOcupar implements Objetivo {
 
 	@Override
 	public boolean cumplido(ArrayList<Pais> paisesOcupados, Jugador jugador) {
-		System.out.println("Tamaño de paises ocupado: " + paisesOcupados.size());
 		for(int j=0;j<continentes.size();j++){
 			int cantidadOcupada=0;
 			Continente c = continentes.get(j);
 			for(int i=0;i<c.getPaises().size();i++){
 				if(paisesOcupados.contains(c.getPaises().get(i))){
-					System.out.println("Cantidad ocupada: " + cantidadOcupada);
-
 					cantidadOcupada++;
 				}
 			}

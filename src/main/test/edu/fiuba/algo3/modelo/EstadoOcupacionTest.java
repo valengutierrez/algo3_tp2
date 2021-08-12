@@ -14,18 +14,7 @@ public class EstadoOcupacionTest {
 	}
 	
 	@Test
-	public void test02UnEstadoDesocupadoDevuelveUnaExcepcionAlObtenerUnEstado() {
-		// Jugador unJugador = new Jugador();
-		// estadoOcupacion unEstado = new estadoDesocupado();
-		// assertEquals(unJugador, unEstado.obtenerDuenio());
-		// assertThrows(expectedType, executable)
-		//TODO: PREGUNTAR
-		// Un estado desocupado levanta una excepcion cuando le piden
-		// su duenio
-	}
-	
-	@Test
-	public void test03UnEstadoDesocupadoCambiaAOcupado() {
+	public void test02UnEstadoDesocupadoCambiaAOcupado() {
 		estadoOcupacion unEstado = new estadoDesocupado();
 		Jugador unJugador = new Jugador();
 
@@ -35,7 +24,7 @@ public class EstadoOcupacionTest {
 	}
 	
 	@Test
-	public void test04UnEstadoOcupadoCambiaADesocupado() {
+	public void test03UnEstadoOcupadoCambiaADesocupado() {
 		Jugador unJugador = new Jugador();
 		estadoOcupacion unEstado = new estadoOcupado(unJugador);
 		
@@ -45,7 +34,7 @@ public class EstadoOcupacionTest {
 	}
 	
 	@Test
-	public void test05UnEstadoDesocupadoSeLeAsignaJugadorYDevuelveElJugador() {
+	public void test04UnEstadoDesocupadoSeLeAsignaJugadorYDevuelveElJugador() {
 		estadoOcupacion unEstado = new estadoDesocupado();
 		Jugador unJugador = new Jugador();
 	
@@ -55,13 +44,13 @@ public class EstadoOcupacionTest {
 	}
 
 	@Test
-	public void test06EstadoDesocupadoNoDevuelveDuenio(){
+	public void test05EstadoDesocupadoNoDevuelveDuenio(){
 		estadoOcupacion unEstado = new estadoDesocupado();
 		assertEquals(null, unEstado.obtenerDuenio());
 	}
 
 	@Test
-	public void test07EstadoDesocupadoNoDevuelveDuenio(){
+	public void test06EstadoDesocupadoNoDevuelveDuenio(){
 		estadoOcupacion unEstado = new estadoDesocupado();
 		assertEquals(unEstado, unEstado.cambiarADesocupado());
 	}

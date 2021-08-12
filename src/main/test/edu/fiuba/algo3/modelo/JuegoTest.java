@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -11,7 +12,7 @@ import static org.mockito.Mockito.when;
 
 public class JuegoTest {
     @Test
-    public void unJugadorPasaYLeTocaAlSiguiente(){
+    public void test01unJugadorPasaYLeTocaAlSiguiente(){
         Jugador jugadorUno = new Jugador();
         Jugador jugadorDos = new Jugador();
         Jugador jugadorTres = new Jugador();
@@ -135,7 +136,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void test05UnJuegoCargaLasFronteras() {
+    public void test06UnJuegoCargaLasFronteras() {
         Juego TEG = new Juego();
         TEG.crearPaises("src/main/resources/Teg - Cartas.csv");
         TEG.cargarFronteras("src/main/resources/Teg - Fronteras.csv");
@@ -144,7 +145,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void test06UnJuegoCargaLasTarjetas() {
+    public void test07UnJuegoCargaLasTarjetas() {
         Juego TEG = new Juego();
         TEG.crearPaises("src/main/resources/Teg - Cartas.csv");
         TEG.cargarTarjetas("src/main/resources/Teg - Cartas.csv");
@@ -154,35 +155,16 @@ public class JuegoTest {
     }
 
     @Test
-    public void test06UnJuegoCargaLosContinentes() {
+    public void test08UnJuegoCargaLosContinentes() {
         Juego TEG = new Juego();
         TEG.crearPaises("src/main/resources/Teg - Cartas.csv");
         TEG.crearContinentes("src/main/resources/Teg - Fronteras.csv");
         assertEquals(6, TEG.getContinentes().size());
         assertEquals(15, TEG.buscarContinente("Asia").tamanio());
     }
-    
-    @Test
-    public void test06UnJuegoCargaLosObjetivos() {
-        Juego TEG = new Juego();
-        TEG.crearObjetivosOcupar("src/main/resources/Objetivos.csv");
-        
-        ArrayList<Integer> objetivo1 = new ArrayList<Integer>();
-		objetivo1.add(5);
-		objetivo1.add(0);
-		objetivo1.add(6);
-		objetivo1.add(0);
-		objetivo1.add(4);
-		objetivo1.add(0);
-        
-        // TODO: Fix
-        // assertTrue(objetivo1.equals(TEG.getObjetivos().get(0).getCantidades()));
-        
-        
-    }
 
     @Test
-    public void test07JuegoSeteaEtapa(){
+    public void test09JuegoSeteaEtapa(){
         Juego TEG = new Juego();
         assertEquals(Etapa.COLOCACION_INICIAL, TEG.obtenerEtapa());
         TEG.setearEtapa(Etapa.ATAQUE);
@@ -190,7 +172,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void test08CambiosDeEtapa(){
+    public void test10CambiosDeEtapa(){
         Juego TEG = new Juego();
         assertEquals(Etapa.COLOCACION_INICIAL, TEG.obtenerEtapa());
         TEG.cambiarEtapaDeJuego();
@@ -204,7 +186,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void test09ColocacionDeEjercitosEnUnPais(){
+    public void test11ColocacionDeEjercitosEnUnPais(){
         Juego TEG = new Juego();
         Jugador unJugador = new Jugador();
         Pais argentina = new Pais("argentina");
@@ -217,13 +199,13 @@ public class JuegoTest {
     }
 
     @Test
-    public void test10CuandoEmpiezaElJuegoNadieGanoTodavia(){
+    public void test12CuandoEmpiezaElJuegoNadieGanoTodavia(){
         Juego TEG = new Juego();
         assertFalse(TEG.getJugadorGano());
     }
 
     @Test
-    public void test11UnJugadorGanoCuandoCumpleSuObjetivo(){
+    public void test13UnJugadorGanoCuandoCumpleSuObjetivo(){
         Juego TEG = new Juego();
         Jugador jugador = new Jugador();
         TEG.añadirJugador(jugador);
@@ -263,7 +245,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void test12JugadorEnTurnoDevuelveDescripcionDeSuObjetivo(){
+    public void test14JugadorEnTurnoDevuelveDescripcionDeSuObjetivo(){
         Juego TEG = new Juego();
 
         Jugador unJugador = new Jugador();
@@ -281,7 +263,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void test13TEGDevuelveElJugadorEnTUrno(){
+    public void test16TEGDevuelveElJugadorEnTUrno(){
         Juego TEG = new Juego();
         Jugador unJugador = new Jugador();
         TEG.añadirJugador(unJugador);
@@ -289,7 +271,7 @@ public class JuegoTest {
     }
 
     @Test
-    public void test14JugadorCanjeaTarjeta(){
+    public void test16JugadorCanjeaTarjeta(){
         Juego TEG = new Juego();
         Jugador unJugador = new Jugador();
         TEG.añadirJugador(unJugador);
@@ -300,5 +282,22 @@ public class JuegoTest {
         unJugador.recibirTarjetaPais(tarjetaPais);
         TEG.jugadorActivaTarjeta("argentina");
         assertEquals(3, argentina.getEjercito().tamanio());
+    }
+
+    @Test
+    public void test17JuegoSeIniciaEnEstadoCorrecto(){
+
+        HashMap<String, Color> jugadores = new HashMap<String, Color>() {{
+            put("Azul", Color.BLUE);
+            put("Rojo", Color.RED);
+        }};
+
+        Juego TEG = new Juego();
+
+        TEG.crearModelo(jugadores);
+
+        assertEquals(Etapa.COLOCACION_INICIAL, TEG.obtenerEtapa());
+        assertEquals(25, TEG.getJugadorEnTurno().getPaisesOcupados().size());
+        assertFalse(TEG.getJugadorGano());
     }
 }

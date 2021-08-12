@@ -67,6 +67,4 @@ public class CampoDeBatallaTest {
 
 		assertEquals(0, ejercitoArgentino.tamanio());
 	}
-
-	// TODO: Probar todo tipo de batallas
 }

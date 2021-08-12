@@ -26,7 +26,6 @@ public class ControladorBotonAccion implements EventHandler<ActionEvent> {
         TextField ejercitosText = (TextField) vista.getChildren().get(7);
         String ejercitos = ejercitosText.getText();
 
-        System.out.println(modelo.obtenerEtapa());
         switch (modelo.obtenerEtapa()){
             case ATAQUE: {
                 if (!PaisOrigen.isEmpty() && !PaisDestino.isEmpty()){
